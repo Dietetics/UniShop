@@ -1,2 +1,6 @@
 # IFT2255_Genie_Logiciel
-Devoirs du Génie logiciel
+Devoirs du IFT2255 Génie logiciel
+
+
+
+
