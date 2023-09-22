@@ -1,135 +1,955 @@
 <<<<<<< HEAD
-<html>
-<head>
-=======
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
->>>>>>> 766419f55d031fb3ef87bbab1d4b8eeceab09ad3
-    <title>IFT2255 E23 DM1 test test test</title>
-    <style type="text/css">
-        table
-        {
-            border: outset 2px black;
-            border-collapse: collapse;
-        }
-        th
-        {
-            border-bottom: double 2px black;
-        }
-        td
-        { 
-            border-bottom: solid 1px black;
-        }
-        .first_col
-        {
-            border-right: double 2px black;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IFT2255 | Rapport DM1</title>
+  <link rel="shortcut icon" href="./../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./../assets/css/normalize.css">
+  <link rel="stylesheet" href="./../assets/css/base.css?v=02">
+  <style>
+    .report-header {
+      padding-top: 24px;
+      padding-bottom: 24px;
+      background-color: #fff;
+    }
+
+    .title-section {
+      padding-left: 5vw;
+      padding-right: 5vw;
+    }
+
+    .report-title {
+      color: royalblue;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    .report-summary {
+      max-width: 800px;
+      font-size: 1.4em;
+      color: #555;
+    }
+
+    p.small {
+      line-height：70%；
+    }
+
+    p.blue {
+      color: blue;
+    }
+
+    p.red {
+      color: red;
+    }
+
+    .section-title {
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      font-size: 2.4em;
+      font-weight: 300;
+    }
+
+    .p.section {
+      margin-bottom: 3px;
+    }
+
+    .team-section {
+      padding-left: 5vw;
+      padding-right: 5vw;
+    }
+
+    .team-title {
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: #1C3A94;
+    }
+
+    .members {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .member {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .member:not(:last-child) {
+      margin-right: 12px;
+    }
+
+    .member-pic {
+      display: block;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+    }
+
+    .member-role {
+      font-size: 0.9em;
+      font-weight: 500;
+      color: #555;
+    }
+
+    .report-body {
+      display: flex;
+    }
+
+    .report-aside {
+      padding-top: 24px;
+      padding-right: 12px;
+      padding-left: 5vw;
+      box-shadow: 1px 0 1px #999;
+    }
+
+    .report-main {
+      padding-left: 12px;
+      padding-right: 5vw;
+      padding-top: 24px;
+    }
+
+    .nav {
+      color: #E87429;
+    }
+
+    .nav-item__link {
+      display: block;
+      padding: 6px;
+      text-decoration: none;
+    }
+
+    .glossary {
+      font-size: 1em;
+    }
+
+    .preview-img {
+      display: block;
+      width: 600px;
+      height: auto;
+    }
+
+    .report-footer {
+      background-color: #2C5EB4;
+      padding: 12px 5vw 24px;
+    }
+
+    .report-footer p {
+      margin: 0;
+    }
+
+    .report-footer__link {
+      color: #fff;
+    }
+  </style>
 </head>
+
 <body>
-    <h1 style="text-align: center;">
-        IFT 2255 - Été 2023 - Devoir 1</h1>
-    <h2>
-        Information générale</h2>
+  <header class="report-header">
+    <div class="title-section">
+      <h1 class="report-title">Rapport du livrable 1</h1>
+      <p class="report-summary">
+        <em>Court résumé du rapport</em> &ndash; Notre équipe a développé 'La plateforme Roundtable', un outil d'échange
+        d'informations pour le GEODES.</br>Après plusieurs séries de réunions avec le client pour définir les exigences
+        spécifiques, la première version du système a été livrée.
+      </p>
+    </div>
+
+    <div class="team-section">
+      <h2 class="team-title">Notre équipe</h2>
+      <ul class="bare-list members">
+        <li class="member">
+
+          <div class="member-identification">
+            <span class="member-name"><b>Mingze Li</b></span>
+            <span class="member-id">20150696</span>
+          </div>
+          <a href="mailto:prenom.nom@umontreal.ca">mingze.li@umontreal.ca</a>
+          <span class="member-role">Responsable</span>
+        </li>
+        <li class="member">
+
+          <div class="member-identification">
+            <span class="member-name"><b>Shilong Zhou</b></span>
+            <span class="member-id">20151238</span>
+          </div>
+          <a href="mailto:prenom.nom@umontreal.ca">shilong.zhou@umontreal.ca</a>
+          <span class="member-role"> </span>
+        </li>
+        <li class="member">
+          <div class="member-identification">
+            <span class="member-name"><b>Qianyun Shen</b></span>
+            <span class="member-id">20180792</span>
+          </div>
+          <a href="mailto:prenom.nom@umontreal.ca">qianyun.shen@umontreal.ca</a>
+          <span class="member-role"> </span>
+        </li>
+        <li class="member">
+          <div class="member-identification">
+            <span class="member-name"><b>Duola Peng</b></span>
+            <span class="member-id">20150698</span>
+          </div>
+          <a href="mailto:prenom.nom@umontreal.ca">duola.peng@umontreal.ca</a>
+          <span class="member-role"> </span>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <main class="report-body">
+    <aside class="report-aside">
+      <nav>
+        <ul class="bare-list nav">
+          <li class="nav-item">
+            <a class="nav-item__link" href="#plan">Plannification</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item__link" href="#domain">Compréhension du domaine</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item__link" href="#model">Modélisation du domaine</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item__link" href="#analysis">Analyse</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item__link" href="#prototype">Prototype</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="report-main">
+      <section>
+        <h2 id="plan" class="section-title">Plannification</h2>
+        <h3>Description</h3>
+        <p>Le GEODES est un groupe de recherche du DIRO dédié au Génie Logiciel qui s'intéresse à toutes les activités
+          liées au développement de logiciel, à l'évaluation du logiciel, à la modélisation des domaines d'affaires et à
+          l'application de techniques d'intelligence artificielle pour comprendre les artéfacts produits et faciliter le
+          développement.
+          Cependant, les membres ne peuvent pas suivre les progrès et transmettre des messages en temps opportun en
+          raison du manque de formalité et de immédiateté de la communication.
+          GEODES nous a donc chargé de créer un outil 'La plateforme Roundtable' pour suivre, visualiser, gérer les
+          membres et les activités, etc.
+        </p>
+        <h3>Échéancier</h3>
+        <p>Au cours de la première semaine, nous nous sommes familiarisés avec les exigences spécifiques de Roundtable
+          et nous avons une idée générale de ce que l’on va faire. Ensuite, nous avons construit ensemble le cadre du
+          projet et eu une rencontre avec le client Monsieur Lafontant mercredi.
+          On lui a posé trois questions et a trouvé les réponses dans les requêtes du client mis à jour la semaine
+          prochaine:</p>
+        <p class="blue">Q: Est-ce que le client a besoin d’un système sous forme de forum, tel que l’utilisateur peut
+          télécharger des articles, des activités, des projets, etc par lui-même?</p>
+        <p class="red">A: Oui, les membres peuvent ajouter des activités.</p>
+        <p class="blue">Q: Comment suivre les activités de recherche du groupe? Est-ce que ça veut dire que nous pouvons
+          consulter tous les articles téléchargés par des membres dans ce groupe?</p>
+        <p class="red">A: Les membres peuvent suivre les activités par consulter la liste des activités ou souscrits à
+          eux. Tous les membres peuvent voir les activités publiques. Seuls les membres associés peuvent voir les
+          activités privées.</p>
+        <p class="blue">Q: Est-ce que le nombre de membres est fixé? Est-ce que des membres sont déjà divisés en trois
+          professeurs et tous les autres sont considérés comme visiteurs, ou tous les gens ont besoin de s’inscrire et
+          obtenir leurs comptes?</p>
+        <p class="red">A: Le nombre de membres n’est pas fixé. Un membre doit être associé à un des rôles suivants:
+          PROFESSEUR, ADMINISTRATEUR, MEMBRE. La plateforme sera accessible uniquement aux membres du GEODES. La
+          création d’un nouveau compte doit être vérifiée par l’administrateur.</p>
+        En deuxième semaine, nous avons mis en place des cas d’utilisation à partir de modèle fonctionnel. Ensuite, nous
+        avons sélectionné quelques CUs et les avons fait les images sous la forme de prototype pour montrer au client
+        une réalisation de l'interface en ligne de commande. Au cours de la dernière semaine avant la remise du rapport,
+        nous avons eu la dernière rencontre avec notre client et a posé une question:
+        <p class="blue">Est-ce que vous pouvez expliquer plus précisément les quatre statuts d’article? Quelle est la
+          différence entre soumis et publiés? Quand on va mettre le statut 'brouillon', 'prêt'? Est-ce qu'ils sont
+          reliés avec privé ou pas?</p>
+        On a également obtenu une réponse précise:
+        <p class="red">1. Lorsqu'un article est créé, son statut est brouillon (on travaille dessus). <br>
+          2. Il passe au statut prêt lorsqu'on a une première version satisfaisante (on peut demander à certains de le
+          lire pour obtenir du feedback). <br>
+          3. S'il y a des modifications à apporter, on retourne en brouillon. <br>
+          4. Sinon on passe au statut soumis (l'article est envoyé à un journal pour évaluation). <br>
+          5. Si le journal accepte l'article, il est publié.<br>
+          Sur la plateforme, un article peut être privé ou public. Cependant, lorsqu'un article atteint le statut publié
+          il devient public.</p>
+        Après avoir fini les CUs, on a classé les besoins selon la priorité du client et évalué le risque associé à
+        chacun. Et puis, on s’est entendu sur les aspects perceptibles par l’utilisateur et a pris en compte des besoins
+        non-fonctionnels. Finalement, on a complété le glossaire et fait des diagrammes des cas d’utilisation dans le
+        logiciel à travers les CUs et les scénarios.
+        </p>
+        <h3>Répartition des tâches</h3>
+        <table width="70%" border="0">
+          <tr>
+            <td> </td>
+            <td align="center">Mingze Li</td>
+            <td align="center">Shilong Zhou</td>
+            <td align="center">Duola Peng</td>
+            <td align="center">Qianyun Shen</td>
+          </tr>
+          <tr>
+            <td align="center"><b>Glossaire</b></td>
+            <td align="center">30%</td>
+            <td align="center">25%</td>
+            <td align="center">35%</td>
+            <td align="center">10%</td>
+          </tr>
+          <tr>
+            <td align="center"><b>Besoin non-fonctionnel</b></td>
+            <td align="center">25%</td>
+            <td align="center">20%</td>
+            <td align="center">45%</td>
+            <td align="center">10%</td>
+          </tr>
+          <tr>
+            <td align="center"><b>Cas d’utilisation</b></td>
+            <td align="center">30%</td>
+            <td align="center">55%</td>
+            <td align="center">10%</td>
+            <td align="center">5%</td>
+          </tr>
+          <tr>
+            <td align="center"><b>Scénarios</b></td>
+            <td align="center">55%</td>
+            <td align="center">20%</td>
+            <td align="center">15%</td>
+            <td align="center">10%</td>
+          </tr>
+          <tr>
+            <td align="center"><b>Analyse</b></td>
+            <td align="center">30%</td>
+            <td align="center">15%</td>
+            <td align="center">45%</td>
+            <td align="center">10%</td>
+          </tr>
+          <tr>
+            <td align="center"><b>Prototype</b></td>
+            <td align="center">15%</td>
+            <td align="center">10%</td>
+            <td align="center">10%</td>
+            <td align="center">65%</td>
+          </tr>
+          <tr>
+            <td align="center"><b>Git</b></td>
+            <td align="center">30%</td>
+            <td align="center">25%</td>
+            <td align="center">20%</td>
+            <td align="center">25%</td>
+          </tr>
+          <tr>
+            <td align="center"><b>Rapports</b></td>
+            <td align="center">10%</td>
+            <td align="center">20%</td>
+            <td align="center">60%</td>
+            <td align="center">10%</td>
+          </tr>
+          <tr>
+            <td align="center"><b>Bonus</b></td>
+            <td align="center">5%</td>
+            <td align="center">10%</td>
+            <td align="center">5%</td>
+            <td align="center">80%</td>
+          </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2 id="domain" class="section-title">Compréhension du domaine</h2>
+        <p>Après de nombreuses rencontres et une familiarisation avec le GEODES, nous avons préparé un glossaire
+          rassemblant les termes et expressions clés caractérisant l'environnement.
+        </p>
+        <h3>Hypothèses</h3>
+        <p>Nous avons posé les hypothèses suivantes:
+        <ul class="nf-requirements">
+          <li>Un nouveau membre de GEODES ouvre le Roundtable et crée son compte.</li>
+          <li>Il entre sur la plateforme et choisir dans le menu principal parmi les fonctions suivantes:</li>
+          <ol class="risks">
+            <li>Consulter un membre</li>
+            <li>Consulter une activité par liste</li>
+            <li>Chercher une activité</li>
+            <li>Consulter une activité je participe</li>
+            <li>Consulter un intérêt</li>
+            <li>Gestion activité</li>
+            <li>Gestion souscription</li>
+            <li>Gestion Membre</li>
+            <li>Gestion intérêt</li>
+            <li>Mon compte</li>
+            <li>Quitter</li>
+          </ol>
+          <li>Après avoir entré le numéro de l'opération qu'il souhaite effectuer sur la ligne de commande, des
+            fonctions plus détaillées sont affichées sur la page.</li>
+          <li>Avant d'exécuter certaines commandes, le système vérifie le rôle de membre pour voir s'il a l’autorisation
+            d'entrer.</li>
+          <li>Le membre peut toujours être possible de retourner au menu principal sans quitter l'application.</li>
+        </ul>
+        </p>
+        <h3>Glossaire</h3>
+        <dl class="glossary">
+          <dt class="glossary-term"><b>GEODES</b></dt>
+          <dd class="glossary-def">Un groupe de recherche du DIRO dédié au Génie Logiciel qui s'intéresse à toutes les
+            activités liées au développement de logiciel (de la formalisation des exigences à la génération du code), à
+            l'évaluation du logiciel (qualités du logiciel, méthodes formelles), à la modélisation des domaines
+            d'affaires et à l'application de techniques d'intelligence artificielle pour comprendre les artéfacts
+            produits et faciliter le développement.</dd>
+          <dt class="glossary-term"><b>La plateforme <i>Roundtable</i></b></dt>
+          <dd class="glossary-def">Un système développé par notre équipe. Le système sera manipulé par les membres de
+            GEODES.</dd>
+          <dt class="glossary-term"><b>Le statut du compte</b></dt>
+          <dd class="glossary-def">Si les informations d’un membre sont valides, le compte est créé dans le système avec
+            le statut EN_ATTENTE. Si un administrateur valide le compte, celui-ci passe au statut VALIDE et le membre
+            peut accéder à la plateforme. Seul un administrateur peut suspendre (statut: SUSPENDU) ou réactiver (statut:
+            VALIDE) un compte.</dd>
+          <dt class="glossary-term"><b>Mot de passe</b></dt>
+          <dd class="glossary-def">Il doit être composé d'au moins 8 caractères contenant au moins 1 chiffre, 1
+            majuscule, 1 minuscule et 1 caractère spécial.</dd>
+          <dt class="glossary-term"><b>Profil complet d’un membre</b></dt>
+          <dd class="glossary-def">Il contient nom complet, adresse courriel, numéro de téléphone, intérêts, 5 derniers
+            articles (uniquement ceux où il fait partie des auteurs), projets publics et outils publics.</dd>
+          <dt class="glossary-term"><b>Activité</b></dt>
+          <dd class="glossary-def">Il contient les publications, les projets et outils et les événements organisés et
+            participés par les membres de GEODES.</dd>
+          <dt class="glossary-term"><b>Article</b></dt>
+          <dd class="glossary-def">Une des activités qui peut être ajouter, modifier et supprimer par les membres. Il a
+            un statut (brouillon, prêt, soumis, publié).</dd>
+          <dt class="glossary-term"><b>Projet</b></dt>
+          <dd class="glossary-def">Une des activités (Le GEODES reçoit régulièrement des subventions pour travailler sur diverses projets (programmes) de recherche) qui peut être ajouter, modifier et supprimer par les membres. Il
+            est identifié par une période (date de début, date de fin).</dd>
+          <dt class="glossary-term"><b>Outil</b></dt>
+          <dd class="glossary-def">Une des activités (Certains travaux de recherche nécessitent parfois des démonstrations pratiques résultant sur la création d'outils. Ces outils sont ensuite exploités et modifiés par les membres du GEODES) qui peut être ajouter, modifier et supprimer par les membres. Il
+            est identifié par une version et possède au moins un lien pointant vers le répertoire du code source.</dd>
+          <dt class="glossary-term"><b>Membre</b></dt>
+          <dd class="glossary-def">Les personnes qui peuvent entrer sur la plateforme Roundtable. Un membre doit être
+            associé à un des rôles suivants: PROFESSEUR, ADMINISTRATEUR, MEMBRE. Par défaut, un membre a le rôle MEMBRE.
+          </dd>
+          <dt class="glossary-term"><b>Professeur</b></dt>
+          <dd class="glossary-def">Trois dirigeants de GEODES: Michalis FAMELIS, Eugène SYRIANI et Houari SAHRAOUI. Ils
+            ont le rôle PROFESSEUR qui peut faire tout ce qu'un MEMBRE peut faire.</dd>
+          <dt class="glossary-term"><b>Administrateur</b></dt>
+          <dd class="glossary-def">Deux administratuers de GEODES: Istvan DAVID et Louis-Edouard Ladontant. Ils ont le
+            rôle ADMINISTRATEUR qui peut faire tout ce qu'un MEMBRE peut faire. Seul un administrateur peut assigner ou
+            modifier un rôle ou supprimer une activité.</dd>
+          <dt class="glossary-term"><b>Responsable</b></dt>
+          <dd class="glossary-def">Le créateur et le professor d'une activité qui peuvent modifier l'activité qu'ils
+            s'occupent.</dd>
+          <dt class="glossary-term"><b>Intérêt</b></dt>
+          <dd class="glossary-def">Il est défini par un titre et un descriptif. Seul un professeur peut ajouter,
+            modifier ou supprimer un intérêt. Tous les membres, intérêts et activités sont associés à certains intérêts.
+          </dd>
+          <dt class="glossary-term"><b>Souscrire</b></dt>
+          <dd class="glossary-def">Tout membre peut créer une activité et souscrire à une activité à laquelle il a accès
+            ou à un intérêt. Lorsqu'un membre est souscrit à un intérêt, toutes les activités liées à cet intérêt sont
+            visées. Lorsqu'une activité est créée, modifiée ou supprimée, les membres souscrits reçoivent une
+            notification.</dd>
+        </dl>
+
+        <h3>Besoins fonctionnels</h3>
+        <ul class="nf-requirements">
+          <li>Chaque membre peut avoir une vue d'ensemble des activités au sein du groupe.</li>
+          <li>Les membres peuvent faire le suivi des travaux d'un collègue ou trouver des points d'intersection entre
+            les intérêts de recherche de chacun.</li>
+          <li>La plateforme permet des échanges formels et un véritable suivi de la mise en commun hebdomadaire.</li>
+          <li>Chacun peut présenter l'avancement dans ces travaux ou partager un intérêt de recherche particulier sur la
+            plateforme Roundtable.</li>
+          <li>Cette rencontre est aussi utilisée pour transmettre des annonces diverses (événements à venir, concours de
+            bourse, soumission de publications en cours...).</li>
+        </ul>
+
+        <h3>Besoins non-fonctionnels</h3>
+        <ul class="nf-requirements">
+          <li><b>Fiabilité: </b>La page est disponible à 99.9%</li>
+          <li><b>Sécurité: </b>Protection des données personnelles (ex. numéro de téléphone)</li>
+          <li><b>Mémoire: </b>N’utilise pas trop d’espace sur l’ordinateur hôte</li>
+          <li><b>Performance: </b>Temps de réponse < 0.5sec pour 90% d’accès</li>
+          <li><b>Portabilité: </b>S’exécute sur les OS majeurs (Windows, Mac, Linux)</li>
+          <li><b>Communicabilité: </b>Permettre des transferts de données entre le réseau local</li>
+          <li><b>Utilisabilité: </b>Sous forme de commande de ligne et éventuellement GUI dans l'avenir</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="model" class="section-title">Modélisation du domaine</h2>
+        <h2>Cas d'utilisation 1</h2>
+        <p class="small">
+          <b>Nom: </b>Créer un compte<br>
+          <b>But: </b>Un membre désire ouvrir un compte à la plateforme<br>
+          <b>Acteurs: </b>Membre (principal), Administrateur (secondaire)<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit un superviseur (professeur).<br>
+          2. Le membre fournit son nom, prénom, adresse courriel.<br>
+          3. Le système valide les informations.<br>
+          4. Le système confirme les informations et lui demande un mot de passe.<br>
+          5. Le membre crée un mot de passe.<br>
+          6. Le système valide le mot de passe.<br>
+          7. Le système confirme le mot de passe.<br>
+          8. Le compte est créé dans le système avec le statut EN_ATTENTE.<br>
+          9. Une confirmation est envoyée à l'adresse courriel.<br>
+          10. Une notification est envoyée aux administrateurs.<br>
+          11. L’administrateur valide le compte.<br>
+          12. L’administrateur lui donne un rôle.<br>
+          13. Le membre accède à la plateforme.<br>
+          <b>Scénario alternatif</b><br>
+          3a. Le système rejette certaines informations mal entrées.<br>
+          &nbsp&nbsp3a.1. Le système demande au membre d’entrer les informations de nouveau.<br>
+          &nbsp&nbsp3a.2. Le scénario reprend à l'étape 2.<br>
+          6a. Le mot de passe est invalide.<br>
+          &nbsp&nbsp6a.1. Le système demande au membre d’entrer un mot de passe de nouveau.<br>
+          &nbsp&nbsp6a.2. Le scénario reprend à l'étape 5.<br>
+          11a. L’administrateur invalide le compte.<br>
+          &nbsp&nbsp11a.1. Le scénario se termine. et envoyer une notification par courriel.<br>
+        </p>
+
+        <h2>Cas d'utilisation 2</h2>
+        <p class="small">
+          <b>Nom: </b>Accéder au plateforme<br>
+          <b>But: </b>Un membre désire accéder à la plateforme<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le membre doit disposer d’un compte à la plateforme<br>
+          <b>Scénario principal</b><br>
+          1. Le membre entre son adresse courriel et son mot de passe.<br>
+          2. La système les valide.<br>
+          3. Le système confirme le statut de ce compte.<br>
+          4. Le membre accède au menu principal de la plateforme.<br>
+          <b>Scénario alternatif</b><br>
+          2a. Le système rejette certaines informations mal entrées.<br>
+          &nbsp&nbsp2a.1. Le système demande au membre d’entrer l’adresse courriel et le mot de passe de nouveau.<br>
+          &nbsp&nbsp2a.2. Le scénario reprend à l'étape 1.<br>
+        </p>
+
+        <h2>Cas d'utilisation 3</h2>
+        <p class="small">
+          <b>Nom: </b>Consulter le profil complet d’un membre par liste<br>
+          <b>But: </b>Un membre désire consulter le profil complet d’un membre par liste<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le membre doit accéder au menu principal de la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'Consulter un membre'.<br>
+          2. Le membre choisit 'Afficher la liste'.<br>
+          3. Le système affiche leurs noms complets, adresse courriel et intérêts.<br>
+          4. Le membre choisit un membre par numéro de série. <br>
+          5. Le système affiche son profil complet—nom complet, adresse courriel, numéro de téléphone, intérêts, 5
+          derniers articles (uniquement ceux où il fait partie des auteurs), projets publics et outils publics.<br>
+        </p>
+
+        <h2>Cas d'utilisation 4</h2>
+        <p class="small">
+          <b>Nom: </b>Chercher un membre par son nom complet<br>
+          <b>But: </b>Un membre désire chercher un membre par son nom complet<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le membre doit accéder au menu principal de la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'Consulter un membre'.<br>
+          2. Le membre choisit 'Chercher par son nom complet'.<br>
+          3. Le système affiche la liste de membres de ce nom (s’il y en a plusieurs).<br>
+          4. Le membre choisit une membre par numéro de série.<br>
+          5. Le système affiche le profil complet de ce membre.<br>
+          <b>Scénario alternatif</b><br>
+          3a. Il n’y a pas de résultat satisfaisant aux critères.<br>
+          &nbsp&nbsp3a.1. Le système affiche 'pas de résultat, réessayez'.<br>
+        </p>
+
+        <h2>Cas d'utilisation 5</h2>
+        <p class="small">
+          <b>Nom: </b>Consulter une activité par liste<br>
+          <b>But: </b>Un membre désire consulter une activité par liste<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le membre doit accéder au menu principal de la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit de 'Consulter une activité par liste'.<br>
+          2. Le membre choisit le type d'activité: article/projet/outil.<br>
+          3. Le système affiche la liste des articles/projets/outils publics en cours.<br>
+          4. Le membre choisit une activité par numéro de série.<br>
+          5. Le système affiche la fiche complète de cette activité (titre, résumé, auteurs, collaborateurs, date de
+          publication et lien de la publication).<br>
+        </p>
+
+        <h2>Cas d'utilisation 6</h2>
+        <p class="small">
+          <b>Nom: </b>Consulter des activités par liste<br>
+          <b>But: </b>Un membre désire consulter des articles<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le membre doit accéder au menu principal de la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'Chercher une activité'.<br>
+          2. Le membre choisit le type d'activité: article/projet.<br>
+          3. Le membre entre titre, auteur ou mot-clé (si article) ou responsable (si projet).<br>
+          4. Le système affiche la liste de résultats satisfaisant aux critères.<br>
+          5. Le membre choisit une activité par numéro de série.<br>
+          6. Le système affiche la fiche complète de cette activité (titre, résumé, auteurs, collaborateurs, date de
+          publication et lien de la publication).<br>
+          <b>Scénario alternatif</b><br>
+          4a. Il n’y a pas de résultat satisfaisant aux critères.<br>
+          &nbsp&nbsp4a.1. Le système affiche 'Aucun résultat. Réessayez’.<br>
+        </p>
+
+        <h2>Cas d'utilisation 7</h2>
+        <p class="small">
+          <b>Nom: </b>Consulter un intérêt<br>
+          <b>But: </b>Un membre désire consulter un intérêt<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le membre doit accéder au menu principal de la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'Consulter un intérêt'.<br>
+          2. Le système affiche la liste de tous les intérêts.<br>
+          3. Le membre choisit un intérêt par numéro de série.<br>
+          4. Le système affiche '1. Afficher des activités 2. Afficher des membres 3. Souscrire'.<br>
+          5. Le membre choisit d'Afficher la liste des activités associées à cet intérêt ou d'afficher la liste des
+          membres associées à cet intérêt.<br>
+        </p>
+
+        <h2>Cas d'utilisation 8</h2>
+        <p class="small">
+          <b>Nom: </b>Ajouter un article<br>
+          <b>But: </b>Un membre désire ajouter un article<br>
+          <b>Acteurs: </b>Membre (principal), Professeur (secondaire)<br>
+          <b>Préconditions: </b>Le membre doit accéder à la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'Ajouter une activité'.<br>
+          2. Le membre choisit 'Ajouter un article'.(statut: brouillon)<br>
+          3. Le membre choisit un professeur, 1 à 5 intérêts, un niveau de visibilité et des mots-clés pour ajouter les
+          articles.<br>
+          4. Le membre ajoute un article avec un titre et un résumé.<br>
+          5. Le membre choisit les auteurs et les collaborateurs dans une liste (statut: brouillon).<br>
+          6. Le membre a une première version satisfaite. Le niveau de visibilité devient automatiquement 'privé'
+          (statut: prêt).<br>
+          7. Le système envoie une notification aux collaborateurs et au professeur.<br>
+          8. Le membre modifie l’article basé sur le feedback d’eux (statut: brouillon). Après modification, le membre
+          enregistre les modifications (statut: prêt).<br>
+          9. Le membre envoie l'article à un journal pour évaluer (statut: soumis).<br>
+          10. Le journal accepte l'article. Le niveau de visibilité devient automatiquement 'public' (statut:
+          publié).<br>
+          11. Le système affiche 'réussi'.<br>
+          12. Le système envoie une notification aux membres qui ont souscrit.<br>
+          <b>Scénario alternatif</b><br>
+          8a. Le membre ne modifie rien.<br>
+          &nbsp&nbsp8a.1. Le scénario reprend à l'étape 6.<br>
+          9a. Le membre décide de n'envoyer pas et met l'article 'privé'.<br>
+          &nbsp&nbsp9a.1. Le scénario se termine.<br>
+        </p>
+
+        <h2>Cas d'utilisation 9</h2>
+        <p class="small">
+          <b>Nom: </b>Ajouter un projet ou un outil<br>
+          <b>But: </b>Un membre désire ajouter un projet ou un outil<br>
+          <b>Acteurs: </b>Membre (principal), Professeur (secondaire)<br>
+          <b>Préconditions: </b>Le membre doit accéder au menu principal de la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'Gestion activité'.<br>
+          2. Le membre choisit 'Ajouter'.<br>
+          3. Le membre choisit 'Projet'.<br>
+          4. Le membre choisit un professeur, 1 à 5 intérêts, un niveau de visibilité et des mots-clés pour ajouter les
+          projets.<br>
+          5. Le membre ajoute un projet avec un titre, une description, la date de début et la date de fin.<br>
+          6. Le membre choisit les auteurs et les collaborateurs dans une liste.<br>
+          7. Le membre publie le projet.<br>
+          8. Le système affiche 'réussi'.<br>
+          9. Le système envoie une notification aux membres qui ont souscrit.<br>
+          <b>Scénario alternatif</b><br>
+          3a. Le membre choisit 'Outil'.<br>
+          &nbsp&nbsp3a.1. Le membre ajoute un outil avec un nom, une description et la version.<br>
+          &nbsp&nbsp3a.2. Le membre adjoint au moins un lien pointant vers le répertoire du code source<br>
+          &nbsp&nbsp3a.3. Le membre décide d’ajouter ou non d’autres liens additionnels pointant vers les autres
+          ressources. <br>
+          &nbsp&nbsp3a.4. Le membre décide d’associer ou non un ou plusieurs articles.<br>
+          &nbsp&nbsp3a.5. Le membre publie l’outil.<br>
+          &nbsp&nbsp3a.6. Le scénario reprend à l'étape 8.<br>
+        </p>
+
+        <h2>Cas d'utilisation 10</h2>
+        <p class="small">
+          <b>Nom: </b>Modifier une activité<br>
+          <b>But: </b>Un membre désire ajouter un projet ou un outil<br>
+          <b>Acteurs: </b>Responsable (principal)<br>
+          <b>Préconditions: </b>Le responsable accède à une activité qu’il veut modifier.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'Modifier cette activité'.<br>
+          2. Le membre choisit 'Modifier'.<br>
+          3. Le système affiche la liste des activités dont il est responsable.<br>
+          4. Le membre choisit le numéro de série d’activité qu’il veut modifier.<br>
+          5. Selon le type de l’activité choisie, le système affiche des attributs qui peuvent être modifiés.<br>
+          6. Le responsable choisit un attribut.<br>
+          7. Le responsable ressaisit le contenu modifié et confirme.<br>
+          8. Le système affiche 'réussi'.<br>
+          9. Le système envoie une notification aux membres qui ont souscrit.<br>
+        </p>
+
+        <h2>Cas d'utilisation 11</h2>
+        <p class="small">
+          <b>Nom: </b>Supprimer une activité<br>
+          <b>But: </b>Un membre désire supprimer une activité<br>
+          <b>Acteurs: </b>Responsable de cette activité (principal), Administrateur (secondaire)<br>
+          <b>Préconditions: </b>Le membre a une raison valable de le supprimer.<br>
+          <b>Scénario principal</b><br>
+          1. Le responsable contacte l’administrateur pour supprimer une activité et explique sa raison.<br>
+          2. L'administrateur vérifie son rôle et la raison.<br>
+          3. L'administrateur consulte cette activité(utiliser 'chercher' normalement).<br>
+          4. Le système vérifie que ce membre est un administrateur et affiche '1. Retourner 2. Supprimer'.<br>
+          5. L’administrateur choisit de le supprimer.<br>
+          6. Le système supprime cette activité et affiche 'réussi'.<br>
+          7. Le système envoie une notification aux membres qui ont souscrit.<br>
+          <b>Scénario alternatif</b><br>
+          2a. L'administrateur pense que la raison est non valable.<br>
+          &nbsp&nbsp2a.1. L'administrateur décide de ne pas le supprimer.<br>
+          &nbsp&nbsp2a.2. L'administrateur envoie une notification au responsable.<br>
+        </p>
+
+        <h2>Cas d'utilisation 12</h2>
+        <p class="small">
+          <b>Nom: </b>Souscrire à une activité<br>
+          <b>But: </b>Un membre désire souscrire à une activité<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le membre doit sur la page de cet activité.<br>
+          <b>Scénario principal</b><br>
+          1. Le système affiche la fiche complète de cette activité.<br>
+          2. Le système affiche '1. Souscrire 2. Retourner'.<br>
+          3. Le système vérifie que cette activité n’est pas dans la liste des activités souscrites de ce membre.<br>
+          4. Le système ajoute cette activité dans la liste des activités souscrites de ce membre.<br>
+          5. Le système affiche 'réussi'.<br>
+          <b>Scénario alternatif</b><br>
+          3a. Le système trouve que cette activité est déjà dans la liste des activités souscrites de ce membre.<br>
+          &nbsp&nbsp3a.1. Le système affiche 'vous avez déjà souscrit cette activité'.<br>
+        </p>
+
+        <h2>Cas d'utilisation 13</h2>
+        <p class="small">
+          <b>Nom: </b>Souscrire à un intérêt<br>
+          <b>But: </b>Un membre désire souscrire à un intérêt<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le membre doit accéder à la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'consulter un intérêt'.<br>
+          2. Le système affiche la liste de tous les intérêts.<br>
+          3. Le membre choisit un intérêt par numéro de série. <br>
+          4. Le système affiche '1. Afficher des activités 2. Afficher des membres 3. Souscrire’.<br>
+          5. Le membre choisit de souscrire à cet intérêt.<br>
+          6. Le système ajoute cet intérêt dans la liste des intérêts souscrits de ce membre et ajoute toutes les
+          activités associées à cet intérêt à sa liste des activités souscrites.<br>
+          7. Le système affiche 'réussi'.<br>
+          <b>Scénario alternatif</b><br>
+          3a. Le système trouve que cet intérêt est déjà dans sa liste des intérêts souscrits.<br>
+          &nbsp&nbsp3a.1. Le système affiche 'Vous avez déjà souscrit cet intérêt’.<br>
+        </p>
+
+        <h2>Cas d'utilisation 14</h2>
+        <p class="small">
+          <b>Nom: </b>Modifier la souscription<br>
+          <b>But: </b>Un membre désire modifier la liste des activités ou des intérêts auxquels il a souscrit<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le membre doit accéder à la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'Gestion souscription'.<br>
+          2. Le membre choisit activité/intérêt.<br>
+          3. Le système affiche la liste des activités/intérêts auxquels il a souscrit.<br>
+          4. Le membre choisit une activité/intérêt par numéro de série.<br>
+          5. le système affiche '1. Annuler la souscription 2. Consulter'.<br>
+          6. Le membre choisit d’annuler la souscription.<br>
+          7. Le membre entre l’information une nouvelle fois.<br>
+          8. Le système affiche 'réussi'.<br>
+        </p>
+
+        <h2>Cas d'utilisation 15</h2>
+        <p class="small">
+          <b>Nom: </b>Modifier le rôle d’un membre<br>
+          <b>But: </b>Un membre demande à l’administrateur de modifier son rôle et donne des preuves nécessaires<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le membre a des preuves de son nouveau rôle.<br>
+          <b>Scénario principal</b><br>
+          1. Le responsable contacte l’administrateur pour modifier son rôle et donne des preuves nécessaires.<br>
+          2. L’administrateur vérifie les preuves de son nouveau rôle.<br>
+          3. L’administrateur choisit ’gestion membre’.<br>
+          4. L' administrateur cherche un compte par nom complet.<br>
+          5. Le système affiche la liste de membres de ce nom (s’il y en a plusieurs).<br>
+          6. L' administrateur choisit une membre par numéro de série.<br>
+          7. Le système affiche '1.r Rôle 2. Suspendre 3. Réactiver'.<br>
+          8. L' administrateur choisit 'rôle'.<br>
+          9. L' administrateur choisit un nouveau rôle pour ce membre.<br>
+          10. Le système envoie une notification à ce membre.<br>
+          <b>Scénario alternatif</b><br>
+          2a. L'administrateur pense que les preuves sont non valables.<br>
+          &nbsp&nbsp2a.1. L'administrateur décide de ne pas jouer son rôle.<br>
+          &nbsp&nbsp2a.2. L'administrateur envoie une notification à ce membre.<br>
+        </p>
+
+        <h2>Cas d'utilisation 16</h2>
+        <p class="small">
+          <b>Nom: </b>Suspendre (statut: SUSPENDU) ou réactiver (statut: VALIDE) un compte<br>
+          <b>But: </b>Un administrateur veut suspendre ou réactiver un compte<br>
+          <b>Acteurs: </b>Administrateur (principal)<br>
+          <b>Préconditions: </b>L'administrateur doit sur la page du profil complet d’un membre.<br>
+          <b>Scénario principal</b><br>
+          1. L' administrateur choisit 'Gestion Membre'.<br>
+          2. L' administrateur cherche un compte par nom complet.<br>
+          3. Le système affiche la liste de membres de ce nom (s’il y en a plusieurs).<br>
+          4. Le membre choisit une membre par numéro de série.<br>
+          5. Le système affiche '1. Rôle 2. Suspendre 3. Réactiver'.<br>
+          6. Le membre choisit suspendre/réactiver.<br>
+          7. Le système vérifie que son statut est VALIDE/SUSPENDU.<br>
+          8. Le système met son statut SUSPENDU/VALIDE et affiche 'réussi'.<br>
+          <b>Scénario alternatif</b><br>
+          3a. Il n’y a pas de résultat satisfaisant aux critères.<br>
+          &nbsp&nbsp3a.1. Le système affiche 'pas de résultat, réessayez.'<br>
+          7a. Le système vérifie que le statut de ce membre est SUSPENDU/VALIDE.<br>
+          &nbsp&nbsp7a.1. Le système affiche 'Ce compte est déjà suspendu/activé'.<br>
+        </p>
+
+        <h2>Cas d'utilisation 17</h2>
+        <p class="small">
+          <b>Nom: </b>Ajouter un intérêt<br>
+          <b>But: </b>Un administrateur veut suspendre ou réactiver un compte<br>
+          <b>Acteurs: </b>Professeur (principal)<br>
+          <b>Préconditions: </b>Le professeur doit accéder au menu principal de la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le professeur choisit 'Gestion intérêt'.<br>
+          2. Le professeur choisit 'Ajouter'.<br>
+          3. Le professeur ajoute un intérêt avec un titre et un descriptif et confirme.<br>
+          4. Le système ajoute cet intérêt à la liste des intérêts.<br>
+          5. Le système affiche 'réussi'.<br>
+        </p>
+
+        <h2>Cas d'utilisation 18</h2>
+        <p class="small">
+          <b>Nom: </b>Modifier/Supprimer un intérêt<br>
+          <b>But: </b>Un professeur veut modifier/supprimer un nouvel intérêt<br>
+          <b>Acteurs: </b>Professeur (principal)<br>
+          <b>Préconditions: </b>Le professeur doit accéder au menu principal de la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le professeur choisit 'Gestion intérêt'.<br>
+          2. Le professeur choisit 'Chercher'.<br>
+          3. Le système affiche la liste des intérêts.<br>
+          4. Le professeur choisit le numéro de série d’intérêt qu’il veut modifier/supprimer.<br>
+          5. Le système affiche '1. Modifier 2. Supprimer'.<br>
+          6. Le professeur choisit de le modifier.<br>
+          7. Le professeur choisit de modifier le titre ou le descriptif.<br>
+          8. Le professeur entre l’information modifiée et confirme.<br>
+          9. Le système affiche 'réussi'.<br>
+          <b>Scénario alternatif</b><br>
+          6a. Le professeur veut le supprimer.<br>
+          &nbsp&nbsp6a.1. Le professeur choisit de le supprimer.<br>
+          &nbsp&nbsp6a.2. Le scénario reprend à l'étape 9.<br>
+        </p>
+
+        <h2>Cas d'utilisation 19</h2>
+        <p class="small">
+          <b>Nom: </b>Modifier des informations personnelles<br>
+          <b>But: </b>Un membre désire modifier son profil et la liste des activités et des intérêts auxquels il a
+          souscrit.<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le professeur doit accéder au menu principal de la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'mon compte'.<br>
+          2. Le membre choisit 'profil'.<br>
+          3. Le membre choisit l’information qu’il veut modifier (nom, prénom, adresse courriel ou numéro de téléphone)
+          et l’entrer une nouvelle fois.<br>
+          4. Le membre entre l’information une nouvelle fois.<br>
+          5. Le système affiche'réussi'.<br>
+        </p>
+
+        <h2>Cas d'utilisation 20</h2>
+        <p class="small">
+          <b>Nom: </b>Consulter les notifications<br>
+          <b>But: </b>Un membre veut vérifier les notifications qu'il a reçues<br>
+          <b>Acteurs: </b>Membre (principal)<br>
+          <b>Préconditions: </b>Le professeur doit accéder au menu principal de la plateforme.<br>
+          <b>Scénario principal</b><br>
+          1. Le membre choisit 'Mon compte'.<br>
+          2. Le membre choisit 'Notification'.<br>
+          3. Le système affiche la liste des notifications (Les notifications dont le membre ne confirme pas seront
+          marquées d'un '*'.
+          4. Le membre choisit une notification par numéro de série.<br>
+          5. Le système affiche le contenu de la notification.<br>
+          <b>Scénario alternatif</b><br>
+          4a. Le membre choisit une notification non confirmée.<br>
+          &nbsp&nbsp4a.1. Le '*' sera supprimé.<br>
+          &nbsp&nbsp4a.2. Le scénario reprend à l'étape 5.<br>
+        </p>
+      </section>
+
+      <section>
+        <h2 id="analysis" class="section-title">Analyse</h2>
+        <p>Notre analyse préliminaire nous a permis d'élucider les besoins et risques suivants.</p>
+        <div>
+          <h3>Risques</h3>
+          <ol class="risks">
+            <li>La page n'est pas disponible (panne)</li>
+            <li>Les données personnelles des membres sont sous menace de divulgation</li>
+            <li>Les administrateurs ne peuvent pas répondre aux besoins des membres en temps opportun</li>
+            <li>La fonctionnalité du système dépend du réseau local</li>
+            <li>Lorsque plusieurs membres modifient en même temps, il y aura des conflits.</li>
+          </ol>
+        </div>
+        <div>
+          <h3>Exigences non-fonctionnelles</h3>
+          <ul class="nf-requirements">
+            <li><b>Fiabilité:</b> La page est disponible à 99.9%</li>
+            <li><b>Sécurité: </b>Protection des données personnelles (ex. numéro de téléphone)</li>
+            <li><b>Mémoire: </b>N'utilise pas trop d'espace sur l'ordinateur hôte</li>
+            <li><b>Performance: </b>Temps de lecture < 0.1s</li>
+            <li><b>Portabilité: </b>S'exécute sur les OS majeurs (Windows, Mac, Linux)</li>
+            <li><b>Communicabilité: </b>Permettre des transferts de données entre le réseau local</li>
+            <li><b>Utilisabilité: </b>Sous forme de commande de ligne et éventuellement GUI dans l'avenir</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Matériels nécessaires</h3>
+          <ul class="nf-requirements">
+            <li><i>Appareils qui peuvent utiliser la ligne de commande</i></li>
+            <p><b>Justification:</b> Notre plateforme fonctionne sur une interface en ligne de commande.</p>
+            <li><i>Le mémoire du système doit être supérieure à 32G</i></li>
+            <p><b>Justification:</b> La plateforme a besoin d'un espace de mémoire suffisant pour mettre à jour les informations personnelles et les données d'activité.</p>
+            <li><i>Stockage pour les sauvegardes</i></li>
+            <p><b>Justification:</b> Pour éviter la perte de données due à des erreurs opérationnelles ou à des défaillances du système.</p>
+            <li><i>Environnement Internet rapide</i></li>
+            <p><b>Justification:</b> La plateforme a besoin d'un internet stable et rapide pour mettre à jour les contenus en temps réel.</p>
+            <li><i>Matériel haute sécurité</i></li>
+            <p><b>Justification:</b> La plateforme a besoin d'un environnement sécurisé pour fonctionner, car un grand nombre de données personnelles et d'informations académiques sont stockées.</p>
+          </ul>
+        </div>
+        <div>
+          <h3>Contraintes</h3>
+          <ul class="nf-requirements">
+            <li><b>Calendrier du projet: </b>Moins de 3 mois</li>
+            <li><b>Coût: </b>Client n’informe pas le développeur du vrai budget disponible</li>
+            <li><b>Compétences des programmeurs: </b>Pas nécessaires à satisfaire l'exigence</li>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="prototype" class="section-title">Prototype</h2>
+        <ul class="bare-list previews">
+          <li class="preview">
+            <h4 style="font-size: 1.2em; margin-bottom: 6px">Interface de connexion</h4>
+            Lorsque l'utilisateur ouvre la plateforme <i>Roundtable</i>, l’interface suivante s'affiche.
+            <img class="preview-img" src="prototype/bienvenue.png" alt="">
+          </li>
+          <li class="preview">
+            <h4 style="font-size: 1.2em; margin-bottom: 6px">Menu principal</h4>
+            Le menu principal est affiché au démarage de l'application. L'utilisateur entre le numéro associé au
+            sous-menu ou à l'action pour y accéder ou l'exécuter.
+            <img class="preview-img" src="prototype/main_menu.png" alt="">
+          </li>
+          <li class="preview">
+            <h4 style="font-size: 1.2em; margin-bottom: 6px">Consulter un membre</h4>
+            Le membre peut choisir d'afficher la liste des membres ou chercher par son le nom complet d’un nombre sur cette page.
+            <img class="preview-img" src="prototype/consult_membre.png" alt="">
+          </li>
+          <li class="preview">
+            <h4 style="font-size: 1.2em; margin-bottom: 6px">Consulter une activité par liste</h4>
+            Le membre peut choisir de consulter un article, un projet ou un outil sur cette page.
+            <img class="preview-img" src="prototype/consult_act_liste.png" alt="">
+          </li>
+          <li class="preview">
+            <h4 style="font-size: 1.2em; margin-bottom: 6px">Chercher une activité</h4>
+            Le membre peut chercher un article ou un projet sur cette page.
+            <img class="preview-img" src="prototype/chercher_act.png" alt="">
+            
+          </li>
+          </li>
+      </section>
+    </div>
+  </main>
+  <footer class="report-footer">
     <p>
-        <span style="font-weight: bold;">Nom de l'équipe: </span>Équipe ABC
+      <a class="link report-footer__link" href="https://github.com/dorararra/IFT2255_big_G"> Lien vers répertoire
+        GitHub</a>
     </p>
     <p>
-<<<<<<< HEAD
-        <a href="https://www.github.com/username/project-name">Lien vers dépôt GitHub</a><br>
-=======
-        <a href="https://github.com/HarryXngg/IFT2255_Genie_Logiciel">Lien vers dépôt GitHub</a><br>
->>>>>>> 766419f55d031fb3ef87bbab1d4b8eeceab09ad3
-        <a href="example.vpp">Lien vers fichiers Visual Paradigm</a>
+      <a class="link report-footer__link" href="CU_vpp/">Lien vers ressource externe (fichiers VPP)</a>
     </p>
-    <p>
-        <span style="font-weight: bold;">Nom: </span>Edouard Batot
-        <br />
-        <span style="font-weight: bold;">Matricule: </span>12345678
-        <br />
-        <span style="font-weight: bold;">Courriel: </span>batotedo@iro.umontreal.ca
-        <br />
-        <span style="font-weight: bold;">temps mis: </span>40 heures
-    </p>
-    <p>
-        <span style="font-weight: bold;">Nom: </span>Chihab Eddine Mokaddem
-        <br />
-        <span style="font-weight: bold;">Matricule: </span>56781234
-        <br />
-        <span style="font-weight: bold;">Courriel: </span>mokaddec@iro.umontreal.ca
-        <br />
-        <span style="font-weight: bold;">temps mis: </span>40 heures
-    </p>
-    <h2>
-        Distribution des tâches</h2>
-    <p>
-        <span style="font-weight: bold;">Soumissionaire: </span>Amal Ben Abdellah
-    </p>
-    <table cellpadding="7px">
-        <thead>
-            <tr>
-                <th class="first_col">
-                    Tâche
-                </th>
-                <th>
-                    Edouard
-                </th>
-                <th>
-                    Chihab
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="first_col">
-                    Diagramme de classe
-                </td>
-                <td>
-                    Classes, associations, attributs (50%)
-                </td>
-                <td>
-                    Methodes, contraintes (50%)
-                </td>
-            </tr>
-            <tr>
-                <td class="first_col">
-                    Implémentation
-                </td>
-                <td>
-                    UI (30%)
-                </td>
-                <td>
-                    Logique (70%)
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <h2>
-        Hypothèses</h2>
-    <p>
-        J'ai supposé que...
-    </p>
-    <h2>
-        Tâche 1</h2>
-    <p>
-        Voici ma solution pour la tâche 1.
-    </p>
-    <ul>
-        <li>Voici un <a href="file1.txt">lien</a> vers les fichiers.</li>
-        <li>Images affichées directement.</li>
-    </ul>
-    
-    <h2>
-        Tâche 2</h2>
-    <p>
-        ...
-    </p>
+  </footer>
 </body>
-<<<<<<< HEAD
+
 </html>
-=======
-</html>
->>>>>>> 766419f55d031fb3ef87bbab1d4b8eeceab09ad3
