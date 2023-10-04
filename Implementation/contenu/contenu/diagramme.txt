@@ -1,0 +1,1 @@
+Si 2 contraintes, 20 variables donc méthode du simplexe révisée 
