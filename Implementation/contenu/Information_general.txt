@@ -1,1 +1,25 @@
-Si 2 contraintes, 20 variables donc méthode du simplexe révisée 
+    <p>
+        <span style="font-weight: bold;">Nom de l'équipe: </span>Équipe ABC
+    </p>
+    <p>
+        <a href="https://www.github.com/username/project-name">Lien vers dépôt GitHub</a><br>
+        <a href="https://an-li.github.io/ift2255-a23-devoirs/example.vpp">Lien vers fichiers Visual Paradigm</a>
+    </p>
+    <p>
+        <span style="font-weight: bold;">Nom: </span>Edouard Batot
+        <br>
+        <span style="font-weight: bold;">Matricule: </span>12345678
+        <br>
+        <span style="font-weight: bold;">Courriel: </span>batotedo@iro.umontreal.ca
+        <br>
+        <span style="font-weight: bold;">temps mis: </span>40 heures
+    </p>
+    <p>
+        <span style="font-weight: bold;">Nom: </span>Chihab Eddine Mokaddem
+        <br>
+        <span style="font-weight: bold;">Matricule: </span>56781234
+        <br>
+        <span style="font-weight: bold;">Courriel: </span>mokaddec@iro.umontreal.ca
+        <br>
+        <span style="font-weight: bold;">temps mis: </span>40 heures
+    </p>
