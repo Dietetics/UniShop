@@ -1,4 +1,3 @@
-
 function afficherContenuFichier(idElement, cheminFichier) {
   const contenuFichier = document.getElementById(idElement);
 
@@ -12,6 +11,5 @@ function afficherContenuFichier(idElement, cheminFichier) {
       });
   }
 
-    afficherContenuFichier('contenuFichier', 'autre_dossier/fichier_externe.html');
 
 

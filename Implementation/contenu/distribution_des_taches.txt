@@ -1,1 +1,42 @@
-Si 2 contraintes, 20 variables donc méthode du simplexe révisée 
+<p>
+        <span style="font-weight: bold;">Soumissionaire: </span>Amal Ben Abdellah
+    </p>
+    <table cellpadding="7px">
+        <thead>
+            <tr>
+                <th class="first_col">
+                    Tâche
+                </th>
+                <th>
+                    Edouard
+                </th>
+                <th>
+                    Chihab
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="first_col">
+                    Diagramme de classe
+                </td>
+                <td>
+                    Classes, associations, attributs (50%)
+                </td>
+                <td>
+                    Methodes, contraintes (50%)
+                </td>
+            </tr>
+            <tr>
+                <td class="first_col">
+                    Implémentation
+                </td>
+                <td>
+                    UI (30%)
+                </td>
+                <td>
+                    Logique (70%)
+                </td>
+            </tr>
+        </tbody>
+    </table>

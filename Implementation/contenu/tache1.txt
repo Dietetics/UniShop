@@ -1,0 +1,7 @@
+<p>
+    Voici ma solution pour la tâche 1.
+</p>
+<ul>
+    <li>Voici un <a href="https://an-li.github.io/ift2255-a23-devoirs/file1.txt">lien</a> vers les fichiers.</li>
+    <li>Images affichées directement.</li>
+</ul>
