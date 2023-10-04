@@ -1,30 +1,39 @@
+    <p><span style="font-weight: bold;">Nom de l'équipe: </span>Tatoba</p>
+    
     <p>
-        <span style="font-weight: bold;">Nom de l'équipe: </span>   Tatoba
+        <a href="https://github.com/HarryXngg/IFT2255_Genie_Logiciel">Lien vers dépôt GitHub</a>
+        <br>
+        <a href="#">Lien vers fichiers Visual Paradigm</a>
     </p>
     
     <p>
-        <a href="https://github.com/HarryXngg/IFT2255_Genie_Logiciel">Lien vers dépôt GitHub</a><br>
-        
-        <a href="https://an-li.github.io/ift2255-a23-devoirs/example.vpp">Lien vers fichiers Visual Paradigm</a>
-    </p>
-    
-    <p>
-        <span style="font-weight: bold;">Nom: </span>Edouard Batot
+        <span style="font-weight: bold;">Nom: </span>YongKangHe
         <br>
-        <span style="font-weight: bold;">Matricule: </span>12345678
+        <span style="font-weight: bold;">Matricule: </span>20220607
         <br>
-        <span style="font-weight: bold;">Courriel: </span>batotedo@iro.umontreal.ca
+        <span style="font-weight: bold;">Courriel: </span>yongkang.he@umontreal.ca
         <br>
-        <span style="font-weight: bold;">temps mis: </span>40 heures
+        <span style="font-weight: bold;">temps mis: </span>30 heures
     </p>
     
     
     <p>
-        <span style="font-weight: bold;">Nom: </span>Chihab Eddine Mokaddem
+        <span style="font-weight: bold;">Nom: </span>x
         <br>
-        <span style="font-weight: bold;">Matricule: </span>56781234
+        <span style="font-weight: bold;">Matricule: </span>x
         <br>
-        <span style="font-weight: bold;">Courriel: </span>mokaddec@iro.umontreal.ca
+        <span style="font-weight: bold;">Courriel: </span>x
         <br>
-        <span style="font-weight: bold;">temps mis: </span>40 heures
+        <span style="font-weight: bold;">temps mis: </span>x heures
+    </p>
+
+
+    <p>
+        <span style="font-weight: bold;">Nom: </span>y
+        <br>
+        <span style="font-weight: bold;">Matricule: </span>y
+        <br>
+        <span style="font-weight: bold;">Courriel: </span>y
+        <br>
+        <span style="font-weight: bold;">temps mis: </span>y heures
     </p>
