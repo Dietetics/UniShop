@@ -1,52 +1,27 @@
+<h3><mark>Cas d'utilisation 1: rechercher l'article qu'il souhaite acheter</mark></h3>
 <pre>
-    Cas d'utilisation 1
-    Nom: Accéder à la page d'accueil de site Web
-    But:  Les membres souhaitant acheter des produits et les distributeurs souhaitant vendre des produits désirent  accéder à la page d'accueil de ce site
-    Préconditions: l'utilisateur doit avoir un compte pour le site.
-    Acteurs:  membres souhaitant acheter des produits liés à l'apprentissage et revendeurs vendant des produits associés
-    
-    Scénario principal:
-        1,l'utilisateur ouvre la bonne adresse URL.
-    2,La page demande à l'membre de fournir le bon identifiant et mot de passe.
-    3,Vérification si l'identifiant et le mot de passe correspondent, renvoie un message de succès de connexion.
-    4,l'utilisateur accède avec succès à la page principale du site.
-    
-    
-    Scénario alternatif:
-    3a,  Le numéro n’est pas valide (numéro a été mal saisie)
-        3a.1. Le système n’a pas trouvé le compte.
-    3a.2. Le système affiche Numéro non valide à l’écran
-    3a.3. Le nombre de caractères du mot de passe saisi n'atteint pas le minimum requis
-    
-    3b. Le compte est suspendu.
-    3b.1. Le système trouve le compte, mais le compte est suspendu. 
-    
-    3c les membre entrent un mot de passe ou une adresse erroné 
-    3c.1 Le système envoie un message d’erreur après avoir dépassé un certain nombre de tentatives, sinon le compte sera bloqué
-    3c.2 Les membres corrigent l’erreur pour avoir un accès au compte
+But:  l'utilisateur trouve avec succès le produit qu'il désire sur Unishop.
+Préconditions:l'utilisateur s'est inscrit avec succès en tant qu'acheteur.
+Acteurs:  Tous les utilisateurs qui se sont inscrits avec succès en tant qu'acheteurs.
+Scénario principal: 
+	1，l'utilisateur en tant qu'acheteur saisit son adresse e-mail, son mot de passe et d'autres informations de connexion pour accéder à la plateforme unishop.
+2，L'acheteur trouve et clique sur la barre de recherche de la page d'accueil.
+3,l'utilisateur saisit l'article qu'il souhaite acheter puis clique sur le bouton de recherche.
+4,Le site unishop affiche les détails et les miniatures des articles recherchés.
 
-
-    Cas d'utilisation 2
-
-Nom: Modifier le profil complet d'un acheteur 
-But: Permettre de modifier soi-même son profil personnel.
-Préconditions: l'utilisateur a besoin d'un compte pour se connecter à la page web de unishop
-Acteurs:  Tous les acheteurs sont des acteurs principaux 
-Scénario principal:
-
-	1,l’acheteur  clique sur "Modifier le profil personnel".
-2,l’acheteur modifie le contenu dans la zone qu'il souhaite changer.
-3,l’acheteur clique sur le bouton de confirmation, et le système affiche un message demandant confirmation.
-4,l’acheteur quitte ou continue la session actuelle sur la page.
-
-
-Scénario alternatif:
-	2a. Lorsque l'utilisateur modifie des informations et entre des données invalides ou non conformes aux règles, il est nécessaire qu'il saisisse à nouveau des informations correctes.
+Scénario alternatif:	
+	4a. Les produits affichés sur la page après la recherche ne correspondent pas à l'article recherché par l'acheteur.
+		4a.1. La miniature du produit affiché ne correspond pas à la description de l'article. 
+4a.2. Les produits affichés ne correspondent pas à l'article recherché par l'acheteur.
+</pre>
 
 
 
 
-Cas d'utilisation 3: S'inscrire en tant qu'acheteur
+
+<h3>Cas d'utilisation 2: S'inscrire en tant qu'acheteur</h3>
+
+<pre>
 But: Une personne souhaite acheter des produits dont ils ont besoin dans le plateforme de commerce uniShop
 Préconditions: L'utilisateur doit accéder à la page d'inscription de l'uniShop
 Acteurs: Utilisateur(principale)
@@ -68,136 +43,51 @@ Scénario alternatif:
 10a. Le système identifie que le pseudo saisi est déjà en usage 
 10a.1 L'utilisateur est redirigé vers l'étape 6 pour choisir un pseudo unique 
 
-
 10b. Le système repère une adresse e-mail mal formatée
 10b.1 L'utilisateur est invité à saisir une adresse e-mail correctement formatée à l'étape 7
 
 10c. Le système détecte des informations manquantes
 10c.1 L'utilisateur est guidé pour vérifier les informations fournies, en commençant par l'étape 4.
 
-
 PostCondition: 
 	-L'utilisateur est enregistré en tant qu'acheteur sur la plateforme.
 	-L'utilisateur peut maintenant se connecter à son compte pour faire des achats ou modifier ses informations
-
-
-	
-
-
-Cas d'utilisation 4
-Nom:  rechercher l'article qu'il souhaite acheter
-But:  l'utilisateur trouve avec succès le produit qu'il désire sur Unishop.
-Préconditions:l'utilisateur s'est inscrit avec succès en tant qu'acheteur.
-Acteurs:  Tous les utilisateurs qui se sont inscrits avec succès en tant qu'acheteurs.
-Scénario principal: 
-	1，l'utilisateur en tant qu'acheteur saisit son adresse e-mail, son mot de passe et d'autres informations de connexion pour accéder à la plateforme unishop.
-2，L'acheteur trouve et clique sur la barre de recherche de la page d'accueil.
-3,l'utilisateur saisit l'article qu'il souhaite acheter puis clique sur le bouton de recherche.
-4,Le site unishop affiche les détails et les miniatures des articles recherchés.
-
-
-	
-Scénario alternatif:	
-	4a. Les produits affichés sur la page après la recherche ne correspondent pas à l'article recherché par l'acheteur.
-		4a.1. La miniature du produit affiché ne correspond pas à la description de l'article. 
-4a.2. Les produits affichés ne correspondent pas à l'article recherché par l'acheteur.
-
-
-	
+</pre>
 
 
 
-Cas d'utilisation 5
-Nom: passer une commande
-But:  l’acheteur réussit à payer pour sa commande
-Préconditions: l’acheteur a terminé la sélection de tous les produits désirés
-Acteurs: Acheteur(principal)
-Scénario principal:
-l’acheteur est satisfait de sa sélection
-l’acheteur fournit le numéro de carte de paiement et de téléphone
-l’acheteur utilise l’adresse sur son profil comme l’information de livraison
-l’acheteur paie pour tous les produits
-la quantité des produits est mise à jour dans l’inventaire
-le système affiche le reçu avec les identifiants de produit
+
+
+
+
+
+
+
+<h3>Cas d'utilisation 3: modifier le profil complet d'acheteur </h3>
+
+<pre>
+But: L'acheteur souhaite mettre à jour ses informations personnelles sur la plateforme uniShop.  
+Préconditions: L'utilisateur doit posséder un compte d'acheteur sur la plateforme UniShop.
+Acteurs: Acheteurs(principale)
+Scénario principale: 
+1. L'acheteur accède à la plateforme uniShop 
+2. L'acheteur accède à la section "mon compte" 
+3. L'acheteur sélecte l'information à modifier 
+4. L'acheteur effectue les modifications nécessaires aux informations sélectionnées
+5. L'acheteur valide les informations demandées en cliquant sur le button "confirmer"
+
 Scénario alternatif:
-2a.1.  la carte fournie est invalide
-2a.2. l’acheteur donne une autre façon de paiement
-3a.1. l’acheteur entre une adresse différente de celle sur le profil
+2a. Le système détecte que les informations entrés par l'acheteur sont mal formulées
+2a.1 L'acheteur est redirigé vers l'étape 4 pour entrer de nouveau. 
+
+PostCondition: 
+	-Les informations personnelles du profil de l'acheteur sont actualisées avec les nouvelles données validées. 
+</pre>
 
 
 
-
-Cas d'utilisation 6
-Nom: évaluer les produits qu'ils ont achetés
-But:  L'acheteur souhaite donner une rétroaction sur l'article qu'il a acheté et laisser une évaluation.
-Préconditions: L'acheteur a déjà reçu ses articles 
-Acteurs:  Tous les acheteurs qui ont déjà passé avec succès une commande (principal)
-Scénario principal:
-L’acheteur est très satisfait des articles
-L’acheteur les évalue avec 5 étoiles
-Il écrit ce qu’il pense des produits en mots pour les recommander à d’autres membres
-Scénario alternatif:
-1a.1. Un ou certains des produits sont défectueux.
-1a.2. L’acheteur s'en plaint dans la section de commentaire.
-1a.2. L’acheteur veut retourner ou échanger les commandes.
-
-
-
-Cas d'utilisation 7
-Nom: chercher le revendeur 
-But: l’acheteur veut trouver le revendeur liée à certain produit
-Préconditions: l’acheteur connaît bien le mécanisme de recherche et de filtre
-Acteurs: Acheteur(principal)
-Scénario principal:
-l’acheteur choisit la catégorie d’article désiré dans le système de filtre.
-l’acheteur choisit l’adresse parmi ceux qui est le plus proche de lui.
-une liste de revendeurs filtrés est affichée
-l’acheteur en sélectionne un et le like.
-l’acheteur like d’autres revendeurs qu’il aime aussi
-Scénario alternatif:
-1a.1. l’acheteur entre le nom du revendeur qu’il désire
-1a.2. l’acheteur like le revendeur. 
-1b.1. il n’y a pas de revendeur de la catégorie choisie
-
-
-
-
-Cas d'utilisation 8
-Nom: Ajouter un article dans le panier
-But: l’acheteur veut mettre un article dans le panier d’achat 
-Préconditions: l’acheteur a trouvé ce qu’il veut acheter
-Acteurs: Acheteur(principal)
-Scénario principal:
-l’acheteur clique sur “ajouter à panier” 
-l’article est ajouté dans le panier d’achat
-l’acheteur répète le même processus ou passe au paiement
-Scénario alternatif:
-2a.1. l’article est en rupture de stock
-2a.2. l’acheteur cherche un autre revendeur qui vend le même produit
-2a.2. l’acheteur cherche un autre produit avec des utilisations similaires
-
-    
-Cas d'utilisation 9
-Nom: s’inscrire en tant que revendeur
-But: l’utilisateur veut s’inscrire comme le revendeur pour vendre des produits
-Préconditions: l’utilisateur possède le nom d’utilisateur, l’adresse courriel et le numéro de téléphone 
-Acteurs: utilisateur
-Scénario principal:
-l’utilisateur accède à la page d’inscription
-l’utilisateur choisit “s’inscrire comme revendeur”
-l’utilisateur entre toutes les informations exigées
-un nouveau compte est créé
-Scénario alternatif:
-3a.1. le nom d’utilisateur existe déjà
-3a.2. l’utilisateur entre un autre nom
-3a.2. l’utilisateur ajoute quelques caractères à la fin.
-3b.1. le numéro de téléphone est mal entré
-3c.1. l’adresse est mal entrée
-
-
-
-
-Cas d’utilisation 10: liker un produit
+<h3>Cas d’utilisation 4: liker un produit</h3>
+<pre>
 But: Une personne désire faire une indication d'appréciation pour un produit
 Préconditions: la personne doit disposer d’un compte en tant qu’acheteur sur le plateforme UniShop
 Acteurs: Acheteur(principal)
@@ -212,18 +102,14 @@ Scénarios alternatifs
 Postconditions: Le nombre de “likes” sur le produit augmente de un, et le cœur du produit devient rouge.
 
 
+</pre>
 
 
 
 
 
-
-
-
-
-
-
-Cas d’utilisation 11:  Évaluer un produit 
+<h3>Cas d’utilisation 5:  Évaluer un produit </h3>
+<pre>
 But: Une personne souhaite laisser des commentaires sur les produits qu’elle a achetés 
 Préconditions: La personne doit avoir acheté le produit pour pouvoir laisser un commentaire.
 Acteurs: Acheteur(principal)
@@ -247,11 +133,11 @@ Postconditions: Le commentaire de l’acheteur est maintenant visible par d’au
 
 
 
+</pre>
 
 
-
-
-Cas d’utilisation 12: Utiliser le panier d’achat
+<h3>Cas d’utilisation 6: Utiliser le panier d’achat</h3>
+<pre>
 But: L’acheteur ajoute des produits dans un panier et les retire au besoin afin d’avoir une expérience d’achat plus commode. Le panier affiche aussi le montant total à payer.
 Préconditions: la personne doit disposer d’un compte en tant qu’acheteur sur le plateforme UniShop
 Acteurs: Acheteur(principal)
@@ -270,6 +156,30 @@ Scénarios alternatifs:
 Postconditions: Les produits seront expédiés à l’adresse indiquée par l’acheteur
 
 
+</pre>
+
+
+
+
+<h3><mark>Cas d'utilisation 7: passer une commande</mark></h3>
+<pre>
+But:  l’acheteur réussit à payer pour sa commande
+Préconditions: l’acheteur a terminé la sélection de tous les produits désirés
+Acteurs: Acheteur(principal)
+Scénario principal:
+l’acheteur est satisfait de sa sélection
+l’acheteur fournit le numéro de carte de paiement et de téléphone
+l’acheteur utilise l’adresse sur son profil comme l’information de livraison
+l’acheteur paie pour tous les produits
+la quantité des produits est mise à jour dans l’inventaire
+le système affiche le reçu avec les identifiants de produit
+Scénario alternatif:
+2a.1.  la carte fournie est invalide
+2a.2. l’acheteur donne une autre façon de paiement
+3a.1. l’acheteur entre une adresse différente de celle sur le profil
+
+
+</pre>
 
 
 
@@ -277,11 +187,8 @@ Postconditions: Les produits seront expédiés à l’adresse indiquée par l’
 
 
 
-
-
-
-
-Cas d’utilisation 13: Consulter l’état des commandes
+<h3>Cas d’utilisation 8: Consulter l’état des commandes</h3>
+<pre>
 But: les utilisateurs peuvent consulter l’état de leur commande ainsi que la date d’arrivée estimée de leurs produits.
 Préconditions: la personne doit avoir passé une commande sur le plateforme UniShop
 Acteurs: Acheteur(principal)
@@ -294,9 +201,13 @@ Le système affiche tous les détails de la commande, y compris l’état actuel
 Scénarios alternatifs:
 5a Le système n’affiche pas de date d’arrivée concernant la commande dû à un problème technique de la livraison.
 Postconditions: Aucune action de gestion de la commande n’est effectuée.
+</pre>
 
 
-Cas d’utilisation 13.1: Annuler une commande
+
+
+<h3>Cas d’utilisation 9: Annuler une commande</h3>
+<pre>
 But: les utilisateurs peuvent annuler un commande
 Préconditions: la personne doit avoir passé une commande sur le plateforme UniShop
 Acteurs: Acheteur(principal)
@@ -308,12 +219,12 @@ L’acheteur choisit l’option d’annuler un produit
 Scénarios alternatifs:
 4a Le système signale que l’annulation du produit n’est pas possible en raison du refus du revendeur d’accepter des annulations. 
 Postconditions: L’action de gestion est bien enregistrer, la commande est bien annuler
+</pre>
 
 
 
-
-
-Cas d’utilisation 13.2: Retour ou échange des commandes
+<h3>Cas d’utilisation 10: Retour ou échange des commandes</h3>
+<pre>
 But: les utilisateurs peuvent effectuer un retour ou un échange aux produits reçus.
 Préconditions: la personne doit avoir passé une commande sur le plateforme UniShop
 Acteurs: Acheteur(principal)
@@ -325,9 +236,11 @@ L’acheteur choisit de retourner ou d'échanger parmi les actions de gestion.
 Scénarios alternatifs:
 4a Le système signale que le retour ou l’échange du produit n’est pas possible en raison du refus du revendeur d’accepter de retour ou d’échange.
 Postconditions: L’action de gestion est bien enregistrée, le produit sera de retour ou d’échange.
+</pre>
 
 
-Cas d’utilisation 14: Confirmer la réception d’une commande
+<h3>Cas d’utilisation 11: Confirmer la réception d’une commande</h3>
+<pre>
 But: L’acheteur doit confirmer la réception de la commande pour mettre à jour l’état de la commande. (livré)
 Préconditions: la personne doit avoir passé une commande sur le plateforme UniShop et avoir reçu la commande.
 Acteurs:Acheteur(principal)
@@ -340,11 +253,101 @@ Le système met à jour de l’information de la commande, changeant l’état d
 Scénarios alternatifs:
 4a Le système signale une erreur en raison de l’indication dans le système selon laquelle le livreur n’a pas encore effectué la livraison à l’adresse du produit en question.
 Postconditions: L’état de la commande dans le système est mis à jour en tant que “livré” pour indiquer que l’Acheteur a confirmé la réception de la commande.
+</pre>
+
+
+
+<h3>Cas d'utilisation 12: s’inscrire en tant que revendeur</h3>
+<pre>
+
+But:  une personne souhaite vendre des produits dans le plateforme de commerce uniShop
+Préconditions: Les membres doivent se rendre sur la page d’inscription de l’uniShop et ils doivent proposer des articles à mettre en vente.
+Acteurs: les utilisateurs (principal)
+Scénario principal:
+L'utilisateur accède à la plateforme UniShop.
+2. L'utilisateur sélectionne l'option "Devenir Revendeur" en cliquant sur le bouton d'inscription.
+3. L'utilisateur entre son nom.
+L'utilisateur entre son adresse.
+5. L'utilisateur entre son adresse e-mail.
+6. L'utilisateur entre son numéro de téléphone.
+7. L'utilisateur valide son inscription en cliquant sur le bouton "Soumettre".
+8. Le système affiche un message confirmant la réussite de l'inscription.
+
+
+Scénario alternatif:
+7a  Le système identifie que le nom saisi est déjà en usage 
+	7a.1 L'utilisateur est redirigé vers l'étape 3 pour choisir un nom unique
+
+
+
+7b  Le système repère une adresse mal formatée
+	7b.1 le système demande aux utilisateurs d’entrer l’adresse résidentielle de nouveau en rédigant vers l’étape 4
+
+7c Le système repère une adresse e-email mal formatée
+	7c.1 L'utilisateur est invité à saisir une adresse e-mail correctement formatée à l'étape 5
+	
+
+7d  Le système repère une numéro de téléphone mal formatée
+	7d.1 L'utilisateur est invité à saisir une numéro de téléphone correctement formatée à l'étape 6
+
+7e. Le système détecte des informations manquantes
+7e.1 L'utilisateur est guidé pour vérifier les informations fournies, en commençant par l'étape 3.
+
+</pre>
 
 
 
 
-Cas d’utilisation 19: Changer l’état d’une commande
+<h3>Cas d'utilisation 13: modifier le profil complet du revendeur  </h3>
+
+<pre>
+But: Le revendeur  souhaite mettre à jour ses informations personnelles sur la plateforme uniShop.  
+Préconditions: L'utilisateur doit posséder un compte d'acheteur sur la plateforme UniShop.
+Acteurs: Revendeur(principale)
+Scénario principale: 
+1. Le revendeur accède à la plateforme uniShop 
+2. Le revendeur accède à la section "mon compte" 
+3. Le revendeur sélecte l'information à modifier 
+4. Le revendeur effectue les modifications nécessaires aux informations sélectionnées
+5. Le revendeur valide les informations demandées en cliquant sur le button "confirmer"
+
+Scénario alternatif:
+2a. Le système détecte que les informations entrés par le revendeur sont mal formulées
+2a.1 Le revendeur est redirigé vers l'étape 4 pour entrer de nouveau. 
+
+PostCondition: 
+	-Les informations personnelles du profil du revendeur sont actualisées avec les nouvelles données validées. 
+
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Cas d’utilisation 14: Changer l’état d’une commande</h3>
+<pre>
 But: Le revendeur désire changer l’état d’une commande. 
 Préconditions: lorsqu’un acheteur a acheté un produit auprès d’un revendeur et que le produit a été reçu par l’acheteur. 
 Acteurs: revendeur(principal)
@@ -358,42 +361,83 @@ Lorsque le produit est atteint l’adresse d’expédition de l’acheteur, et q
 Scénarios alternatifs:
 4a. Le revendeur ne peut pas mettre à jour l’état du produit en “en livraison” en raison d'une rupture de stock.
 Postconditions: L’état du produit sera en “livré” si l’acheteur a confirmé la réception.
-
-
-
-
-
-
-New version:
-Cas d’utilisation 1:  S'inscrire en tant qu'acheteur
-But: Une personne souhaite acheter des produits dont ils ont besoin dans le plateforme de commerce uniShop
-Préconditions: L'utilisateur doit accéder à la page d'inscription de l'uniShop
-Acteurs: Utilisateur(principale)
-Scénario principal:
-1. L'utilisateur accède à la plateforme UniShop
-2. L'utilisateur accède à la section "account"
-3. L'utilisateur sélecte l'option "s'inscrire"
-4. L'utilisateur entre son nom dans la section indiquée
-5. L'utilisateur entre son prénom dans la section indiquée
-6. L'utilisateur entre un pseudo dans la section indiquée
-7. L'utilisateur entre son adresse courriel dans la section indiquée
-8. L'utilisateur entre son téléphone dans la section indiquée
-9. L'utilisateur entre son adresse d'expédition dans la section indiquée
-10. L'utilisateur valide les informations demandées en attente de la validation de ce dernier.
-11. Le système renvoie un message indiquant que l'inscription a été réussie.
-
-
-Scénario alternatif:
-6a. Le système détecte que le pseudo entré est utilisé 
-6a.1 Le système renvoie l'utilisateur à réinscrire un pseudo valide
-7a. Le système détecte une mauvaise formulation pour l'adresse courriel.
-7a.1 Le système renvoie l'utilisateur à entré une adresse courriel de bon format
-
-10a. Le. Système détecte des informations manquante 
-10a.1 Le système renvoie l'utilisateur à compléter les informations manquantes
-
-
-PostCondition: 
-	-L'utilisateur est enregistré en tant qu'acheteur sur la plateforme.
-	-L'utilisateur peut maintenant se connecter à son compte pour faire des achats ou modifier ses informations
 </pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+	
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
