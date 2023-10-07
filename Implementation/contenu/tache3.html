@@ -48,7 +48,7 @@
 <h3><mark>Cas d'utilisation 2: S'inscrire en tant qu'acheteur</mark></h3>
 
 
-<p><strong>But :</strong> Une personne souhaite acheter des produits dont elle a besoin sur la plateforme de commerce UniShop.</p>
+<p><strong>But :</strong> L'utilisateur souhait acheter des produits dont elle a besoin sur la plateforme de commerce UniShop.</p>
 
 <p><strong>Préconditions :</strong>
 <br>- L'utilisateur doit disposer de ses informations personnelles.</p>
@@ -104,7 +104,7 @@
 <p><strong>But :</strong> L'acheteur souhaite mettre à jour ses informations personnelles sur la plateforme UniShop.</p>
 
 <p><strong>Préconditions :</strong> 
-<br>- L'acheteur doit posséder un compte d'acheteur sur la plateforme UniShop.</p>
+<br>- L'utilisateur doit posséder un compte d'acheteur sur la plateforme UniShop.</p>
 
 <p><strong>Acteurs :</strong> Acheteur (principal)</p>
 
@@ -442,27 +442,30 @@
 <h3><mark>Cas d’utilisation 10: Consulter l’état des commandes</mark></h3>
 
 
-<p><strong>But:</strong> les utilisateurs peuvent consulter l’état de leur commande ainsi que la date d’arrivée estimée de leurs produits.</p>
+<p><strong>But:</strong> l'acheteur souhaite vérifier l'état de leurs commandes </p>
 
-<p><strong>Préconditions:</strong> la personne doit avoir passé une commande sur le plateforme UniShop</p>
+<p><strong>Préconditions:</strong> l'acheteur doit avoir passé une commande sur le plateforme UniShop</p>
 
 <p><strong>Acteurs:</strong> Acheteur(principal)</p>
 
 <p><strong>Scénario principal: </strong></p>
 
 <ol>
-    <li>L’acheteur accède à la plateforme UniShop et se connecte à son compte</li>
+    <li>L’acheteur accède à la plateforme UniShop</li>
+    <li>L'acheteur se connecte à son compte</li>
     <li>L’acheteur accède à la section “Vos commandes” </li>
-    <li>Le système affiche les informations sur les commandes passées</li>
+    <li>Le système affiche les informations sur les commandes antérieures</li>
     <li>L’acheteur sélectionne une commande spécifique pour consulter l’état de la commande.</li>
     <li>Le système affiche tous les détails de la commande, y compris l’état actuel de la commande et la date l’estimée d’arrivée des produits.</li>
 </ol>    
 
 <p><strong>Scénarios alternatifs:</strong>
 
-<br>5a Le système n’affiche pas de date d’arrivée concernant la commande dû à un problème technique de la livraison.</p>
+<br>5a Le système n’affiche pas de date d’arrivée concernant la commande en raison à un problème technique de la livraison.
+<br>5a.1 Le système affiche "Une erreur a été commise par notre service de livraison, veillez réessayer plus tard"
+<br>5a.2 L'acheteur est redirigé vers l'étape 5 </p>
 
-<p><strong>Postconditions:</strong> Aucune action de gestion de la commande n’est effectuée.</p><br><br>
+<p><strong>Postconditions:</strong>L'acheteur a une idée de l'état de ses comandes antérieures.</p><br><br>
 
 
 
@@ -473,24 +476,33 @@
 
 <h3><mark>Cas d’utilisation 11: Annuler une commande</mark></h3>
 
-<p><strong>But:</strong> les utilisateurs peuvent annuler un commande</p>
+<p><strong>But:</strong> l'acheteur souhaite annuler une commande.</p>
 
-<p><strong>Préconditions:</strong> la personne doit avoir passé une commande sur le plateforme UniShop</p>
+<p><strong>Préconditions:</strong> l'acheteur doit avoir passé une commande sur le plateforme UniShop</p>
 
 <p><strong>Acteurs:</strong> Acheteur(principal)</p>
 
 <p><strong>Scénario principal: </strong></p>
 
 <ol>
-    <li>L’acheteur accède à la plateforme UniShop et se connecte à son compte</li>
+    <li>L’acheteur accède à la plateforme UniShop</li>
+    <li>L'acheteur se connecte à son compte</li>
     <li>L’acheteur accède à la section “Vos commandes” </li>
-    <li>Le système affiche les informations sur les commandes passées</li>
-    <li>L’acheteur choisit l’option d’annuler un produit</li>
+    <li>Le système affiche les informations sur les commandes antérieures</li>
+    <li>L’acheteur choisit l'article qu'il veut retirer</li>
+    <li>Le système affiche les détails de la commande sélectionnée</li>
+    <li>L’acheteur choisit l’option "Annuler"</li>
+    <li>Le système demande une confirmation de l'annulation de la commande</li>
+    <li>L'acheteur confirme l'annulation de la commande</li>
+    <li>Le système indique que l'annulation a été réussi</li>
+    <li>Le système enregistre l'annulation et met à jour l'état de la commande</li>
 </ol>
 
 <p><strong>Scénarios alternatifs:</strong>
     
-<br>4a Le système signale que l’annulation du produit n’est pas possible en raison du refus du revendeur d’accepter des annulations. </p>
+<br>9a Le système signale que l’annulation du produit n’est pas possible en raison du refus du revendeur d’accepter des annulations. 
+<br>9a.1 Le système affiche "l'annulation a été refusée par le revendeur" 
+<br>9a.2 L'acheteur est redirigé vers l'étape 4 pour d'autres actions</p>
 
 <p><strong>Postconditions:</strong> L’action de gestion est bien enregistrer, la commande est bien annuler</p><br><br>
 
@@ -500,28 +512,7 @@
 
 
 
-<h3><mark>Cas d’utilisation 12: Retour ou échange des commandes</mark></h3>
 
-<p><strong>But:</strong> les utilisateurs peuvent effectuer un retour ou un échange aux produits reçus.</p>
-
-<p><strong>Préconditions:</strong> la personne doit avoir passé une commande sur le plateforme UniShop</p>
-
-<p><strong>Acteurs:</strong> Acheteur(principal)</p>
-
-<p><strong>Scénario principal: </strong></p>
-
-<ol>
-    <li>L’acheteur accède à la plateforme UniShop et se connecte à son compte</li>
-    <li>L’acheteur accède à la section “Vos commandes” </li>
-    <li>Le système affiche les informations sur les commandes passées</li>
-    <li>L’acheteur choisit de retourner ou d'échanger parmi les actions de gestion. </li>
-</ol>
-
-<p><strong>Scénarios alternatifs:</strong>
-
-<br>4a Le système signale que le retour ou l’échange du produit n’est pas possible en raison du refus du revendeur d’accepter de retour ou d’échange.</p>
-
-<p><strong>Postconditions:</strong> L’action de gestion est bien enregistrée, le produit sera de retour ou d’échange.</p><br><br>
 
 
 
@@ -530,27 +521,32 @@
 
 
     
-<h3><mark>Cas d’utilisation 13: Confirmer la réception d’une commande</mark></h3>
+<h3><mark>Cas d’utilisation 12: Confirmer la réception d’une commande</mark></h3>
 
 <p><strong>But:</strong> L’acheteur doit confirmer la réception de la commande pour mettre à jour l’état de la commande. (livré)</p>
 
-<p><strong>Préconditions:</strong> la personne doit avoir passé une commande sur le plateforme UniShop et avoir reçu la commande.</p>
+<p><strong>Préconditions:</strong> l'acheteur doit avoir passé une commande sur le plateforme UniShop et avoir reçu la commande.</p>
 
 <p><strong>Acteurs:</strong>Acheteur(principal)</p>
 
 <p><strong>Scénario principal: </strong></p>
 
 <ol>
-    <li>L’acheteur accède à la plateforme UniShop et se connecte à son compte</li>
+    <li>L’acheteur accède à la plateforme UniShop</li>
+    <li>L'acheteur se connecte à son compte</li>
     <li>L’acheteur accède à la section “Vos commandes” </li>
-    <li>Le système affiche les informations sur les commandes passées</li>
-    <li>L’acheteur sélectionne le produit pour lequel il souhaite confirmer la réception et choisit l’option suivante: la réception confirmée. </li>
+    <li>Le système affiche les informations sur les commandes antérieures</li>
+    <li>L’acheteur sélectionne le produit pour lequel il souhaite confirmer la réception </li>
+    <li>Le système affiche les informations du produit sélectionné</li>
+    <li>L'acheteur choisit l’option "la réception confirmée"</li>
     <li>Le système met à jour de l’information de la commande, changeant l’état de la commande en “livré”</li>
 </ol>    
 
 <p><strong>Scénarios alternatifs:</strong>
 
-<br>4a Le système signale une erreur en raison de l’indication dans le système selon laquelle le livreur n’a pas encore effectué la livraison à l’adresse du produit en question.</p>
+<br>4a Le système signale une erreur en raison de l’indication dans le système selon laquelle le livreur n’a pas encore effectué la livraison à l’adresse du produit en question.
+<br>4a.1 Le système affiche un message d'erreur indiquant: "Une erreur est commise, veillez réessayer plus tard"
+4a.2 L'acheteur est rédirigé vers l'étape 4</p>
 
 <p><strong>Postconditions:</strong> L’état de la commande dans le système est mis à jour en tant que “livré” pour indiquer que l’Acheteur a confirmé la réception de la commande.</p><br><br>
 
@@ -561,11 +557,11 @@
 
 
 
-<h3><mark>Cas d'utilisation 14: s’inscrire en tant que revendeur</mark></h3>
+<h3><mark>Cas d'utilisation 13: s’inscrire en tant que revendeur</mark></h3>
 
-<p><strong>But:</strong>  une personne souhaite vendre des produits dans le plateforme de commerce UniShop</p>
+<p><strong>But:</strong>  l'utilisateur souhaite vendre des produits dans le plateforme de commerce UniShop</p>
 
-<p><strong>Préconditions:</strong> Les membres doivent se rendre sur la page d’inscription de l’UniShop et ils doivent proposer des articles à mettre en vente.</p>
+<p><strong>Préconditions:</strong> L'utilisateur doit se rendre sur la page d’inscription de l’UniShop et ils doivent posséder des articles à mettre en vente.</p>
 
 <p><strong>Acteurs:</strong> les utilisateurs (principal)</p>
 
@@ -574,7 +570,8 @@
 
 <ol>
     <li>L'utilisateur accède à la plateforme UniShop.</li>
-    <li>L'utilisateur sélectionne l'option "Devenir Revendeur" en cliquant sur le bouton d'inscription.</li>
+    <li>L'utilisateur accède à la section "Mon compte"</li>
+    <li>L'utilisateur sélectionne l'option "Devenir Revendeur"</li>
     <li>L'utilisateur entre son nom.</li>
     <li>L'utilisateur entre son adresse.</li>
     <li>L'utilisateur entre son adresse e-mail.</li>
@@ -586,38 +583,46 @@
 
 <p><strong>Scénario alternatif:</strong>
     
-<br>7a  Le système identifie que le nom saisi est déjà en usage 
-<br>7a.1 L'utilisateur est redirigé vers l'étape 3 pour choisir un nom unique
+<br>7a  Le système identifie que le nom saisi est déjà en usage
+<br>7a.1 Le système affiche "veuillez entrer un autre nom"
+<br>7a.2 L'utilisateur est redirigé vers l'étape 3 pour choisir un nom unique
 
 <br><br>7b  Le système repère une adresse mal formatée
-<br>7b.1 le système demande aux utilisateurs d’entrer l’adresse résidentielle de nouveau en rédigant vers l’étape 4
+<br>7a.1 Le système affiche "veuillez entrer une adresse qui respecte nos critères"
+<br>7b.2 le système demande aux utilisateurs d’entrer l’adresse résidentielle de nouveau en rédigant vers l’étape 4
 
-<br><br>7c Le système repère une adresse e-email mal formatée
-<br>7c.1 L'utilisateur est invité à saisir une adresse e-mail correctement formatée à l'étape 5
+<br><br>7c Le système repère une adresse e-mail mal formatée
+<br>7a.1 Le système affiche "veuillez entrer une adresse e-mail bien formuler"
+<br>7c.2 L'utilisateur est invité à saisir une adresse e-mail correctement formatée à l'étape 5
 
 <br><br>7d. Le système repère une numéro de téléphone mal formatée
-<br>7d.1 L'utilisateur est invité à saisir une numéro de téléphone correctement formatée à l'étape 6
+<br>7a.1 Le système affiche "veuillez entrer une numéro de téléphone de bon format"
+<br>7d.2 L'utilisateur est invité à saisir une numéro de téléphone correctement formatée à l'étape 6
 
 <br><br>7e. Le système détecte des informations manquantes
-<br>7e.1 L'utilisateur est guidé pour vérifier les informations fournies, en commençant par l'étape 3.</p>
+<br>7a.1 Le système affiche "veuillez remplir toutes les cases"
+<br>7e.2 L'utilisateur est guidé pour vérifier les informations fournies, en commençant par l'étape 3.</p>
 
-<p><strong>PostCondition:</strong></p><br><br>
-
-
-
-
-
-
+<p><strong>PostCondition:</strong>
+<br>L'utilisateur est enregistré en tant que revendeur sur la plateforme
+<br>L'utilisateur peut maintenant se connecter à son compte pour vendre ses produits
+</p><br><br>
 
 
 
 
-<h3><mark>Cas d'utilisation 15: modifier le profil complet du revendeur  </mark></h3>
 
 
-<p><strong>But:</strong> Le revendeur  souhaite mettre à jour ses informations personnelles sur la plateforme UniShop.</p> 
 
-<p><strong>Préconditions:</strong> L'utilisateur doit posséder un compte d'acheteur sur la plateforme UniShop.</p>
+
+
+
+<h3><mark>Cas d'utilisation 14: modifier le profil complet du revendeur  </mark></h3>
+
+
+<p><strong>But:</strong> Le revendeur souhaite mettre à jour ses informations personnelles sur la plateforme UniShop.</p> 
+
+<p><strong>Préconditions:</strong> L'utilisateur doit posséder un compte de revendeur sur la plateforme UniShop.</p>
 
 <p><strong>Acteurs:</strong> Revendeur(principale)</p>
 
@@ -626,16 +631,33 @@
 <ol>
     <li>Le revendeur accède à la plateforme UniShop.</li>
     <li>Le revendeur accède à la section "mon compte".</li>
+    <li>Le système demande au revendeur de saisir son nom et son adresse courriel.</li>
+    <li>L'acheteur saisit son nom et son adresse courriel.</li>
+    <li>Le système vérifie la validité du nom et de l'adresse couriel.</li>
+    <li>Le système redirige le revendeur vers son compte.</li>
     <li>Le revendeur sélectionne l'information à modifier.</li>
     <li>Le revendeur effectue les modifications nécessaires aux informations sélectionnées.</li>
-    <li>Le revendeur valide les informations demandées en cliquant sur le bouton "confirmer".</li>
+    <li>Le revendeur valide les informations demandées en cliquant sur le bouton "Confirmer".</li>
+    <li>Le système enregistre les modifications du profil.</li>
+    <li>Le système affiche un message de confirmation indiquant que le profil a été mis à jour avec succès.</li>
 </ol>
 
 
 <p><strong>Scénario alternatif:</strong>
 
-<br>2a. Le système détecte que les informations entrés par le revendeur sont mal formulées
-<br>2a.1 Le revendeur est redirigé vers l'étape 4 pour entrer de nouveau. </p>
+<br><br>5a. Le système indique que le nom est déja utilisé.
+<br>5a.1 Le système affiche un message indiquant "Votre nom inscrit est déja utilisé"    
+<br>5a.2 L'acheteur est redirigé vers l'étape 4
+    
+<br><br>5b. Le système indique que l'adresse email est erroné.
+<br>5b.1 Le système affiche un message indiquant "Votre adresse email est incorrecte"    
+<br>5b.2 L'acheteur est redirigé vers l'étape 4
+    
+<br><br>9a. Le système détecte que les informations entrées par l'acheteur sont mal formatées.
+<br>9a.1 Le système affiche un message indiquant "Veuillez entrer des données conformes à nos critères"    
+<br>9a.2 L'acheteur est redirigé vers l'étape 8 pour entrer à nouveau les informations correctement.</p>
+
+
 
 <p><strong>PostCondition: </strong>
 -Les informations personnelles du profil du revendeur sont actualisées avec les nouvelles données validées. </p><br><br>
@@ -655,7 +677,7 @@
 
 
 
-<h3><mark>Cas d’utilisation 16: Changer l’état d’une commande</mark></h3>
+<h3><mark>Cas d’utilisation 15: Changer l’état d’une commande</mark></h3>
 
 <p><strong>But:</strong> Le revendeur désire changer l’état d’une commande. </p>
 
@@ -666,17 +688,22 @@
 <p><strong>Scénario principal: </strong></p>
 
 <ol>
-    <li>Le revendeur accède à la plateforme UniShop et se connecte à son compte</li>
+    <li>Le revendeur accède à la plateforme UniShop</li>
+    <li>Le revendeur se connecte à son compte</li>
     <li>Le revendeur accède à la section “Nos commandes”</li>
     <li>Le système affiche la liste de produits pour lesquels les acheteurs ont payé, ainsi que leurs états actuels.</li>
-    <li>Lorsque le revendeur est prêt à livrer un produit demandé, il met à jour l’état du produit en “en livraison”</li>
+    <li>Le revendeur sélectionne le produit qui est prêt à être livrer</li>
+    <li>Le revendeur met à jour l'état du produit en "en livraison"</li>
     <li>Le système effectue la mise à jour en indiquant que le produit est en “livraison”, puis transmet à l'acheteur le nom de la compagnie d’expédition ainsi que le numéro de suivi.</li>
     <li>Lorsque le produit est atteint l’adresse d’expédition de l’acheteur, et que l’acheteur a confirmé sa réception. le revendeur met à jour l’état du produit en “livré”</li>
 </ol>
     
 <p><strong>Scénarios alternatifs:</strong>
     
-<br>4a. Le revendeur ne peut pas mettre à jour l’état du produit en “en livraison” en raison d'une rupture de stock.</p>
+<br>5a. Le revendeur ne peut pas mettre à jour l’état du produit en “en livraison” en raison d'une rupture de stock.</p>
+<br>5a.1 Le système affiche "Rupture de stock"
+<br>5a.2 Le revendeur est redirigé vers l'étape 4 pour effectuer d'autres actions
+<br>
 
 <p><strong>Postconditions:</strong> L’état du produit sera en “livré” si l’acheteur a confirmé la réception.</p><br><br>
 
