@@ -1,0 +1,29 @@
+
+
+
+
+table{
+    border: outset 2px black;
+    border-collapse: collapse;
+}
+
+
+th{
+    border-bottom: double 2px black;
+}
+
+
+td{ 
+    border-bottom: solid 1px black;
+}
+
+
+.first_col{
+    border-right: double 2px black;
+}
+
+
+
+h2{
+    margin-top: 80px;
+}
