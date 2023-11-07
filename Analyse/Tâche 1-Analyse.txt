@@ -1,14 +1,14 @@
 1.Quelles parties seront informatisées et comment ?
+--L'ensemble du processus de commerce électronique, y compris la gestion des produits(les descriptions, 
+les images, les prix ,les disponibilités et les évaluations), des commandes(les détails du produit, 
+de l'acheteur, et de la livraison), des comptes utilisateurs(le profil, l'historique d'achat), des 
+paiements(régler la méthode de paiment).
 2.Où seront stockées les données ?
 3.Quel matériel sera nécessaire ?
 4.Comment le système UniShop que vous développez interagira avec les autres systèmes ?
 5.Comment les utilisateurs interagiront avec le système ?
 
 
-1.L'ensemble du processus de commerce électronique, y compris la gestion des produits(les descriptions, 
-les images, les prix ,les disponibilités et les évaluations), des commandes(les détails du produit, 
-de l'acheteur, et de la livraison), des comptes utilisateurs(le profil, l'historique d'achat), des 
-paiements(régler la méthode de paiment).
 
 2.Les données (des parties informatisées en particuler)du système UniShop seront stockées dans une 
 base de données sécurisée.
