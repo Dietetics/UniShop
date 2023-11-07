@@ -1,7 +1,7 @@
 1.Quelles parties seront informatisées et comment ?
 2.Où seront stockées les données ?
 3.Quel matériel sera nécessaire ?
-Comment le système UniShop que vous développez interagira avec les autres systèmes ?
+4.Comment le système UniShop que vous développez interagira avec les autres systèmes ?
 Comment les utilisateurs interagiront avec le système ?
 
 
