@@ -16,13 +16,14 @@ Ils devraient être dimensionné en fonction du nombre d'utilisateurs, de produi
 que les utilisateurs puissent le télécharger sur leurs appareils. Plus précisément, UniShop peut interagir 
 avec les systémes de l'université ainsi les étudiant y ont un accèss plus facile.
 5.Comment les utilisateurs interagiront avec le système ?
-
-
-
-
-5. Les utilisateur interagissent avec le système Unishop via n'importe quel appareil connecté à l'internet. 
+--Les utilisateur interagissent avec le système Unishop via n'importe quel appareil connecté à l'internet. 
 Dans l'Unishop, ils peuvent créer des comptes, parcourir les produits, ajouter des articles au panier, passer 
 des commandes, effectuer des paiements en ligne, etc.
+
+
+
+
+
 
 
 
