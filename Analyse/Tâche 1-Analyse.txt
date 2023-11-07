@@ -2,7 +2,7 @@
 2.Où seront stockées les données ?
 3.Quel matériel sera nécessaire ?
 4.Comment le système UniShop que vous développez interagira avec les autres systèmes ?
-Comment les utilisateurs interagiront avec le système ?
+5.Comment les utilisateurs interagiront avec le système ?
 
 
 1.L'ensemble du processus de commerce électronique, y compris la gestion des produits(les descriptions, 
