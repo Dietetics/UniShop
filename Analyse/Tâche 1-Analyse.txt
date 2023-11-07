@@ -12,13 +12,13 @@ base de données sécurisée.
 matériaux de base, on aura besoin de serveurs web, serveurs de base de données et serveurs de sécurité.
 Ils devraient être dimensionné en fonction du nombre d'utilisateurs, de produits, et de transactions prévus.
 4.Comment le système UniShop que vous développez interagira avec les autres systèmes ?
+--En général, UniShop peut s'adpter aux différents systèmes d'opération(IOS, MacOs, Android, Windows) pour 
+que les utilisateurs puissent le télécharger sur leurs appareils. Plus précisément, UniShop peut interagir 
+avec les systémes de l'université ainsi les étudiant y ont un accèss plus facile.
 5.Comment les utilisateurs interagiront avec le système ?
 
 
 
-4. En général, UniShop peut s'adpter aux différents systèmes d'opération(IOS, MacOs, Android, Windows) pour 
-que les utilisateurs puissent le télécharger sur leurs appareils. Plus précisément, UniShop peut interagir 
-avec les systémes de l'université ainsi les étudiant y ont un accèss plus facile.
 
 5. Les utilisateur interagissent avec le système Unishop via n'importe quel appareil connecté à l'internet. 
 Dans l'Unishop, ils peuvent créer des comptes, parcourir les produits, ajouter des articles au panier, passer 
