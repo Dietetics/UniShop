@@ -8,16 +8,13 @@ paiements(régler la méthode de paiment).
 --Les données (des parties informatisées en particuler)du système UniShop seront stockées dans une 
 base de données sécurisée.
 3.Quel matériel sera nécessaire ?
+--Le matériel nécessaire dépendra de la charge prévue et de la disponibilité du système. Pour les 
+matériaux de base, on aura besoin de serveurs web, serveurs de base de données et serveurs de sécurité.
+Ils devraient être dimensionné en fonction du nombre d'utilisateurs, de produits, et de transactions prévus.
 4.Comment le système UniShop que vous développez interagira avec les autres systèmes ?
 5.Comment les utilisateurs interagiront avec le système ?
 
 
-
-
-
-3.Le matériel nécessaire dépendra de la charge prévue et de la disponibilité du système. Pour les 
-matériaux de base, on aura besoin de serveurs web, serveurs de base de données et serveurs de sécurité.
-Ils devraient être dimensionné en fonction du nombre d'utilisateurs, de produits, et de transactions prévus.
 
 4. En général, UniShop peut s'adpter aux différents systèmes d'opération(IOS, MacOs, Android, Windows) pour 
 que les utilisateurs puissent le télécharger sur leurs appareils. Plus précisément, UniShop peut interagir 
