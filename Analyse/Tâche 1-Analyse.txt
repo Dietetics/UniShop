@@ -3,15 +3,17 @@
 les images, les prix ,les disponibilités et les évaluations), des commandes(les détails du produit, 
 de l'acheteur, et de la livraison), des comptes utilisateurs(le profil, l'historique d'achat), des 
 paiements(régler la méthode de paiment).
+
 2.Où seront stockées les données ?
+--Les données (des parties informatisées en particuler)du système UniShop seront stockées dans une 
+base de données sécurisée.
 3.Quel matériel sera nécessaire ?
 4.Comment le système UniShop que vous développez interagira avec les autres systèmes ?
 5.Comment les utilisateurs interagiront avec le système ?
 
 
 
-2.Les données (des parties informatisées en particuler)du système UniShop seront stockées dans une 
-base de données sécurisée.
+
 
 3.Le matériel nécessaire dépendra de la charge prévue et de la disponibilité du système. Pour les 
 matériaux de base, on aura besoin de serveurs web, serveurs de base de données et serveurs de sécurité.
