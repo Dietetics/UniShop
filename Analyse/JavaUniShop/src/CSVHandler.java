@@ -39,7 +39,7 @@ public class CSVHandler {
 
 
 
-    // Remplacer les donnes dun tableau de csv
+    // Remplacer les donnes dun tableau de csv.
     public static void coverCSV(String filePath, List<String[]> data) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (String[] row : data) {
