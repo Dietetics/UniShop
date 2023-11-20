@@ -5,8 +5,8 @@ public class ProfilRevendeur {
 
     private String nom;
     private String courriel;
-    private String revendeurPath="data/revendeur.csv";
-    private String produitsPath="data/produits.csv";
+    private String revendeurPath="src/main/resources/data/revendeur.csv";
+    private String produitsPath="src/main/resources/data/produits.csv";
 
     public ProfilRevendeur(String nom, String courriel) {
 
@@ -265,7 +265,7 @@ public class ProfilRevendeur {
                 String quantite0new = String.valueOf(quantite0);
                 String prixnew = String.valueOf(prix);
                 String pointsnew = String.valueOf(points);
-                produitData.add(new String[]{titre, categorie, desc, quantite0new, prixnew, pointsnew, "non", "non"});
+                produitData.add(new String[]{titre, categorie, desc, quantite0new, prixnew, pointsnew, "non", "non", "0", "0", "non"});
 
                 CSVHandler.appendCSV(getProduitsPath(), produitData);
 

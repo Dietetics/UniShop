@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class Recherche {
 
-    private static String produitPath = "data/produits.csv";
+    private static String produitPath = "src/main/resources/data/produits.csv";
 
-    private static String acheteurPath = "data/acheteur.csv";
-    private static String revendeurPath = "data/revendeur.csv";
+    private static String acheteurPath = "src/main/resources/data/acheteur.csv";
+    private static String revendeurPath = "src/main/resources/data/revendeur.csv";
     private static Scanner scanner = new Scanner(System.in);
 
 

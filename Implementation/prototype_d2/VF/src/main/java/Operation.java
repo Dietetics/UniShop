@@ -2,9 +2,9 @@ import java.util.List;
 
 public class Operation {
 
-    private static String produitPath = "data/produits.csv";
-    private static String acheteurPath = "data/acheteur.csv";
-    private static String revendeurPath = "data/revendeur.csv";
+    private static String produitPath = "src/main/resources/data/produits.csv";
+    private static String acheteurPath = "src/main/resources/data/acheteur.csv";
+    private static String revendeurPath = "src/main/resources/data/revendeur.csv";
 
 
 
