@@ -5,12 +5,12 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class VF {
-    private static String produitPath = "data/produits.csv";
-    private static String revendeurPath = "data/revendeur.csv";
-    private static String acheteurPath = "data/acheteur.csv";
+    private static String produitPath = "src/main/resources/data/produits.csv";
+    private static String revendeurPath = "src/main/resources/data/revendeur.csv";
+    private static String acheteurPath = "src/main/resources/data/acheteur.csv";
 
-    private static String acheteurComptePath = "data/acheteur/";  // prefix fixe, ajouter la postfix base sur pseudo
-    private static String revendeurComptePath = "data/revendeur/";// prefix fixe, ajouter la postfix base sur pseudo
+    private static String acheteurComptePath = "src/main/resources/data/acheteur/";  // prefix fixe, ajouter la postfix base sur pseudo
+    private static String revendeurComptePath = "src/main/resources/data/revendeur/";// prefix fixe, ajouter la postfix base sur pseudo
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -56,7 +56,6 @@ public class VF {
             }
         }
     }
-
 
 
 

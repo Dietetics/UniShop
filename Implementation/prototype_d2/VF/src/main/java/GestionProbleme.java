@@ -19,8 +19,6 @@ public class GestionProbleme {
             // Simulation du revendeur proposant des solutions
             proposerSolutions();
 
-            // Simulation de l'acheteur acceptant la solution
-            accepterSolution();
         } catch (Exception e) {
             System.out.println("Erreur lors de la gestion du problème: " + e.getMessage());
         }
@@ -42,7 +40,5 @@ public class GestionProbleme {
         }
     }
 
-    private static void accepterSolution() {
-        System.out.print("Acheteur: J'accepte la solution proposée ");
-    }
+
 }

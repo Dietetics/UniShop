@@ -5,8 +5,8 @@ public class ProfilAcheteur {
 
     private static String pseudo;
     private String courriel;
-    private String acheteurPath = "data/acheteur.csv";
-    private String produitPath = "data/produits.csv";
+    private String acheteurPath = "src/main/resources/data/acheteur.csv";
+    private String produitPath = "src/main/resources/data/produits.csv";
 
 
 
@@ -93,6 +93,8 @@ public class ProfilAcheteur {
         String courriel = CSVHandler.getColumnValue(data, 3);
         String telephone = CSVHandler.getColumnValue(data, 4);
         String adresse = CSVHandler.getColumnValue(data, 5);
+        String nbLikes = CSVHandler.getColumnValue(data, 6);
+
 
         String choix = "90";
         while (choix != ":q") {
@@ -223,7 +225,7 @@ public class ProfilAcheteur {
                         }
                         break;
                     case ":e":
-                        List<String> newCSVLine = Arrays.asList(nom, prenom, pseudo, courriel, telephone, adresse);
+                        List<String> newCSVLine = Arrays.asList(nom, prenom, pseudo, courriel, telephone, adresse, nbLikes);
                         int lineIndex2 = CSVHandler.findOccurrenceIndex(getAcheteurPath(),getPseudo(),2);
                         CSVHandler.uploadCSVLine(acheteurPath,lineIndex2-1,newCSVLine);
 //                        setPseudo(pseudo);
