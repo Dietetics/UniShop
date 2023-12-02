@@ -1,0 +1,76 @@
+/**
+     * Gère le processus d'inscription pour devenir un revendeur. L'utilisateur est invité à fournir
+     * des informations telles que son nom unique, adresse, adresse courriel, et téléphone. Les données
+     * fournies sont ensuite validées, et si elles sont correctes, le revendeur est enregistré dans le
+     * système avec un répertoire personnel créé pour stocker ses informations.
+     *
+     * @return Aucune valeur de retour.
+     */
+    public static void inscriptionRevendeur() {
+
+        System.out.println("----- Bienvenu a notre page d'inscription pour devenir revendeur -----");
+
+        Boolean condition = true;
+        while (condition) {
+            try {
+                System.out.print("Veuillez entrer votre nom(unique): ");
+                String nom = scanner.next();
+
+
+                if (!InputRestreint.isValidUniqueRow(DatabasePath.getRevendeurPath(), nom, 0)) {
+                    throw new IllegalArgumentException("Le nom doit etre unique.");
+                }
+
+                System.out.print("Veuillez entrer votre adresse: ");
+                String adresse = scanner.next();
+
+                if (!InputRestreint.isValidAddress(adresse)) {
+                    throw new IllegalArgumentException("adresse doit avoir un longueur inferieur a 20");
+                }
+
+                System.out.print("Veuillez entrer votre adresse courriel: ");
+                String courriel = scanner.next();
+
+
+                if (!InputRestreint.isValidCourriel(courriel)) {
+                    throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
+                }
+
+
+                System.out.print("Veuillez entrer votre telephone: ");
+                String telephone = scanner.next();
+
+                if (!InputRestreint.isValidTelephone(telephone)) {
+                    throw new IllegalArgumentException("Le telephone doit etre composer de 10 chiffres");
+                }
+
+                condition = false;
+
+                System.out.println("Donnees enregistrees avec succes");
+                System.out.println("--------------------------------");
+
+
+                List<String[]> stringArrayList = new ArrayList<>();
+
+                String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/";
+
+                // Vérifier si le répertoire existe, sinon le créer
+                createDirectory(directoryPath);
+
+                List<String[]> userData = new ArrayList<>();
+                userData.add(new String[]{nom, adresse, courriel, telephone});
+
+                String revendeurCompte = directoryPath + nom + ".csv";
+                String revendeurResolution = directoryPath + "resolution.csv";
+
+                CSVHandler.appendCSV(DatabasePath.getRevendeurPath(), userData);
+                CSVHandler.coverCSV(revendeurCompte,userData);
+                CSVHandler.coverCSV(revendeurResolution,stringArrayList);
+
+                break;
+            } catch (Exception e) {
+                System.out.println("Erreur: " + e.getMessage());
+                scanner.nextLine();
+            }
+        }
+    }
