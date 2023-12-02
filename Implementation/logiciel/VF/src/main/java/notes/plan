@@ -2,13 +2,27 @@ done:
 
 VF
 
+DatabasePath
+
 Inscription
     -inscriptionAcheteur
     -inscriptionRevendeur
 
-DatabasePath
-
 Connexion
+    -connectAcheteur
+    -connectRevendeur
+
+ProfilAcheteur
+    - modifierProfil
+
+ProfilRevendeur
+    - modifierProfil
+
+InputRestrint
+    - (...)
+
+
+
 
 
 to do:

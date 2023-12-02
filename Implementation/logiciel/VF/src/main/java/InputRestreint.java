@@ -1,12 +1,13 @@
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputRestreint {
 
-
+    private static Scanner scanner = new Scanner(System.in);
     public InputRestreint() {
     }
 
@@ -100,6 +101,141 @@ public class InputRestreint {
         return true;
     }
 
+
+    static String getValidInput(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = scanner.next();
+
+                if (!isValidInput(input)) {
+                    throw new IllegalArgumentException("Le nom et prenom doivent contenir uniquement des caracteres alphabetiques et au moins deux.");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+                scanner.nextLine();
+            }
+        }
+    }
+    static String getValidAdresse(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = scanner.next();
+
+                if (!isValidAddress(input)) {
+                    throw new IllegalArgumentException("adresse doit avoir un longueur inferieur a 20");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+                scanner.nextLine();
+            }
+        }
+    }
+    static String getValidCourriel(String message, int colonne) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = scanner.next();
+
+                if (!isValidCourriel(input)) {
+                    throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
+                }
+
+                if (!isUnique(DatabasePath.getAcheteurPath(),input,colonne)) {
+                    throw new IllegalArgumentException("Ce courriel est deja utillise, veuillez entre un nouveau");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+                scanner.nextLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    static String getValidTelephone(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = scanner.next();
+
+                if (!isValidTelephone(input)) {
+                    throw new IllegalArgumentException("Le telephone doit etre composer de 10 chiffres");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+                scanner.nextLine();
+            }
+        }
+    }
+    static String getValidPseudo(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = scanner.next();
+
+                if (!isValidPseudo(DatabasePath.getAcheteurPath(),input,2)) {
+                    throw new IllegalArgumentException("votre pseudo est pris, veuillez entre un nouveau");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+                scanner.nextLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    static String getValidPassword(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = scanner.next();
+
+                if (!isValidPass(input)) {
+                    throw new IllegalArgumentException("votre paseword doit contenir au moins 8 chars, 1 majuscule, 1 minuscule, 1 chiffre, 1char special");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+                scanner.nextLine();
+            }
+        }
+    }
+    static String getValidInputVRevendeur(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = scanner.next();
+
+                if (!isValidInput(input)) {
+                    throw new IllegalArgumentException("contenir uniquement des caracteres alphabetiques et au moins deux.");
+                }
+                if (!isUnique(DatabasePath.getRevendeurPath(),input,0)) {
+                    throw new IllegalArgumentException("Ce nom est deja utillise, veuillez entre un nouveau");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+                scanner.nextLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
 
 

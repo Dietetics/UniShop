@@ -2,25 +2,32 @@ import java.util.*;
 
 public class ProfilAcheteur {
     private static Scanner scanner = new Scanner(System.in);
-
-    private static String pseudo;
-    private String courriel;
-    private String acheteurPath = "src/main/resources/data/acheteur.csv";
-    private String produitPath = "src/main/resources/data/produits.csv";
-
-
-
-    public ProfilAcheteur(String pseudo, String courriel) {
+    private static String pseudo, password, nom, prenom, courriel, telephone, adresse, nbLikes;
+    public ProfilAcheteur(String pseudo, String password) {
 
         this.pseudo = pseudo;
+        this.password = password;
+
+        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),2);
+        String data = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(),lineIndex);
+
+        String nom = CSVHandler.getColumnValue(data, 0);
+        String prenom = CSVHandler.getColumnValue(data, 1);
+        String courriel = CSVHandler.getColumnValue(data, 3);
+        String telephone = CSVHandler.getColumnValue(data, 4);
+        String adresse = CSVHandler.getColumnValue(data, 5);
+        String nbLikes = CSVHandler.getColumnValue(data, 6);
+
+        this.nom = nom;
+        this.prenom = prenom;
         this.courriel = courriel;
+        this.telephone = telephone;
+        this.adresse = adresse;
+        this.nbLikes = nbLikes;
 
         displayMenuAcheteur();
     }
 
-    public static void main(String[] args) {
-        scanner.close();
-    }
 
     /**
      * Affiche le menu principal pour l'acheteur, lui permettant de choisir parmi différentes options telles que
@@ -30,23 +37,7 @@ public class ProfilAcheteur {
         int choix = 90;
         while (choix != 0) {
             try {
-                System.out.println("\n");
-                System.out.println("Bonsoir cher Acheteur:" + getPseudo() + "              " + getCourriel() );
-                System.out.println("----------------------------------------------------------" );
-                System.out.println("0. deconnecter");
-                System.out.println("1. modifier le Profil");
-                System.out.println("2. catalogue de produits");
-                System.out.println("3. recherche de produits");
-                System.out.println("4. trouver un acheteur"); // suivre
-                System.out.println("5. trouver un revendeur");
-                System.out.println("6. panier d'achat"); // passer une commande
-                System.out.println("7. gestion de commandes"); // confirmer la reception,  retournerUechanger, commenter et evaluer un produit
-                System.out.println("8. voir les metriques");
-                System.out.println("9. voir les notifications");
-                System.out.println("10. voir les points du programme de fidelite");
-                System.out.println("11. signaler un probleme");
-                System.out.print("\n");
-
+                offrirOption();
                 System.out.print("Choix : ");
                 choix = scanner.nextInt();
 
@@ -59,7 +50,7 @@ public class ProfilAcheteur {
                     case 2: catalogue(); break;
                     case 3: Recherche.rechercheProduits(); break;
                     case 4:
-                        int index = CSVHandler.findOccurrenceIndex(getAcheteurPath(),getPseudo(),2);
+                        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),2);
                         int[] excludedColumns = {2, 3};
                         Recherche.trouverAcheteur(index,excludedColumns); break;
                     case 5: Recherche.trouverRevendeur();; break;
@@ -78,157 +69,74 @@ public class ProfilAcheteur {
             }
         }
     }
+    private void offrirOption() {
+        System.out.println("\n");
+        System.out.println("Bonsoir cher Acheteur:" + getPseudo() + "              " + getCourriel() );
+        System.out.println("----------------------------------------------------------" );
+        System.out.println("0. deconnecter");
+        System.out.println("1. modifier le Profil");
+        System.out.println("2. catalogue de produits");
+        System.out.println("3. recherche de produits");
+        System.out.println("4. trouver un acheteur"); // suivre
+        System.out.println("5. trouver un revendeur");
+        System.out.println("6. panier d'achat"); // passer une commande
+        System.out.println("7. gestion de commandes"); // confirmer la reception,  retournerUechanger, commenter et evaluer un produit
+        System.out.println("8. voir les metriques");
+        System.out.println("9. voir les notifications");
+        System.out.println("10. voir les points du programme de fidelite");
+        System.out.println("11. signaler un probleme");
+        System.out.print("\n");
+
+    }
+
+
+
+
+
     /**
      * Modifie le profil de l'acheteur en affichant et permettant la modification des informations telles que le nom,
      * le prénom, le courriel, le téléphone et l'adresse.
      */
     public void modifie_profil(){
 
-        int lineIndex = CSVHandler.findOccurrenceIndex(getAcheteurPath(),getPseudo(),2);
-        String data = CSVHandler.readLineByIndex(getAcheteurPath(),lineIndex);
-
-        String nom = CSVHandler.getColumnValue(data, 0);
-        String prenom = CSVHandler.getColumnValue(data, 1);
-        String pseudo = CSVHandler.getColumnValue(data, 2);
-        String courriel = CSVHandler.getColumnValue(data, 3);
-        String telephone = CSVHandler.getColumnValue(data, 4);
-        String adresse = CSVHandler.getColumnValue(data, 5);
-        String nbLikes = CSVHandler.getColumnValue(data, 6);
-
-
         String choix = "90";
         while (choix != ":q") {
             try {
-                System.out.println("\n");
-                System.out.println("Cher acheteur: " + getPseudo() + ", Voici votre profil");
-                System.out.println("-----------------------------------------------------");
-                System.out.println("nom: " + nom);
-                System.out.println("prenom: " + prenom);
-//                System.out.println("pseudo: " + pseudo);
-                System.out.println("courriel: " + courriel);
-                System.out.println("telephone: " + telephone);
-                System.out.println("adresse: " + adresse);
-                System.out.println("-----------------------------------------------------");
+                displayProfile();
                 System.out.println(":e pour enregistrer la modification ou :q pour quitter");
-                System.out.print("\n");
-
-                System.out.print("Choix : ");
+                System.out.print("\nChoix : ");
                 choix = scanner.next();
-
 
                 switch (choix) {
 
                     case ":q": displayMenuAcheteur(); break;
                     case "nom":
-                        Boolean conditionNom = true;
-                        while (conditionNom) {
-                            try{
-                            System.out.print("Votre recent nom est: " + nom + "\nquel est votre nouveau nom: ");
-                            String scannedNom = scanner.next();
-
-                            if (!InputRestreint.isValidInput(scannedNom)) {
-                                throw new IllegalArgumentException("Le nom doit contenir au moins 2 caracteres alphabetiques.");
-                            }
-                            nom = scannedNom;
-                            conditionNom = false;}
-                            catch (Exception e) {
-                                System.out.println("Erreur: " + e.getMessage());
-                                scanner.nextLine();
-                            }
-                        }
+                        System.out.print("Votre recent nom est: " + nom + "\n");
+                        String nom = InputRestreint.getValidInput("quel est votre nouveau nom: ");
+                        this.nom = nom;
                         break;
                     case "prenom":
-                        Boolean conditionPrenom = true;
-                        while (conditionPrenom) {
-                            try{
-                            System.out.print("Votre recent prenom est: " + prenom + "\nquel est votre nouveau prenom: ");
-                            String scannedPrenom = scanner.next();
-
-                            if (!InputRestreint.isValidInput(scannedPrenom)) {
-                                throw new IllegalArgumentException("Le prenom doit contenir au moins 2 caracteres alphabetiques.");
-                            }
-                            prenom = scannedPrenom;
-                            conditionPrenom = false;}
-                            catch (Exception e) {
-                                System.out.println("Erreur: " + e.getMessage());
-                                scanner.nextLine();
-                            }
-                        }
-                        break;
-//                    case "pseudo":
-//                        Boolean conditionPseudo = true;
-//                        while (conditionPseudo) {
-//                            try{
-//                            System.out.print("Votre recent pseudo est: " + pseudo + "\nquel est votre nouveau pseudo: ");
-//                            String scannedPseudo = scanner.next();
-//
-//                            if (!InputRestreint.isValidUniqueRow(acheteurPath,scannedPseudo,2)) {
-//                                throw new IllegalArgumentException("votre pseudo est pris, veuillez entre un nouveau");
-//                            }
-//                            pseudo = scannedPseudo;
-//                            conditionPseudo = false;}
-//                            catch (Exception e) {
-//                                System.out.println("Erreur: " + e.getMessage());
-//                                scanner.nextLine();
-//                            }
-//                        }
-//                        break;
-                    case "courriel":
-                        Boolean conditionCourriel = true;
-                        while (conditionCourriel) {try{
-                            System.out.print("Votre recent courriel est: " + courriel + "\nquel est votre nouveau courriel: ");
-                            String scannedCourriel = scanner.next();
-
-                            if (!InputRestreint.isValidCourriel(scannedCourriel)) {
-                                throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
-                            }
-                            courriel = scannedCourriel;
-                            conditionCourriel = false;}
-                        catch (Exception e) {
-                            System.out.println("Erreur: " + e.getMessage());
-                            scanner.nextLine();
-                        }
-                        }
+                        System.out.print("Votre recent prenom est: " + prenom + "\n");
+                        String prenom = InputRestreint.getValidInput("quel est votre nouveau prenom: ");
+                        this.prenom = prenom;
                         break;
                     case "telephone":
-                        Boolean conditionTelephone = true;
-                        while (conditionTelephone) {try{
-                            System.out.print("Votre recent telephone est: " + telephone + "\nquel est votre nouveau telephone: ");
-                            String scannedTelephone = scanner.next();
-
-                            if (!InputRestreint.isValidTelephone(scannedTelephone)) {
-                                throw new IllegalArgumentException("Le telephone doit etre composer de 10 chiffres");
-                            }
-                            telephone = scannedTelephone;
-                            conditionTelephone = false;}
-                        catch (Exception e) {
-                            System.out.println("Erreur: " + e.getMessage());
-                            scanner.nextLine();
-                        }
-                        }
+                        System.out.print("Votre recent telephone est: " + telephone + "\n");
+                        String telephone = InputRestreint.getValidTelephone("quel est votre nouveau telephone: ");
+                        this.telephone = telephone;
                         break;
                     case "adresse":
-                        Boolean conditionAdresse = true;
-                        while (conditionAdresse) {try{
-                            System.out.print("Votre recent adresse est: " + adresse + "\nquel est votre nouveau adresse: ");
-                            String scannedAdresse = scanner.next();
-
-                            if (!InputRestreint.isValidAddress(scannedAdresse)) {
-                                throw new IllegalArgumentException("adresse doit avoir un longueur inferieur a 20");
-                            }
-                            adresse = scannedAdresse;
-                            conditionAdresse = false;}
-                        catch (Exception e) {
-                            System.out.println("Erreur: " + e.getMessage());
-                            scanner.nextLine();
-                        }
-                        }
+                        System.out.print("Votre recent adresse est: " + adresse + "\n");
+                        String adresse = InputRestreint.getValidAdresse("quel est votre nouveau adresse: ");
+                        this.adresse = adresse;
+                        break;
+                    case "password":
+                        System.out.print("Votre recent password est: " + "********" + "\n");
+                        String password = InputRestreint.getValidPassword("quel est votre nouveau password: ");
+                        this.password = password;
                         break;
                     case ":e":
-                        List<String> newCSVLine = Arrays.asList(nom, prenom, pseudo, courriel, telephone, adresse, nbLikes);
-                        int lineIndex2 = CSVHandler.findOccurrenceIndex(getAcheteurPath(),getPseudo(),2);
-                        CSVHandler.uploadCSVLine(acheteurPath,lineIndex2-1,newCSVLine);
-//                        setPseudo(pseudo);
+                        saveChanges();
                         break;
                     default:
                         System.out.println("Choix invalide. Veuillez reessayer.");
@@ -240,6 +148,26 @@ public class ProfilAcheteur {
         }
     }
 
+
+    private void displayProfile() {
+        System.out.println("\nCher acheteur: " + getPseudo() + ", Voici votre profil");
+        System.out.println("-----------------------------------------------------");
+        System.out.println("nom: " + nom);
+        System.out.println("prenom: " + prenom);
+        System.out.println("telephone: " + telephone);
+        System.out.println("adresse: " + adresse);
+        System.out.println("password: " + "********");
+        System.out.println("-----------------------------------------------------");
+    }
+
+    private void saveChanges() {
+        List<String> newCSVLine = Arrays.asList(getNom(), getPrenom(), pseudo, courriel, getTelephone(), getAdresse(), nbLikes, getPassword());
+        int lineIndex2 = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),2);
+        CSVHandler.uploadCSVLine(DatabasePath.getAcheteurPath(),lineIndex2-1,newCSVLine);
+    }
+
+
+
     /**
      * Affiche le catalogue des produits et permet à l'acheteur de liker un produit.
      */
@@ -250,7 +178,7 @@ public class ProfilAcheteur {
                 System.out.println("\n");
                 System.out.println("Cher acheteur: " + getPseudo() + ", Voici nos produits");
                 System.out.println("-----------------------------------------------------");
-                CSVHandler.printCSV(CSVHandler.readCSV(getProduitPath(),10));
+                CSVHandler.printCSV(CSVHandler.readCSV(DatabasePath.getProduitPath(),10));
                 System.out.println("-----------------------------------------------------");
                 System.out.print("\n");
 
@@ -293,31 +221,36 @@ public class ProfilAcheteur {
     }
 
 
+    public static String getNom() {
+        return nom;
+    }
 
+    public static String getPrenom() {
+        return prenom;
+    }
 
+    public static String getTelephone() {
+        return telephone;
+    }
 
+    public static String getAdresse() {
+        return adresse;
+    }
+
+    public static String getNbLikes() {
+        return nbLikes;
+    }
 
     public static String getPseudo() {
         return pseudo;
     }
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
-
-    public String getCourriel() {
+    public static String getCourriel() {
         return courriel;
     }
 
-    public String getAcheteurPath() {
-        return acheteurPath;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCourriel(String courriel) {
-        this.courriel = courriel;
-    }
-
-    public String getProduitPath() {
-        return produitPath;
-    }
 }
