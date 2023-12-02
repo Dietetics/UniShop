@@ -66,17 +66,16 @@ public class Connexion {
                             "entre de nouveau votre nom");
                 }
 
-                System.out.println("Courriel: ");
-                String courriel = scanner.next();
-                Boolean valide = CSVHandler.isValueAtIndexAndColumn(DatabasePath.getRevendeurPath(), index-1, 2, courriel );
+                System.out.println("Password: ");
+                String password = scanner.next();
+                Boolean valide = CSVHandler.isValueAtIndexAndColumn(DatabasePath.getRevendeurPath(), index-1, 5, password );
                 if (!valide) {
-                    throw new IllegalArgumentException("vous avez saisi le mauvais couriel, rapplez que ca termine par" +
-                            " @gamil.com ou @umontreal.ca");
+                    throw new IllegalArgumentException("vous avez saisi le mauvais password");
                 }
 
                 condition = false;
 
-                new ProfilRevendeur(nom,courriel);
+                new ProfilRevendeur(nom,password);
             } catch (Exception e) {
                 System.out.println("Erreur: " + e.getMessage());
                 scanner.nextLine();
@@ -107,17 +106,16 @@ public class Connexion {
                             "entre de nouveau votre pseudo");
                 }
 
-                System.out.println("Courriel: ");
-                String courriel = scanner.next();
-                Boolean valide = CSVHandler.isValueAtIndexAndColumn(DatabasePath.getAcheteurPath(), index-1, 3, courriel );
+                System.out.println("Password: ");
+                String password = scanner.next();
+                Boolean valide = CSVHandler.isValueAtIndexAndColumn(DatabasePath.getAcheteurPath(), index-1, 7, password );
                 if (!valide) {
-                    throw new IllegalArgumentException("vous avez saisi le mauvais couriel, rapplez que ca termine par" +
-                            " @gamil.com ou @umontreal.ca");
+                    throw new IllegalArgumentException("vous avez saisi le mauvais password");
                 }
 
                 condition = false;
 
-                new ProfilAcheteur(pseudo,courriel);
+                new ProfilAcheteur(pseudo,password);
             } catch (Exception e) {
                 System.out.println("Erreur: " + e.getMessage());
                 scanner.nextLine();

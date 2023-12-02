@@ -57,12 +57,12 @@ public class Inscription {
             String nom = getValidInput("Veuillez entrer votre nom: ");
             String prenom = getValidInput("Veuillez entrer votre prenom: ");
             String adresse = getValidAdresse("Veuillez entrer votre adresse d'expedition: ");
-            String courriel = getValidCourriel("Veuillez entrer votre adresse courriel(unique): ");
+            String courriel = getValidCourriel("Veuillez entrer votre adresse courriel(unique): ",3);
             String telephone = getValidTelephone("Veuillez entrer votre telephone: ");
             String pseudo = getValidPseudo("Veuillez entrer votre pseudo(unique): ");
             String password = getValidPassword("Veuillez entrer votre password: ");
 
-            saveUserData(nom, prenom, adresse, courriel, telephone, pseudo, password);
+            saveAcheteurData(nom, prenom, adresse, courriel, telephone, pseudo, password);
 
             System.out.println("Donnees enregistrees avec succes");
             System.out.println("--------------------------------");
@@ -74,7 +74,26 @@ public class Inscription {
     }
 
 
+    public static void inscriptionRevendeur() {
+        System.out.println("----- Bienvenu a notre page d'inscription pour devenir Revendeur -----");
 
+        try {
+            String nom = getValidInputVRevendeur("Veuillez entrer votre nom: ");
+            String adresse = getValidAdresse("Veuillez entrer votre adresse d'expedition: ");
+            String courriel = getValidCourriel("Veuillez entrer votre adresse courriel(unique): ",2);
+            String telephone = getValidTelephone("Veuillez entrer votre telephone: ");
+            String password = getValidPassword("Veuillez entrer votre password: ");
+
+            saveRevendeurData(nom, adresse, courriel, telephone, password);
+
+            System.out.println("Donnees enregistrees avec succes");
+            System.out.println("--------------------------------");
+
+        } catch (Exception e) {
+            System.out.println("Erreur: " + e.getMessage());
+            scanner.nextLine();
+        }
+    }
 
     private static String getValidInput(String message) {
         while (true) {
@@ -83,7 +102,7 @@ public class Inscription {
                 String input = scanner.next();
 
                 if (!InputRestreint.isValidInput(input)) {
-                    throw new IllegalArgumentException("Le nom et prenom doivent contenir au moins 2 caracteres alphabetiques.");
+                    throw new IllegalArgumentException("Le nom et prenom doivent contenir uniquement des caracteres alphabetiques et au moins deux.");
                 }
 
                 return input;
@@ -93,7 +112,6 @@ public class Inscription {
             }
         }
     }
-
     private static String getValidAdresse(String message) {
         while (true) {
             try {
@@ -111,8 +129,7 @@ public class Inscription {
             }
         }
     }
-
-    private static String getValidCourriel(String message) {
+    private static String getValidCourriel(String message,int colonne) {
         while (true) {
             try {
                 System.out.print(message);
@@ -122,7 +139,7 @@ public class Inscription {
                     throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
                 }
 
-                if (!InputRestreint.isUnique(DatabasePath.getAcheteurPath(),input,3)) {
+                if (!InputRestreint.isUnique(DatabasePath.getAcheteurPath(),input,colonne)) {
                     throw new IllegalArgumentException("Ce courriel est deja utillise, veuillez entre un nouveau");
                 }
 
@@ -135,6 +152,7 @@ public class Inscription {
             }
         }
     }
+
 
     private static String getValidTelephone(String message) {
         while (true) {
@@ -153,8 +171,6 @@ public class Inscription {
             }
         }
     }
-
-
     private static String getValidPseudo(String message) {
         while (true) {
             try {
@@ -174,8 +190,6 @@ public class Inscription {
             }
         }
     }
-
-
     private static String getValidPassword(String message) {
         while (true) {
             try {
@@ -193,12 +207,33 @@ public class Inscription {
             }
         }
     }
+    private static String getValidInputVRevendeur(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = scanner.next();
+
+                if (!InputRestreint.isValidInput(input)) {
+                    throw new IllegalArgumentException("contenir uniquement des caracteres alphabetiques et au moins deux.");
+                }
+                if (!InputRestreint.isUnique(DatabasePath.getRevendeurPath(),input,0)) {
+                    throw new IllegalArgumentException("Ce nom est deja utillise, veuillez entre un nouveau");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+                scanner.nextLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
 
 
 
-
-    private static void saveUserData(String nom, String prenom, String adresse, String courriel, String telephone, String pseudo, String password) {
+    private static void saveAcheteurData(String nom, String prenom, String adresse, String courriel, String telephone, String pseudo, String password) {
         List<String[]> userData = new ArrayList<>();
         userData.add(new String[]{nom, prenom, pseudo, courriel, telephone, adresse, "0", password});
 
@@ -224,82 +259,23 @@ public class Inscription {
     }
 
 
-    /**
-     * Gère le processus d'inscription pour devenir un revendeur. L'utilisateur est invité à fournir
-     * des informations telles que son nom unique, adresse, adresse courriel, et téléphone. Les données
-     * fournies sont ensuite validées, et si elles sont correctes, le revendeur est enregistré dans le
-     * système avec un répertoire personnel créé pour stocker ses informations.
-     *
-     * @return Aucune valeur de retour.
-     */
-    public static void inscriptionRevendeur() {
+    private static void saveRevendeurData(String nom, String adresse, String courriel, String telephone, String password) {
+        List<String[]> userData = new ArrayList<>();
+        userData.add(new String[]{nom, courriel, telephone, adresse, "0", password});
 
-        System.out.println("----- Bienvenu a notre page d'inscription pour devenir revendeur -----");
+        String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/";
+        createDirectory(directoryPath);
 
-        Boolean condition = true;
-        while (condition) {
-            try {
-                System.out.print("Veuillez entrer votre nom(unique): ");
-                String nom = scanner.next();
+        String revendeurCompte = directoryPath + nom + ".csv";
+        String revendeurResolution = directoryPath + "resolution.csv";
 
-
-                if (!InputRestreint.isValidUniqueRow(DatabasePath.getRevendeurPath(), nom, 0)) {
-                    throw new IllegalArgumentException("Le nom doit etre unique.");
-                }
-
-                System.out.print("Veuillez entrer votre adresse: ");
-                String adresse = scanner.next();
-
-                if (!InputRestreint.isValidAddress(adresse)) {
-                    throw new IllegalArgumentException("adresse doit avoir un longueur inferieur a 20");
-                }
-
-                System.out.print("Veuillez entrer votre adresse courriel: ");
-                String courriel = scanner.next();
-
-
-                if (!InputRestreint.isValidCourriel(courriel)) {
-                    throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
-                }
-
-
-                System.out.print("Veuillez entrer votre telephone: ");
-                String telephone = scanner.next();
-
-                if (!InputRestreint.isValidTelephone(telephone)) {
-                    throw new IllegalArgumentException("Le telephone doit etre composer de 10 chiffres");
-                }
-
-                condition = false;
-
-                System.out.println("Donnees enregistrees avec succes");
-                System.out.println("--------------------------------");
-
-
-                List<String[]> stringArrayList = new ArrayList<>();
-
-                String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/";
-
-                // Vérifier si le répertoire existe, sinon le créer
-                createDirectory(directoryPath);
-
-                List<String[]> userData = new ArrayList<>();
-                userData.add(new String[]{nom, adresse, courriel, telephone});
-
-                String revendeurCompte = directoryPath + nom + ".csv";
-                String revendeurResolution = directoryPath + "resolution.csv";
-
-                CSVHandler.appendCSV(DatabasePath.getRevendeurPath(), userData);
-                CSVHandler.coverCSV(revendeurCompte,userData);
-                CSVHandler.coverCSV(revendeurResolution,stringArrayList);
-
-                break;
-            } catch (Exception e) {
-                System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
-            }
-        }
+        CSVHandler.appendCSV(DatabasePath.getRevendeurPath(), userData);
+        CSVHandler.coverCSV(revendeurCompte, userData);
+        CSVHandler.coverCSV(revendeurResolution, new ArrayList<>());
     }
+
+
+
 
 
 

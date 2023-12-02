@@ -19,7 +19,7 @@ public class DatabasePath {
         try {
             checkFileExistence(produitPath);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + produitPath);
+            System.out.println("File no trouver: " + produitPath);
             e.printStackTrace();
         }
     }
@@ -28,7 +28,7 @@ public class DatabasePath {
         try {
             checkFileExistence(acheteurPath);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + acheteurPath);
+            System.out.println("File no trouver: " + acheteurPath);
             e.printStackTrace();
         }
     }
@@ -38,7 +38,7 @@ public class DatabasePath {
         try {
             checkFileExistence(revendeurPath);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + revendeurPath);
+            System.out.println("File no trouver: " + revendeurPath);
             e.printStackTrace();
         }
     }
@@ -50,7 +50,7 @@ public class DatabasePath {
         if (file.exists() && file.isFile()) {
             return;
         } else {
-            throw new FileNotFoundException("File not found: " + filePath);
+            throw new FileNotFoundException("File no trouver: " + filePath);
         }
     }
 
