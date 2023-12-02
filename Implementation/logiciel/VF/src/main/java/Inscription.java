@@ -54,13 +54,13 @@ public class Inscription {
         System.out.println("----- Bienvenu a notre page d'inscription pour devenir Acheteur -----");
 
         try {
-            String nom = getValidInput("Veuillez entrer votre nom: ");
-            String prenom = getValidInput("Veuillez entrer votre prenom: ");
-            String adresse = getValidAdresse("Veuillez entrer votre adresse d'expedition: ");
-            String courriel = getValidCourriel("Veuillez entrer votre adresse courriel(unique): ",3);
-            String telephone = getValidTelephone("Veuillez entrer votre telephone: ");
-            String pseudo = getValidPseudo("Veuillez entrer votre pseudo(unique): ");
-            String password = getValidPassword("Veuillez entrer votre password: ");
+            String nom = InputRestreint.getValidInput("Veuillez entrer votre nom: ");
+            String prenom = InputRestreint.getValidInput("Veuillez entrer votre prenom: ");
+            String adresse = InputRestreint.getValidAdresse("Veuillez entrer votre adresse d'expedition: ");
+            String courriel = InputRestreint.getValidCourriel("Veuillez entrer votre adresse courriel(unique): ",3);
+            String telephone = InputRestreint.getValidTelephone("Veuillez entrer votre telephone: ");
+            String pseudo = InputRestreint.getValidPseudo("Veuillez entrer votre pseudo(unique): ");
+            String password = InputRestreint.getValidPassword("Veuillez entrer votre password: ");
 
             saveAcheteurData(nom, prenom, adresse, courriel, telephone, pseudo, password);
 
@@ -78,11 +78,11 @@ public class Inscription {
         System.out.println("----- Bienvenu a notre page d'inscription pour devenir Revendeur -----");
 
         try {
-            String nom = getValidInputVRevendeur("Veuillez entrer votre nom: ");
-            String adresse = getValidAdresse("Veuillez entrer votre adresse d'expedition: ");
-            String courriel = getValidCourriel("Veuillez entrer votre adresse courriel(unique): ",2);
-            String telephone = getValidTelephone("Veuillez entrer votre telephone: ");
-            String password = getValidPassword("Veuillez entrer votre password: ");
+            String nom = InputRestreint.getValidInputVRevendeur("Veuillez entrer votre nom: ");
+            String adresse = InputRestreint.getValidAdresse("Veuillez entrer votre adresse d'expedition: ");
+            String courriel = InputRestreint.getValidCourriel("Veuillez entrer votre adresse courriel(unique): ",2);
+            String telephone = InputRestreint.getValidTelephone("Veuillez entrer votre telephone: ");
+            String password = InputRestreint.getValidPassword("Veuillez entrer votre password: ");
 
             saveRevendeurData(nom, adresse, courriel, telephone, password);
 
@@ -95,140 +95,7 @@ public class Inscription {
         }
     }
 
-    private static String getValidInput(String message) {
-        while (true) {
-            try {
-                System.out.print(message);
-                String input = scanner.next();
 
-                if (!InputRestreint.isValidInput(input)) {
-                    throw new IllegalArgumentException("Le nom et prenom doivent contenir uniquement des caracteres alphabetiques et au moins deux.");
-                }
-
-                return input;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
-            }
-        }
-    }
-    private static String getValidAdresse(String message) {
-        while (true) {
-            try {
-                System.out.print(message);
-                String input = scanner.next();
-
-                if (!InputRestreint.isValidAddress(input)) {
-                    throw new IllegalArgumentException("adresse doit avoir un longueur inferieur a 20");
-                }
-
-                return input;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
-            }
-        }
-    }
-    private static String getValidCourriel(String message,int colonne) {
-        while (true) {
-            try {
-                System.out.print(message);
-                String input = scanner.next();
-
-                if (!InputRestreint.isValidCourriel(input)) {
-                    throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
-                }
-
-                if (!InputRestreint.isUnique(DatabasePath.getAcheteurPath(),input,colonne)) {
-                    throw new IllegalArgumentException("Ce courriel est deja utillise, veuillez entre un nouveau");
-                }
-
-                return input;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-
-    private static String getValidTelephone(String message) {
-        while (true) {
-            try {
-                System.out.print(message);
-                String input = scanner.next();
-
-                if (!InputRestreint.isValidTelephone(input)) {
-                    throw new IllegalArgumentException("Le telephone doit etre composer de 10 chiffres");
-                }
-
-                return input;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
-            }
-        }
-    }
-    private static String getValidPseudo(String message) {
-        while (true) {
-            try {
-                System.out.print(message);
-                String input = scanner.next();
-
-                if (!InputRestreint.isValidPseudo(DatabasePath.getAcheteurPath(),input,2)) {
-                    throw new IllegalArgumentException("votre pseudo est pris, veuillez entre un nouveau");
-                }
-
-                return input;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-    private static String getValidPassword(String message) {
-        while (true) {
-            try {
-                System.out.print(message);
-                String input = scanner.next();
-
-                if (!InputRestreint.isValidPass(input)) {
-                    throw new IllegalArgumentException("votre paseword doit contenir au moins 8 chars, 1 majuscule, 1 minuscule, 1 chiffre, 1char special");
-                }
-
-                return input;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
-            }
-        }
-    }
-    private static String getValidInputVRevendeur(String message) {
-        while (true) {
-            try {
-                System.out.print(message);
-                String input = scanner.next();
-
-                if (!InputRestreint.isValidInput(input)) {
-                    throw new IllegalArgumentException("contenir uniquement des caracteres alphabetiques et au moins deux.");
-                }
-                if (!InputRestreint.isUnique(DatabasePath.getRevendeurPath(),input,0)) {
-                    throw new IllegalArgumentException("Ce nom est deja utillise, veuillez entre un nouveau");
-                }
-
-                return input;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 
 
 
@@ -261,7 +128,7 @@ public class Inscription {
 
     private static void saveRevendeurData(String nom, String adresse, String courriel, String telephone, String password) {
         List<String[]> userData = new ArrayList<>();
-        userData.add(new String[]{nom, courriel, telephone, adresse, "0", password});
+        userData.add(new String[]{nom, adresse, courriel, telephone, "0", password});
 
         String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/";
         createDirectory(directoryPath);
