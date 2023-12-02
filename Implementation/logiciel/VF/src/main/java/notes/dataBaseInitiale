@@ -1,0 +1,38 @@
+Les datas de base initiale
+
+
+acheteurs:
+nom, prenom, pseudo(unique), adresse courriel(unique), telephone, adresse dexpedition, likes, password
+*suivre
+Teng,Wanting,auteur1,teng.wanting@umontreal.ca,5148888888,H3C3J7,0,#we
+he,yongkang,auteur2,he.yongkang@gmail.com,5140003333,H3C3J7,0,#we
+Lin,Yuxiang,auteur3,lin.yuxiang@umontreal.ca,5147775555,H3C3J7,0,#we
+test,test,test,test@gmail.com,5141231231,H5W3X3,0,#we
+we,wed,we,we@gmail.com,2131231231,w3e2d4,0,#we
+temp,temp,temp,temp@gmail.com,1231231231,temp,0,#we
+
+revendeurs:
+nom(unique), adresse, adresse courriel(unique), telephone, likes, password
+*produit a offrir
+pc1,H3C3J7,pc1@gmail.com,1231231231,0,#we
+pc2,H3C3J7,pc2@gmail.com,1232131231,0,#we
+pc3,H3C3J7,pc3@gmail.com,2131231231,0,#we
+
+
+
+
+Produits:
+titre(unique),categorie,description,quantite0,prix,pointsBoni,images,videos,identifiant uniqque,like, note_moyen, promo
+Livre1,Livres_manuels,goodchoice,22,19.99,0,non,non,0,0,0,non
+Cahier1,Articles_papeterie,good,20,5.99,1,non,non,1,0,0,non
+OrdinateurPortable1,Materiel_informatique,bad,5,699.99,2,non,non,2,0,0,non
+lampesBureau1,Equipement_bureau,good,30,30,0,non,non,3,0,0,non
+guideEtude1,Ressources_Dapprentissage,good,2,40,0,non,non,4,0,0,non
+
+
+
+
+
+
+
+
