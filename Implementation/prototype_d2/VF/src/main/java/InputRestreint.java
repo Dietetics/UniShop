@@ -1,8 +1,6 @@
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class InputRestreint {
 
@@ -50,56 +48,6 @@ public class InputRestreint {
         return courriel.endsWith("@gmail.com") || courriel.endsWith("@umontreal.ca");
     }
 
-    static boolean isUnique(String filePath, String valeur, int column) throws IOException {
-
-        List<String[]> data = CSVHandler.readCSV(filePath,9999);
-        if (data != null) {
-            for (String[] row : data) {
-                if (row.length > 2 && valeur.equals(row[column])) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-
-    /* Sources: https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a*/
-    static boolean isValidPass(String password) {
-        // At least 8 characters, one uppercase, one lowercase, one digit, one special character
-        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$";
-
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(password);
-
-        return matcher.matches();
-    }
-
-
-
-    /**
-     * valide si la valeur est unique dans une colonne specifier du CSV fichier
-     *
-     *
-     * @param filePath path du CSV file.
-     * @param valeur   valeur a verifier l unicite
-     * @param column   colonne indiquer pour verifier l unicite (0-based index).
-     * @return Vrai si la valeur unique n'est pas trouvee dans la colonne specifiee, sinon faux.
-     * @throws IOException En cas d'erreur d'entree/sortie lors de la lecture du fichier CSV.
-     */
-    static boolean isValidPseudo(String filePath, String valeur, int column) throws IOException {
-
-        List<String[]> data = CSVHandler.readCSV(filePath,9999);
-        if (data != null) {
-            for (String[] row : data) {
-                if (row.length > 2 && valeur.equals(row[column])) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
 
 
 
@@ -125,8 +73,6 @@ public class InputRestreint {
         }
         return true;
     }
-
-
 
 
     // Liste des catégories autorisées
