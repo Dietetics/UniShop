@@ -12,11 +12,11 @@ we,wed,we,we@gmail.com,2131231231,w3e2d4,0,#we
 temp,temp,temp,temp@gmail.com,1231231231,temp,0,#we
 
 revendeurs:
-nom(unique), adresse, adresse courriel, telephone,
+nom(unique), adresse, adresse courriel(unique), telephone, likes, password
 *produit a offrir
-pc1,H3C3J7,pc1@gmail.com,1231231231
-pc2,H3C3J7,pc2@gmail.com,1232131231
-pc3,H3C3J7,pc3@gmail.com,2131231231
+pc1,H3C3J7,pc1@gmail.com,1231231231,0,#we
+pc2,H3C3J7,pc2@gmail.com,1232131231,0,#we
+pc3,H3C3J7,pc3@gmail.com,2131231231,0,#we
 
 
 
