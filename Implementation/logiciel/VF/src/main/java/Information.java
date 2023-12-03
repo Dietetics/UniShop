@@ -8,7 +8,7 @@ public class Information {
         while (choix != "0") {
             try {
                 displayMessage();
-                myScanner myScanner = new myScanner();
+                System.out.print("Selectionnez un chiffre: ");
                 int input = myScanner.getIntInput();
 
                 switch (input) {
@@ -59,8 +59,9 @@ public class Information {
     }
     public static String decisionProduit(String path, int colonne) {
         System.out.println("\n");
-        System.out.println("0 pour retourner, taper le nom en demande pour voir plus d information");
+        System.out.println("0 pour retourner ou taper le nom en demande pour voir plus d information");
         System.out.println("---------------------------------------------------");
+        System.out.print("Reponse: ");
         String decision = myScanner.getStringInput();
 
         if (decision == "0") return "0";
@@ -72,8 +73,9 @@ public class Information {
 
     public static String decisionAcheteur(String path, int colonne) {
         System.out.println("\n");
-        System.out.println("0 pour retourner, taper le pseudo en demande pour voir plus d information");
+        System.out.println("0 pour retourner ou taper le pseudo en demande pour voir plus d information");
         System.out.println("---------------------------------------------------");
+        System.out.print("Reponse: ");
         String decision = myScanner.getStringInput();
 
         if (decision == "0") return "0";
@@ -85,8 +87,9 @@ public class Information {
 
     public static String decisionRevendeur(String path, int colonne) {
         System.out.println("\n");
-        System.out.println("0 pour retourner, taper le nom en demande pour voir plus d information");
+        System.out.println("0 pour retourner ou taper le nom en demande pour voir plus d information");
         System.out.println("---------------------------------------------------");
+        System.out.print("Reponse: ");
         String decision = myScanner.getStringInput();
 
         if (decision == "0") return "0";

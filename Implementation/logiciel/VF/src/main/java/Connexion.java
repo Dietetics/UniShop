@@ -26,7 +26,7 @@ public class Connexion {
 
         while (!quitter) {
             try {
-                myScanner myScanner = new myScanner();
+                System.out.print("Reponse: ");
                 String keyword = myScanner.getStringInput();
 
                 switch (keyword.toLowerCase()) {
@@ -56,7 +56,7 @@ public class Connexion {
         Boolean condition = true;
         while (condition) {
             try {
-                System.out.println("Nom: ");
+                System.out.print("Nom: ");
                 String nom = myScanner.getStringInput();
                 int index = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(),nom,0);
                 if (index == -1) {
@@ -64,9 +64,9 @@ public class Connexion {
                             "entre de nouveau votre nom");
                 }
 
-                System.out.println("Password: ");
+                System.out.print("Password: ");
                 String password = myScanner.getStringInput();
-                Boolean valide = CSVHandler.isValueAtIndexAndColumn(DatabasePath.getRevendeurPath(), index-1, 5, password );
+                Boolean valide = CSVHandler.isValueAtIndexAndColumn(DatabasePath.getRevendeurPath(), index-1, 1, password );
                 if (!valide) {
                     throw new IllegalArgumentException("vous avez saisi le mauvais password");
                 }
@@ -95,22 +95,24 @@ public class Connexion {
         Boolean condition = true;
         while (condition) {
             try {
-                System.out.println("Pseudo: ");
+                System.out.print("Pseudo: ");
                 String pseudo = myScanner.getStringInput();
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),pseudo,2);
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),pseudo,0);
                 if (index == -1) {
                     throw new IllegalArgumentException("votre compte n'est pas trouver dans le systeme. " +
                             "entre de nouveau votre pseudo");
                 }
 
-                System.out.println("Password: ");
+                System.out.print("Password: ");
                 String password = myScanner.getStringInput();
-                Boolean valide = CSVHandler.isValueAtIndexAndColumn(DatabasePath.getAcheteurPath(), index-1, 7, password );
+                Boolean valide = CSVHandler.isValueAtIndexAndColumn(DatabasePath.getAcheteurPath(), index-1, 1, password );
                 if (!valide) {
                     throw new IllegalArgumentException("vous avez saisi le mauvais password");
                 }
 
                 condition = false;
+
+                System.out.println("passer");
 
                 new ProfilAcheteur(pseudo,password);
             } catch (Exception e) {

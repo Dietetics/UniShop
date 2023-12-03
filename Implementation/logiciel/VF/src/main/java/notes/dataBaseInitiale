@@ -2,17 +2,7 @@ Les datas de base initiale
 
 
 acheteurs:
-nom, prenom, pseudo(unique), adresse courriel(unique), telephone, adresse dexpedition, likes, password
-Teng,Wanting,auteur1,teng.wanting@umontreal.ca,5148888888,H3C3J7,0,#we
-he,yongkang,auteur2,he.yongkang@gmail.com,5140003333,H3C3J7,0,#we
-Lin,Yuxiang,auteur3,lin.yuxiang@umontreal.ca,5147775555,H3C3J7,0,#we
-test,test,test,test@gmail.com,5141231231,H5W3X3,0,#we
-we,wed,we,we@gmail.com,2131231231,w3e2d4,0,#we
-temp,temp,temp,temp@gmail.com,1231231231,temp,0,#we
-
-
-
-pseudo(unique), password, adresse courriel(unique), nom, prenom, telephone, adresse dexpedition, likes
+pseudo(unique), password, courriel(unique), nom, prenom, telephone, adresse, likes
 
 auteur1,#We123123,teng.wanting@umontreal.ca,Teng,Wanting,5148888888,H3C3J7,0
 auteur2,#We123123,he.yongkang@gmail.com,he,yongkang,5140003333,H3C3J7,0
@@ -30,14 +20,6 @@ main, billet, histoire, notification, panier, suiviPar, suivre
 
 
 revendeurs:
-nom(unique), adresse, adresse courriel(unique), telephone, likes, password
-*produit a offrir
-pc1,H3C3J7,pc1@gmail.com,1231231231,0,#we
-pc2,H3C3J7,pc2@gmail.com,1232131231,0,#we
-pc3,H3C3J7,pc3@gmail.com,2131231231,0,#we
-
-
-
 nom(unique), password, courriel(unique), adresse, telephone, likes
 
 auteur1,#We123123,auteur1@gmail.com,H3C3J7,5141231231,0

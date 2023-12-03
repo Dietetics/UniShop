@@ -23,10 +23,9 @@ public class RecherchePublic {
         while (!quitter) {
             try {
                 System.out.println("");
-                System.out.println(essai);
-                essai = "Nouveau mot-cle de recherche ou ':q' (pour quitter):";
+                System.out.print(essai);
+                essai = "Nouveau mot-cle de recherche ou ':q' (pour quitter): ";
 
-                myScanner myScanner = new myScanner();
                 String keyword = myScanner.getStringInput();
 
                 switch (keyword.toLowerCase()) {
@@ -63,6 +62,7 @@ public class RecherchePublic {
         do {
             try {
                 trierMessage();
+                System.out.print("Choix: ");
                 String type = myScanner.getStringInput();
 
                 switch (type.toLowerCase()) {
@@ -82,7 +82,7 @@ public class RecherchePublic {
         do {
             try {
                 System.out.println(" ");
-                System.out.println("Choisir l'ordre (ASCENDING ou DESCENDING):");
+                System.out.print("Choisir l'ordre (ASCENDING ou DESCENDING): ");
                 System.out.println("---------------------");
                 order = CSVHandler.SortOrder.valueOf(myScanner.getStringInput());
             } catch (IllegalArgumentException e) {
@@ -145,7 +145,7 @@ public class RecherchePublic {
             try {
                 rechercheAcheteurMsg();
 
-                myScanner myScanner = new myScanner();
+                System.out.print("Choix: ");
                 int keyword = myScanner.getIntInput();
 
                 switch (keyword) {
@@ -177,8 +177,7 @@ public class RecherchePublic {
 
     public static void infoDunAcheteur(){
         System.out.println("\n");
-        System.out.println("Quel est le pseudo");
-        myScanner myScanner = new myScanner();
+        System.out.print("Quel est le pseudo: ");
         String keyword = myScanner.getStringInput();
 
         System.out.println("\n");
@@ -195,8 +194,7 @@ public class RecherchePublic {
 
     public static void infoSuiveursDunAcheteur(){
         System.out.println("\n");
-        System.out.println("Quel est le pseudo");
-        myScanner myScanner = new myScanner();
+        System.out.print("Quel est le pseudo: ");
         String keyword = myScanner.getStringInput();
 
         System.out.println("\n");
@@ -224,8 +222,7 @@ public class RecherchePublic {
 
     public static void infoSuiviDunAcheteur(){
         System.out.println("\n");
-        System.out.println("Quel est le pseudo");
-        myScanner myScanner = new myScanner();
+        System.out.print("Quel est le pseudo: ");
         String keyword = myScanner.getStringInput();
 
         System.out.println("\n");
@@ -270,10 +267,9 @@ public class RecherchePublic {
         while (!quitter) {
             try {
                 System.out.println("");
-                System.out.println(essai);
-                essai = "Nouveau mot-cle de recherche ou ':q' (pour quitter):";
+                System.out.print(essai);
+                essai = "Nouveau mot-cle de recherche ou ':q' (pour quitter): ";
 
-                myScanner myScanner = new myScanner();
                 String keyword = myScanner.getStringInput();
 
                 switch (keyword.toLowerCase()) {
@@ -305,6 +301,7 @@ public class RecherchePublic {
         do {
             try {
                 trierMessageRevendeur();
+                System.out.print("Choix: ");
                 String type = myScanner.getStringInput();
 
                 switch (type.toLowerCase()) {
@@ -320,7 +317,7 @@ public class RecherchePublic {
         do {
             try {
                 System.out.println(" ");
-                System.out.println("Choisir l'ordre (ASCENDING ou DESCENDING):");
+                System.out.print("Choisir l'ordre (ASCENDING ou DESCENDING): ");
                 System.out.println("---------------------");
                 order = CSVHandler.SortOrder.valueOf(myScanner.getStringInput());
             } catch (IllegalArgumentException e) {

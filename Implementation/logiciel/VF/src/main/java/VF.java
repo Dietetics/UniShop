@@ -1,7 +1,3 @@
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 public class VF {
@@ -12,10 +8,10 @@ public class VF {
         DatabasePath.checkProduitPath();
         DatabasePath.checkAcheteurPath();
         DatabasePath.checkRevendeurPath();
-        displayMenuPrincipale();
         Database.refreshAcheteurs();
         Database.refreshRevendeurs();
         Database.refreshProduits();
+        displayMenuPrincipale();
     }
 
     /**

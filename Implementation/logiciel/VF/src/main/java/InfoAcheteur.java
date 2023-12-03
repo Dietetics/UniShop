@@ -25,7 +25,7 @@ public class InfoAcheteur {
 
         System.out.println("\n\n\n");
 
-        System.out.println("Entrez quelque chose pour retourner a la recherche");
+        System.out.print("Entrez quelque chose pour retourner a la recherche");
         String decision = myScanner.getStringInput();
         if (decision != null) Information.displayInformation();
 

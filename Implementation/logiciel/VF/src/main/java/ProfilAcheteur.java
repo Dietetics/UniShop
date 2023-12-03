@@ -1,22 +1,21 @@
 import java.util.*;
 
 public class ProfilAcheteur {
-    private static Scanner scanner = new Scanner(System.in);
-    private static String pseudo, password, nom, prenom, courriel, telephone, adresse, nbLikes;
+    private static String pseudo, password, courriel, nom, prenom, telephone, adresse, nbLikes;
     public ProfilAcheteur(String pseudo, String password) {
 
         this.pseudo = pseudo;
         this.password = password;
 
-        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),2);
+        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),0);
         String data = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(),lineIndex);
 
-        String nom = CSVHandler.getColumnValue(data, 0);
-        String prenom = CSVHandler.getColumnValue(data, 1);
-        String courriel = CSVHandler.getColumnValue(data, 3);
-        String telephone = CSVHandler.getColumnValue(data, 4);
-        String adresse = CSVHandler.getColumnValue(data, 5);
-        String nbLikes = CSVHandler.getColumnValue(data, 6);
+        String courriel = CSVHandler.getColumnValue(data, 2);
+        String nom = CSVHandler.getColumnValue(data, 3);
+        String prenom = CSVHandler.getColumnValue(data, 4);
+        String telephone = CSVHandler.getColumnValue(data, 5);
+        String adresse = CSVHandler.getColumnValue(data, 6);
+        String nbLikes = CSVHandler.getColumnValue(data, 7);
 
         this.nom = nom;
         this.prenom = prenom;
@@ -37,9 +36,9 @@ public class ProfilAcheteur {
         int choix = 90;
         while (choix != 0) {
             try {
-                offrirOption();
+                menuMsg();
                 System.out.print("Choix : ");
-                choix = scanner.nextInt();
+                choix = myScanner.getIntInput();
 
                 switch (choix) {
                     case 0:
@@ -65,11 +64,10 @@ public class ProfilAcheteur {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }
-    private void offrirOption() {
+    private void menuMsg() {
         System.out.println("\n");
         System.out.println("Bonsoir cher Acheteur:" + getPseudo() + "              " + getCourriel() );
         System.out.println("----------------------------------------------------------" );
@@ -103,9 +101,11 @@ public class ProfilAcheteur {
         while (choix != ":q") {
             try {
                 displayProfile();
-                System.out.println(":e pour enregistrer la modification ou :q pour quitter");
-                System.out.print("\nChoix : ");
-                choix = scanner.next();
+                System.out.println("tapez un titre pour modifier ou :e pour enregistrer la modification ou :q pour quitter");
+                System.out.print("\n");
+
+                System.out.print("Entrez une option : ");
+                choix = myScanner.getStringInput();
 
                 switch (choix) {
 
@@ -143,7 +143,6 @@ public class ProfilAcheteur {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }
@@ -161,9 +160,13 @@ public class ProfilAcheteur {
     }
 
     private void saveChanges() {
-        List<String> newCSVLine = Arrays.asList(getNom(), getPrenom(), pseudo, courriel, getTelephone(), getAdresse(), nbLikes, getPassword());
-        int lineIndex2 = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),2);
-        CSVHandler.uploadCSVLine(DatabasePath.getAcheteurPath(),lineIndex2-1,newCSVLine);
+        List<String> newCSVLine = Arrays.asList(pseudo, getPassword(), courriel, getNom(), getPrenom(), getTelephone(), getAdresse(), nbLikes);
+
+        String directoryPath = DatabasePath.getAcheteurComptePath() + pseudo + "/main.csv";
+        CSVHandler.coverCSV(directoryPath, FormatAdjust.transformList(newCSVLine));
+
+        Database.refreshAcheteurs();
+        System.out.println("les donnees sont bien enregistrer \n\n");
     }
 
 
@@ -183,7 +186,7 @@ public class ProfilAcheteur {
                 System.out.print("\n");
 
                 System.out.print("0 pour retourner ou Cliquant le numero pour liker : ");
-                choix = scanner.nextInt();
+                choix = myScanner.getIntInput();
 
                 switch (choix) {
                     case 0:
@@ -204,7 +207,6 @@ public class ProfilAcheteur {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }

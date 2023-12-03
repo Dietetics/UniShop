@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class Inscription {
     public Inscription() {
-        myScanner myScanner = new myScanner();
     }
 
 
@@ -32,6 +31,7 @@ public class Inscription {
                 System.out.println("");
                 System.out.println(essai);
                 essai = "continuez a inscrire d'autres comptes? \n:a pour acheteur \n:r pour revendeur \n:q pour quitter";
+                System.out.print("Reponse: ");
                 String keyword = myScanner.getStringInput();
 
                 switch (keyword.toLowerCase()) {
@@ -58,7 +58,7 @@ public class Inscription {
             String nom = InputRestreint.getValidInput("Veuillez entrer votre nom: ");
             String prenom = InputRestreint.getValidInput("Veuillez entrer votre prenom: ");
             String adresse = InputRestreint.getValidAdresse("Veuillez entrer votre adresse d'expedition: ");
-            String courriel = InputRestreint.getValidCourriel("Veuillez entrer votre adresse courriel(unique): ",3);
+            String courriel = InputRestreint.getValidAcheteurCourriel("Veuillez entrer votre adresse courriel(unique): ",2);
             String telephone = InputRestreint.getValidTelephone("Veuillez entrer votre telephone: ");
             String pseudo = InputRestreint.getValidPseudo("Veuillez entrer votre pseudo(unique): ");
             String password = InputRestreint.getValidPassword("Veuillez entrer votre password: ");
@@ -80,7 +80,7 @@ public class Inscription {
         try {
             String nom = InputRestreint.getValidInputVRevendeur("Veuillez entrer votre nom: ");
             String adresse = InputRestreint.getValidAdresse("Veuillez entrer votre adresse d'expedition: ");
-            String courriel = InputRestreint.getValidCourriel("Veuillez entrer votre adresse courriel(unique): ",2);
+            String courriel = InputRestreint.getValidRevendeurCourriel("Veuillez entrer votre adresse courriel(unique): ",2);
             String telephone = InputRestreint.getValidTelephone("Veuillez entrer votre telephone: ");
             String password = InputRestreint.getValidPassword("Veuillez entrer votre password: ");
 
@@ -101,7 +101,7 @@ public class Inscription {
 
     private static void saveAcheteurData(String nom, String prenom, String adresse, String courriel, String telephone, String pseudo, String password) {
         List<String[]> userData = new ArrayList<>();
-        userData.add(new String[]{nom, prenom, pseudo, courriel, telephone, adresse, "0", password});
+        userData.add(new String[]{pseudo, password, courriel, nom, prenom, telephone, adresse, "0"});
 
         String directoryPath = DatabasePath.getAcheteurComptePath() + pseudo + "/";
         createDirectory(directoryPath);
@@ -113,8 +113,8 @@ public class Inscription {
         String acheteurSuivre = directoryPath + "suivre.csv";
         String acheteurSuiviPar = directoryPath + "suiviPar.csv";
         String acheteurNotification = directoryPath + "notification.csv";
+        String acheteurLikes = directoryPath + "likes.csv";
 
-        CSVHandler.appendCSV(DatabasePath.getAcheteurPath(), userData);
         CSVHandler.coverCSV(acheteurCompte, userData);
         CSVHandler.coverCSV(acheteurPanier, new ArrayList<>());
         CSVHandler.coverCSV(acheteurHistoire, new ArrayList<>());
@@ -122,6 +122,9 @@ public class Inscription {
         CSVHandler.coverCSV(acheteurSuivre, new ArrayList<>());
         CSVHandler.coverCSV(acheteurSuiviPar, new ArrayList<>());
         CSVHandler.coverCSV(acheteurNotification, new ArrayList<>());
+        CSVHandler.coverCSV(acheteurLikes, new ArrayList<>());
+
+        Database.refreshAcheteurs();
     }
 
 
@@ -134,10 +137,16 @@ public class Inscription {
 
         String revendeurCompte = directoryPath + "main.csv";
         String revendeurResolution = directoryPath + "resolution.csv";
+        String revendeurOffre = directoryPath + "offre.csv";
+        String revendeurNotification = directoryPath + "notification.csv";
 
-        CSVHandler.appendCSV(DatabasePath.getRevendeurPath(), userData);
+
         CSVHandler.coverCSV(revendeurCompte, userData);
         CSVHandler.coverCSV(revendeurResolution, new ArrayList<>());
+        CSVHandler.coverCSV(revendeurOffre, new ArrayList<>());
+        CSVHandler.coverCSV(revendeurNotification, new ArrayList<>());
+
+        Database.refreshRevendeurs();
     }
 
 

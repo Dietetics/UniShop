@@ -2,9 +2,18 @@ done:
 
 VF
 
+database
+    -void refreshProduits()
+    -void refreshAcheteurs()
+    -void refreshRevendeurs()
+
+
 Inscription
     -inscriptionAcheteur
     -inscriptionRevendeur
+
+InputRestrint
+    - (...)
 
 Connexion
     -connectAcheteur
@@ -15,9 +24,6 @@ ProfilAcheteur
 
 ProfilRevendeur
     - modifierProfil
-
-InputRestrint
-    - (...)
 
 Information
     -displayInformation
@@ -38,10 +44,7 @@ RecherchePublic
     -void rechercheAcheteurs()
     -void rechercheRevendeurs()
 
-database
-    -void refreshProduits()
-    -void refreshAcheteurs()
-    -void refreshRevendeurs()
+
 
 
 

@@ -9,7 +9,6 @@ public class InputRestreint {
 
 
     public InputRestreint() {
-        myScanner myScanner = new myScanner();
     }
 
     /**
@@ -135,7 +134,7 @@ public class InputRestreint {
             }
         }
     }
-    static String getValidCourriel(String message, int colonne) {
+    static String getValidAcheteurCourriel(String message, int colonne) {
         while (true) {
             try {
                 System.out.print(message);
@@ -146,6 +145,29 @@ public class InputRestreint {
                 }
 
                 if (!isUnique(DatabasePath.getAcheteurPath(),input,colonne)) {
+                    throw new IllegalArgumentException("Ce courriel est deja utillise, veuillez entre un nouveau");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    static String getValidRevendeurCourriel(String message, int colonne) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = myScanner.getStringInput();
+
+                if (!isValidCourriel(input)) {
+                    throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
+                }
+
+                if (!isUnique(DatabasePath.getRevendeurPath(),input,colonne)) {
                     throw new IllegalArgumentException("Ce courriel est deja utillise, veuillez entre un nouveau");
                 }
 
@@ -181,7 +203,7 @@ public class InputRestreint {
                 System.out.print(message);
                 String input = myScanner.getStringInput();
 
-                if (!isValidPseudo(DatabasePath.getAcheteurPath(),input,2)) {
+                if (!isValidPseudo(DatabasePath.getAcheteurPath(),input,0)) {
                     throw new IllegalArgumentException("votre pseudo est pris, veuillez entre un nouveau");
                 }
 

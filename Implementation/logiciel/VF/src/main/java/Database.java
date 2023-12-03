@@ -46,8 +46,6 @@ public class Database {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Refresh complete.");
     }
 
 
@@ -95,8 +93,6 @@ public class Database {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Refresh complete.");
     }
 
 
@@ -142,8 +138,6 @@ public class Database {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Refresh complete.");
     }
 
 
