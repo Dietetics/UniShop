@@ -9,7 +9,7 @@ public class DatabasePath {
     private static String acheteurPath = "src/main/resources/data/acheteur.csv";
     private static String revendeurPath = "src/main/resources/data/revendeur.csv";
 
-
+    private static String produitInfoPath = "src/main/resources/data/produit/";
     private static String acheteurComptePath = "src/main/resources/data/acheteur/";
     private static String revendeurComptePath = "src/main/resources/data/revendeur/";
 
@@ -66,6 +66,10 @@ public class DatabasePath {
 
     public static String getAcheteurPath() {
         return acheteurPath;
+    }
+
+    public static String getProduitInfoPath() {
+        return produitInfoPath;
     }
 
     public static String getAcheteurComptePath() {

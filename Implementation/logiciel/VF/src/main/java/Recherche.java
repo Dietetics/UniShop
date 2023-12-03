@@ -13,104 +13,24 @@ public class Recherche {
 
 
 
-    /**
-     * Méthode principale pour la recherche et le tri des produits.
-     */
-    public static void rechercheProduits() {
-        boolean quitter = false;
-        String essai = "Entrez le mot-cle de recherche ou ':q' (pour quitter):";
 
-        while (!quitter) {
-            try {
-                System.out.println("");
-                System.out.println(essai);
-                essai = "Entrez un nouveau mot-cle de recherche ou ':q' (pour quitter):";
-                String keyword = scanner.next();
 
-                switch (keyword.toLowerCase()) {
-                    case ":q":
-                        quitter = true;
-                        break;
-                    default:
-                        List<String> matchingLines = CSVHandler.searchKeywordInCSV(getProduitPath(), keyword);
-                        if (!matchingLines.isEmpty()) {
-                            trierProduits(matchingLines);
-                        } else {
-                            System.out.println("Aucun produit trouve selon le mot-cle.");
-                        }
-                        break;
-                }
-            } catch (Exception e) {
-                System.out.println("Erreur : " + e.getMessage());
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
-            }
-        }
-    }
 
-    /**
-     * Méthode pour trier les produits en fonction de la colonne choisie et de l'ordre spécifié.
-     *
-     * @param matchingLines Liste des lignes de produits correspondantes à la recherche.
-     */
-    private static void trierProduits(List<String> matchingLines) {
-        CSVHandler.SortOrder order = null;
-        int colomn = 0;
+    public static void rechercherAcheteur(){}
+    public static void rechercherRevendeur(){}
 
-        do {
-            try {
-                System.out.println(" ");
-                System.out.println("choisir le filtrage base sur quel type:");
-                System.out.println("---------------------");
-                System.out.println("categorie");
-                System.out.println("prix");
-                System.out.println("note");
-                System.out.println("popularite");
-                System.out.println("promo");
-                String type = scanner.next();
 
-                switch (type.toLowerCase()) {
-                    case "categorie": colomn = 2;break;
-                    case "prix": colomn = 5;break;
-                    case "note": colomn = 12;break;
-                    case "popularite": colomn = 11;break;
-                    case "promo": colomn = 13;break;
-                    default: System.out.println("Choix invalide. Veuillez reessayer.");
-                }
-            } catch (Exception e) {
-                System.out.println("Erreur : " + e.getMessage());
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
-            }
-        } while (colomn == 0); // Répéter tant que colomn n'est pas initialisé
 
-        do {
-            try {
-                System.out.println(" ");
-                System.out.println("Choisir l'ordre (ASCENDING ou DESCENDING):");
-                System.out.println("---------------------");
-                order = CSVHandler.SortOrder.valueOf(scanner.next());
-            } catch (IllegalArgumentException e) {
-                System.out.println("Ordre invalide. Veuillez choisir ASCENDING ou DESCENDING.");
-            }
-        } while (order == null); // Répéter tant que order n'est pas initialisé
 
-        List<String[]> data = FormatAdjust.transformList(matchingLines);
-        CSVHandler.sortByColumn(data, colomn - 1, order);
-        afficherProduits(data);
-    }
 
-    /**
-     * Méthode pour afficher les produits après la recherche et le tri.
-     *
-     * @param data Liste des lignes de produits triées.
-     */
-    private static void afficherProduits(List<String[]> data) {
-        for (String[] row : data) {
-            for (String value : row) {
-                System.out.print(value + " ");
-            }
-            System.out.println();
-        }
-    }
+
+
+
+
+
+
+
+
 
 
 
@@ -121,13 +41,13 @@ public class Recherche {
      * @param excludedColumns Les colonnes à exclure lors de l'affichage.
      */
     public static void trouverAcheteur(int ligne, int[] excludedColumns) {
-        String essai = "Entrez l'information de l'acheteur recherche ou ':q' (pour quitter):";
+        String essai = "Entrez l'Information de l'acheteur recherche ou ':q' (pour quitter):";
 
         while (true) {
             try {
                 System.out.println("");
                 System.out.println(essai);
-                essai = "Continuez? Entrez l'information de l'acheteur recherche ou ':q' (pour quitter):";
+                essai = "Continuez? Entrez l'Information de l'acheteur recherche ou ':q' (pour quitter):";
                 String keyword = scanner.next();
 
                 switch (keyword.toLowerCase()) {

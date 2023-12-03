@@ -50,6 +50,31 @@ public class CSVHandler {
 
 
     /**
+     * Imprime une colonne spécifique des données CSV dans le format CSV.
+     *
+     * @param data      Les données à imprimer.
+     * @param columnIndex L'index de la colonne à imprimer.
+     */
+    public static void printCSV(List<String[]> data, int columnIndex) {
+        int nb = 1;
+        for (String[] row : data) {
+            System.out.print(nb + ". ");
+
+            // Vérifie si l'index de la colonne est valide
+            if (columnIndex >= 0 && columnIndex < row.length) {
+                System.out.println(row[columnIndex]);
+            } else {
+                System.out.println("Invalid column index");
+            }
+
+            nb++;
+        }
+    }
+
+
+
+
+    /**
      * Remplace les données d'un fichier CSV.
      *
      * @param filePath Le chemin du fichier CSV.
@@ -127,6 +152,114 @@ public class CSVHandler {
 
         return matchingLines;
     }
+
+    // méthode pour rechercher exactement le mot-clé et un argument qui indique les colonnes quon veut
+    public static List<String> searchExaAndFilterColumnsInCSV(String filePath, String keyword, int searchColumnIndex, List<Integer> outputColumnIndices) {
+        List<String> matchingLines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(",");
+
+                // Vérifie si le mot-clé est présent dans la colonne de recherche
+                if (searchColumnIndex >= 0 && searchColumnIndex < columns.length) {
+                    if (columns[searchColumnIndex].trim().equalsIgnoreCase(keyword.trim())) {
+                        // Vérifie si les colonnes de sortie sont valides
+                        for (int outputColumnIndex : outputColumnIndices) {
+                            if (outputColumnIndex >= 0 && outputColumnIndex < columns.length) {
+                                matchingLines.add(columns[outputColumnIndex]);
+                            } else {
+                                System.out.println("Invalid output column index: " + outputColumnIndex);
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("Invalid search column index");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return matchingLines;
+    }
+
+
+    // méthode pour rechercher le mot-clé et un argument qui indique les colonnes quon veut
+    public static List<String> searchAndFilterColumnsInCSV(String filePath, String keyword, int searchColumnIndex, List<Integer> outputColumnIndices) {
+        List<String> matchingLines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(",");
+
+                // Vérifie si le mot-clé est présent dans la colonne de recherche
+                if (searchColumnIndex >= 0 && searchColumnIndex < columns.length) {
+                    if (columns[searchColumnIndex].toLowerCase().contains(keyword.toLowerCase().trim())) {
+                        // Vérifie si les colonnes de sortie sont valides
+                        for (int outputColumnIndex : outputColumnIndices) {
+                            if (outputColumnIndex >= 0 && outputColumnIndex < columns.length) {
+                                matchingLines.add(columns[outputColumnIndex]);
+                            } else {
+                                System.out.println("Invalid output column index: " + outputColumnIndex);
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("Invalid search column index");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return matchingLines;
+    }
+
+
+    public static List<String> searchAndFilterColumnsInCSV(String filePath, String keyword, List<Integer> searchColumnIndices, List<Integer> outputColumnIndices) {
+        List<String> matchingLines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(",");
+
+                // Vérifie si le mot-clé est présent dans au moins l'une des colonnes de recherche
+                boolean keywordPresentInAnySearchColumn = false;
+                for (int searchColumnIndex : searchColumnIndices) {
+                    if (searchColumnIndex >= 0 && searchColumnIndex < columns.length &&
+                            columns[searchColumnIndex].toLowerCase().contains(keyword.toLowerCase().trim())) {
+                        keywordPresentInAnySearchColumn = true;
+                        break;
+                    }
+                }
+
+                if (keywordPresentInAnySearchColumn) {
+                    // Vérifie si les colonnes de sortie sont valides
+                    for (int outputColumnIndex : outputColumnIndices) {
+                        if (outputColumnIndex >= 0 && outputColumnIndex < columns.length) {
+                            matchingLines.add(columns[outputColumnIndex]);
+                        } else {
+                            System.out.println("Invalid output column index: " + outputColumnIndex);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return matchingLines;
+    }
+
+
+
+
+
+
 
     /**
      * Recherche et récupère toutes les lignes d'un fichier CSV.

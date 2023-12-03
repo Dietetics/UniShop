@@ -30,7 +30,7 @@ public class VF {
                 System.out.println("\n");
                 System.out.println("------ Bienvenu a notre plateforme UniShop -------");
                 System.out.println("0. Quitter");
-                System.out.println("1. Rechercher un produit");
+                System.out.println("1. Recherche");
                 System.out.println("2. Inscription");
                 System.out.println("3. Connexion");
                 System.out.print("\n");
@@ -42,7 +42,7 @@ public class VF {
                     case 0: System.out.println("Au revoir !");
                     System.exit(choix);
                         break;
-                    case 1: Recherche.rechercheProduits(); break;
+                    case 1: Information.displayInformation(); break;
                     case 2: Inscription.inscription(); break;
                     case 3: Connexion.connecter(); break;
                     default:

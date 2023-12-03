@@ -48,7 +48,7 @@ public class ProfilAcheteur {
                         break;
                     case 1: modifie_profil(); break;
                     case 2: catalogue(); break;
-                    case 3: Recherche.rechercheProduits(); break;
+                    case 3: RecherchePublic.rechercheProduits(); break;
                     case 4:
                         int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),2);
                         int[] excludedColumns = {2, 3};

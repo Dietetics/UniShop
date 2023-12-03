@@ -2,8 +2,6 @@ done:
 
 VF
 
-DatabasePath
-
 Inscription
     -inscriptionAcheteur
     -inscriptionRevendeur
@@ -21,9 +19,20 @@ ProfilRevendeur
 InputRestrint
     - (...)
 
+Information
+    -displayInformation
+        - voir
+
+Recherche
+    -recuperer
+
+
+
+
 
 
 
 
 to do:
 metriques voir photo
+database refresh
