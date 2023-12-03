@@ -7,8 +7,8 @@ public class Recherche {
 
     private static String produitPath = "src/main/resources/data/produits.csv";
 
-    private static String acheteurPath = "src/main/resources/data/acheteur.csv";
-    private static String revendeurPath = "src/main/resources/data/revendeur.csv";
+    private static String acheteurPath = "src/main/resources/data/acheteurs.csv";
+    private static String revendeurPath = "src/main/resources/data/revendeurs.csv";
     private static Scanner scanner = new Scanner(System.in);
 
 
@@ -16,8 +16,6 @@ public class Recherche {
 
 
 
-    public static void rechercherAcheteur(){}
-    public static void rechercherRevendeur(){}
 
 
 

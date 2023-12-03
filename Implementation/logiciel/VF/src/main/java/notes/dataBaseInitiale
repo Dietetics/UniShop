@@ -3,7 +3,6 @@ Les datas de base initiale
 
 acheteurs:
 nom, prenom, pseudo(unique), adresse courriel(unique), telephone, adresse dexpedition, likes, password
-*suivre
 Teng,Wanting,auteur1,teng.wanting@umontreal.ca,5148888888,H3C3J7,0,#we
 he,yongkang,auteur2,he.yongkang@gmail.com,5140003333,H3C3J7,0,#we
 Lin,Yuxiang,auteur3,lin.yuxiang@umontreal.ca,5147775555,H3C3J7,0,#we
@@ -11,7 +10,21 @@ test,test,test,test@gmail.com,5141231231,H5W3X3,0,#we
 we,wed,we,we@gmail.com,2131231231,w3e2d4,0,#we
 temp,temp,temp,temp@gmail.com,1231231231,temp,0,#we
 
-pseudo, billet, histoire, notification, panier, suiviPar, suivre
+
+
+pseudo(unique), password, adresse courriel(unique), nom, prenom, telephone, adresse dexpedition, likes
+
+auteur1,#We123123,teng.wanting@umontreal.ca,Teng,Wanting,5148888888,H3C3J7,0
+auteur2,#We123123,he.yongkang@gmail.com,he,yongkang,5140003333,H3C3J7,0
+auteur3,#We123123,lin.yuxiang@umontreal.ca,Lin,Yuxiang,5147775555,H3C3J7,0
+test,#We123123,test@gmail.com,testNom,testPrenom,5141231231,H5W3X3,0
+we,#We123123,we@gmail.com,weNom,wePrenom,4381231231,H5W3X3,0
+temp,#We123123,temp@gmail.com,tempNom,tempPrenom,1281231231,H5W3X3,0
+
+main, billet, histoire, notification, panier, suiviPar, suivre
+
+
+
 
 
 
@@ -23,7 +36,19 @@ pc1,H3C3J7,pc1@gmail.com,1231231231,0,#we
 pc2,H3C3J7,pc2@gmail.com,1232131231,0,#we
 pc3,H3C3J7,pc3@gmail.com,2131231231,0,#we
 
-nom, resolution, notification
+
+
+nom(unique), password, courriel(unique), adresse, telephone, likes
+
+auteur1,#We123123,auteur1@gmail.com,H3C3J7,5141231231,0
+auteur2,#We123123,auteur2@gmail.com,H3C3J7,4382131231,0
+auteur3,#We123123,auteur3@gmail.com,H3C3J7,1281231231,0
+we,#We123123,we@gmail.com,H3C3J7,1281231231,0
+
+nom, resolution, notification, offrir
+
+
+
 
 
 

@@ -7,8 +7,9 @@ import java.util.regex.Pattern;
 
 public class InputRestreint {
 
-    private static Scanner scanner = new Scanner(System.in);
+
     public InputRestreint() {
+        myScanner myScanner = new myScanner();
     }
 
     /**
@@ -106,7 +107,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidInput(input)) {
                     throw new IllegalArgumentException("Le nom et prenom doivent contenir uniquement des caracteres alphabetiques et au moins deux.");
@@ -115,7 +116,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
     }
@@ -123,7 +123,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidAddress(input)) {
                     throw new IllegalArgumentException("adresse doit avoir un longueur inferieur a 20");
@@ -132,7 +132,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
     }
@@ -140,7 +139,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidCourriel(input)) {
                     throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
@@ -153,7 +152,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -165,7 +163,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidTelephone(input)) {
                     throw new IllegalArgumentException("Le telephone doit etre composer de 10 chiffres");
@@ -174,7 +172,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
     }
@@ -182,7 +179,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidPseudo(DatabasePath.getAcheteurPath(),input,2)) {
                     throw new IllegalArgumentException("votre pseudo est pris, veuillez entre un nouveau");
@@ -191,7 +188,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -201,7 +197,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidPass(input)) {
                     throw new IllegalArgumentException("votre paseword doit contenir au moins 8 chars, 1 majuscule, 1 minuscule, 1 chiffre, 1char special");
@@ -210,7 +206,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
     }
@@ -218,7 +213,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidInput(input)) {
                     throw new IllegalArgumentException("contenir uniquement des caracteres alphabetiques et au moins deux.");
@@ -230,7 +225,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

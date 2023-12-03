@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Inscription {
+    public Inscription() {
+        myScanner myScanner = new myScanner();
+    }
 
-    private static Scanner scanner = new Scanner(System.in);
 
 
 
@@ -30,7 +32,7 @@ public class Inscription {
                 System.out.println("");
                 System.out.println(essai);
                 essai = "continuez a inscrire d'autres comptes? \n:a pour acheteur \n:r pour revendeur \n:q pour quitter";
-                String keyword = scanner.next();
+                String keyword = myScanner.getStringInput();
 
                 switch (keyword.toLowerCase()) {
                     case ":q": quitter = true; break;
@@ -40,7 +42,6 @@ public class Inscription {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur de saisie. Veuillez entrer une option valide.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
         VF.displayMenuPrincipale();
@@ -69,7 +70,6 @@ public class Inscription {
 
         } catch (Exception e) {
             System.out.println("Erreur: " + e.getMessage());
-            scanner.nextLine();
         }
     }
 
@@ -91,7 +91,6 @@ public class Inscription {
 
         } catch (Exception e) {
             System.out.println("Erreur: " + e.getMessage());
-            scanner.nextLine();
         }
     }
 
@@ -107,7 +106,7 @@ public class Inscription {
         String directoryPath = DatabasePath.getAcheteurComptePath() + pseudo + "/";
         createDirectory(directoryPath);
 
-        String acheteurCompte = directoryPath + pseudo + ".csv";
+        String acheteurCompte = directoryPath + "main.csv";
         String acheteurPanier = directoryPath + "panier.csv";
         String acheteurHistoire = directoryPath + "histoire.csv";
         String acheteurBillet = directoryPath + "billet.csv";
@@ -133,7 +132,7 @@ public class Inscription {
         String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/";
         createDirectory(directoryPath);
 
-        String revendeurCompte = directoryPath + nom + ".csv";
+        String revendeurCompte = directoryPath + "main.csv";
         String revendeurResolution = directoryPath + "resolution.csv";
 
         CSVHandler.appendCSV(DatabasePath.getRevendeurPath(), userData);

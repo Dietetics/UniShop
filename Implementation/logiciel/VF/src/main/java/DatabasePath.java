@@ -5,15 +5,22 @@ import java.util.Scanner;
 public class DatabasePath {
 
     private static String produitPath = "src/main/resources/data/produits.csv";
-
-    private static String acheteurPath = "src/main/resources/data/acheteur.csv";
-    private static String revendeurPath = "src/main/resources/data/revendeur.csv";
+    private static String acheteurPath = "src/main/resources/data/acheteurs.csv";
+    private static String revendeurPath = "src/main/resources/data/revendeurs.csv";
 
     private static String produitInfoPath = "src/main/resources/data/produit/";
     private static String acheteurComptePath = "src/main/resources/data/acheteur/";
     private static String revendeurComptePath = "src/main/resources/data/revendeur/";
 
 
+    private static String baseProduitFolderPath = "src/main/resources/data/produit";
+    private static String baseAcheteurFolderPath = "src/main/resources/data/acheteur";
+    private static String baseRevendeurFolderPath = "src/main/resources/data/revendeur";
+
+
+    private static String outputProduitFile = "src/main/resources/data/produits.csv";
+    private static String outputAcheteurFile = "src/main/resources/data/acheteurs.csv";
+    private static String outputRevendeurFile = "src/main/resources/data/revendeurs.csv";
 
     static void checkProduitPath(){
         try {
@@ -78,5 +85,29 @@ public class DatabasePath {
 
     public static String getRevendeurComptePath() {
         return revendeurComptePath;
+    }
+
+    public static String getBaseProduitFolderPath() {
+        return baseProduitFolderPath;
+    }
+
+    public static String getBaseAcheteurFolderPath() {
+        return baseAcheteurFolderPath;
+    }
+
+    public static String getBaseRevendeurFolderPath() {
+        return baseRevendeurFolderPath;
+    }
+
+    public static String getOutputProduitFile() {
+        return outputProduitFile;
+    }
+
+    public static String getOutputAcheteurFile() {
+        return outputAcheteurFile;
+    }
+
+    public static String getOutputRevendeurFile() {
+        return outputRevendeurFile;
     }
 }

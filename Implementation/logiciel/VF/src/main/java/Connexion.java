@@ -4,8 +4,6 @@ import java.util.Scanner;
 public class Connexion {
 
 
-    private static Scanner scanner = new Scanner(System.in);
-
 
 
     /**
@@ -21,14 +19,15 @@ public class Connexion {
         System.out.println(":q Retourner a la page d'acceuil");
         System.out.println(":a Acheteur");
         System.out.println(":r Revendeur");
-        System.out.println("Veuillez choisir un choix: ");
+
 
 
         boolean quitter = false;
 
         while (!quitter) {
             try {
-                String keyword = scanner.next();
+                myScanner myScanner = new myScanner();
+                String keyword = myScanner.getStringInput();
 
                 switch (keyword.toLowerCase()) {
                     case ":q": quitter = true; break;
@@ -39,7 +38,6 @@ public class Connexion {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur de saisie. Veuillez entrer une option valide.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }
@@ -59,7 +57,7 @@ public class Connexion {
         while (condition) {
             try {
                 System.out.println("Nom: ");
-                String nom = scanner.next();
+                String nom = myScanner.getStringInput();
                 int index = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(),nom,0);
                 if (index == -1) {
                     throw new IllegalArgumentException("votre compte n'est pas trouver dans le systeme. " +
@@ -67,7 +65,7 @@ public class Connexion {
                 }
 
                 System.out.println("Password: ");
-                String password = scanner.next();
+                String password = myScanner.getStringInput();
                 Boolean valide = CSVHandler.isValueAtIndexAndColumn(DatabasePath.getRevendeurPath(), index-1, 5, password );
                 if (!valide) {
                     throw new IllegalArgumentException("vous avez saisi le mauvais password");
@@ -78,7 +76,6 @@ public class Connexion {
                 new ProfilRevendeur(nom,password);
             } catch (Exception e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
     }
@@ -99,7 +96,7 @@ public class Connexion {
         while (condition) {
             try {
                 System.out.println("Pseudo: ");
-                String pseudo = scanner.next();
+                String pseudo = myScanner.getStringInput();
                 int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),pseudo,2);
                 if (index == -1) {
                     throw new IllegalArgumentException("votre compte n'est pas trouver dans le systeme. " +
@@ -107,7 +104,7 @@ public class Connexion {
                 }
 
                 System.out.println("Password: ");
-                String password = scanner.next();
+                String password = myScanner.getStringInput();
                 Boolean valide = CSVHandler.isValueAtIndexAndColumn(DatabasePath.getAcheteurPath(), index-1, 7, password );
                 if (!valide) {
                     throw new IllegalArgumentException("vous avez saisi le mauvais password");
@@ -118,7 +115,6 @@ public class Connexion {
                 new ProfilAcheteur(pseudo,password);
             } catch (Exception e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
     }

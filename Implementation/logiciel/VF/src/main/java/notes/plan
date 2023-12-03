@@ -21,10 +21,30 @@ InputRestrint
 
 Information
     -displayInformation
-        - voir
 
-Recherche
-    -recuperer
+InfoAcheteur
+    -void voirProfil(String path, String motCle, int colonne)
+
+InfoRevendeur
+    -void voirProfil(String path, String motCle, int colonne)
+
+InfoProduit
+    -void voirProduit(String path, String motCle, int colonne)
+
+
+RecherchePublic
+    -void recuperer(String path, int info)
+    -void rechercheProduits()
+    -void rechercheAcheteurs()
+    -void rechercheRevendeurs()
+
+database
+    -void refreshProduits()
+    -void refreshAcheteurs()
+    -void refreshRevendeurs()
+
+
+
 
 
 

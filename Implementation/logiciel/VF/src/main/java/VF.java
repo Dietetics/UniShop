@@ -6,14 +6,16 @@ import java.util.*;
 
 public class VF {
 
-    private static Scanner scanner = new Scanner(System.in);
+    static myScanner myScanner = new myScanner();
 
     public static void main(String[] args) {
         DatabasePath.checkProduitPath();
         DatabasePath.checkAcheteurPath();
         DatabasePath.checkRevendeurPath();
         displayMenuPrincipale();
-        scanner.close();
+        Database.refreshAcheteurs();
+        Database.refreshRevendeurs();
+        Database.refreshProduits();
     }
 
     /**
@@ -36,7 +38,7 @@ public class VF {
                 System.out.print("\n");
 
                 System.out.print("Choix : ");
-                choix = scanner.nextInt();
+                choix = myScanner.getIntInput();
 
                 switch (choix) {
                     case 0: System.out.println("Au revoir !");
@@ -50,7 +52,6 @@ public class VF {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }
