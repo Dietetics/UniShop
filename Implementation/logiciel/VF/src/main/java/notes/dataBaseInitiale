@@ -11,6 +11,11 @@ test,test,test,test@gmail.com,5141231231,H5W3X3,0,#we
 we,wed,we,we@gmail.com,2131231231,w3e2d4,0,#we
 temp,temp,temp,temp@gmail.com,1231231231,temp,0,#we
 
+pseudo, billet, histoire, notification, panier, suiviPar, suivre
+
+
+
+
 revendeurs:
 nom(unique), adresse, adresse courriel(unique), telephone, likes, password
 *produit a offrir
@@ -18,6 +23,7 @@ pc1,H3C3J7,pc1@gmail.com,1231231231,0,#we
 pc2,H3C3J7,pc2@gmail.com,1232131231,0,#we
 pc3,H3C3J7,pc3@gmail.com,2131231231,0,#we
 
+nom, resolution, notification
 
 
 
@@ -29,7 +35,7 @@ OrdinateurPortable1,Materiel_informatique,bad,5,699.99,2,non,non,2,0,0,non
 lampesBureau1,Equipement_bureau,good,30,30,0,non,non,3,0,0,non
 guideEtude1,Ressources_Dapprentissage,good,2,40,0,non,non,4,0,0,non
 
-
+nom, note, evaluation
 
 
 
