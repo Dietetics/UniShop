@@ -2,6 +2,8 @@ done:
 
 DatabasePath
 
+database
+    -refresh
 
 myScanner
     -getIntInput()

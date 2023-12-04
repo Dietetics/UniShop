@@ -26,6 +26,11 @@ public class DatabasePath {
     private static String fichiersInfoAcheteur= "src/main/resources/data/databaseInitiale/fichiersAcheteurs.csv";
     private static String fichiersInfoRevendeur= "src/main/resources/data/databaseInitiale/fichiersRevendeurs.csv";
 
+    // ceci pour initialiser le database
+    private static String database0Produit= "src/main/resources/data/databaseInitiale/Database0Produits.csv";
+    private static String database0Acheteur= "src/main/resources/data/databaseInitiale/Database0Acheteurs.csv";
+    private static String database0Revendeur= "src/main/resources/data/databaseInitiale/Database0Revendeurs.csv";
+
 
     static void checkProduitPath(){
         try {
@@ -126,5 +131,17 @@ public class DatabasePath {
 
     public static String getFichiersInfoRevendeur() {
         return fichiersInfoRevendeur;
+    }
+
+    public static String getDatabase0Produit() {
+        return database0Produit;
+    }
+
+    public static String getDatabase0Acheteur() {
+        return database0Acheteur;
+    }
+
+    public static String getDatabase0Revendeur() {
+        return database0Revendeur;
     }
 }

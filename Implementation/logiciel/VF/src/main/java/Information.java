@@ -16,15 +16,18 @@ public class Information {
                         return;
                     case 1:
                         RecherchePublic.recuperer(DatabasePath.getProduitPath(), 0);
-                        choix = decisionProduit(DatabasePath.getProduitPath(),0);
+                        decisionProduit(DatabasePath.getProduitPath(),0);
+                        choix = "0";
                         break;
                     case 2:
-                        RecherchePublic.recuperer(DatabasePath.getAcheteurPath(), 2);
-                        choix = decisionAcheteur(DatabasePath.getAcheteurPath(),2);
+                        RecherchePublic.recuperer(DatabasePath.getAcheteurPath(), 0);
+                        decisionAcheteur(DatabasePath.getAcheteurPath(),0);
+                        choix = "0";
                         break;
                     case 3:
                         RecherchePublic.recuperer(DatabasePath.getRevendeurPath(), 0);
-                        choix = decisionRevendeur(DatabasePath.getRevendeurPath(),0);
+                        choix = "0";
+                        decisionRevendeur(DatabasePath.getRevendeurPath(),0);
                         break;
                     case 4:
                         RecherchePublic.rechercheProduits();

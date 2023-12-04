@@ -19,6 +19,7 @@ Connexion
     -connectAcheteur
     -connectRevendeur
 
+
 ProfilAcheteur
     - modifierProfil
 
@@ -52,10 +53,6 @@ RecherchePublic
 
 
 
-
-
-
-
 to do:
 metriques voir photo
-database refresh
+

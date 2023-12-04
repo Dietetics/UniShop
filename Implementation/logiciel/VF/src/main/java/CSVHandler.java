@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CSVHandler {
 
-    // pour reset DataBase
+    // pour Reset DataBase
     public static List<String> readLinesFromCSV(String filePath) {
         List<String> lines = new ArrayList<>();
 

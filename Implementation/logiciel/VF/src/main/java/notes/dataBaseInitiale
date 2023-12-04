@@ -27,7 +27,7 @@ auteur2,#We123123,auteur2@gmail.com,H3C3J7,4382131231,0
 auteur3,#We123123,auteur3@gmail.com,H3C3J7,1281231231,0
 we,#We123123,we@gmail.com,H3C3J7,1281231231,0
 
-nom, resolution, notification, offrir
+main, resolution, notification, offrir
 
 
 
@@ -42,7 +42,7 @@ OrdinateurPortable1,Materiel_informatique,bad,5,699.99,2,non,non,2,0,0,non
 lampesBureau1,Equipement_bureau,good,30,30,0,non,non,3,0,0,non
 guideEtude1,Ressources_Dapprentissage,good,2,40,0,non,non,4,0,0,non
 
-nom, note, evaluation
+main, note, evaluation
 
 
 

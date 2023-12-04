@@ -82,8 +82,9 @@ public class RecherchePublic {
         do {
             try {
                 System.out.println(" ");
-                System.out.print("Choisir l'ordre (ASCENDING ou DESCENDING): ");
+                System.out.println("Choisir l'ordre (ASCENDING ou DESCENDING): ");
                 System.out.println("---------------------");
+                System.out.print("Choix: ");
                 order = CSVHandler.SortOrder.valueOf(myScanner.getStringInput());
             } catch (IllegalArgumentException e) {
                 System.out.println("Ordre invalide. Veuillez choisir ASCENDING ou DESCENDING.");
@@ -181,10 +182,10 @@ public class RecherchePublic {
         String keyword = myScanner.getStringInput();
 
         System.out.println("\n");
-        System.out.println("nom, prenom, pseudo, likes");
+        System.out.println("pseudo, nom, prenom, likes");
         System.out.println("--------------------------");
-        List<Integer> outputColumnIndices = Arrays.asList(0, 1, 2, 6);
-        List<String> matchingLines = CSVHandler.searchExaAndFilterColumnsInCSV(DatabasePath.getAcheteurPath(), keyword,2,outputColumnIndices);
+        List<Integer> outputColumnIndices = Arrays.asList(0, 3, 4, 7);
+        List<String> matchingLines = CSVHandler.searchExaAndFilterColumnsInCSV(DatabasePath.getAcheteurPath(), keyword,0,outputColumnIndices);
         if (!matchingLines.isEmpty()) {
             System.out.println(matchingLines);
         } else {
@@ -201,11 +202,11 @@ public class RecherchePublic {
         System.out.println("Voici la liste des suiveurs");
         System.out.println("--------------------------");
 
-        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),keyword,2);
+        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),keyword,0);
 
         if (index != -1) {
             String data = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(),index);
-            String pseudo = CSVHandler.getColumnValue(data,2);
+            String pseudo = CSVHandler.getColumnValue(data,0);
 
             String suiviPar = DatabasePath.getAcheteurComptePath() + pseudo + "/suiviPar.csv" ;
 
@@ -229,11 +230,11 @@ public class RecherchePublic {
         System.out.println("Voici la liste des suivis");
         System.out.println("--------------------------");
 
-        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),keyword,2);
+        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),keyword,0);
 
         if (index != -1) {
             String data = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(),index);
-            String pseudo = CSVHandler.getColumnValue(data,2);
+            String pseudo = CSVHandler.getColumnValue(data,0);
 
             String suivre = DatabasePath.getAcheteurComptePath() + pseudo + "/suivre.csv" ;
 
@@ -277,7 +278,7 @@ public class RecherchePublic {
                         quitter = true;
                         break;
                     default:
-                        List<Integer> searchColumnIndices = Arrays.asList(0, 1);
+                        List<Integer> searchColumnIndices = Arrays.asList(0, 3);
                         List<Integer> outputColumnIndices = Arrays.asList(0);
                         List<String> matchingLines = CSVHandler.searchAndFilterColumnsInCSV(DatabasePath.getRevendeurPath(), keyword,searchColumnIndices,outputColumnIndices);
                         if (!matchingLines.isEmpty()) {
@@ -306,7 +307,7 @@ public class RecherchePublic {
 
                 switch (type.toLowerCase()) {
                     case "nom": colomn = 1;break;
-                    case "likes": colomn = 5;break;
+                    case "likes": colomn = 6;break;
                     default: System.out.println("Choix invalide. Veuillez reessayer.");
                 }
             } catch (Exception e) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Database {
 
+    // lit toutes les datas des acheteurs, prendre le main.csv de chaque puis output sur acheteur.csv
     public static void refreshAcheteurs() {
         String baseFolderPath = DatabasePath.getBaseAcheteurFolderPath();
         String outputFile = DatabasePath.getOutputAcheteurFile();
