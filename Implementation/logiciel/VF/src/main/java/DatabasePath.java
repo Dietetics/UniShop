@@ -22,6 +22,11 @@ public class DatabasePath {
     private static String outputAcheteurFile = "src/main/resources/data/acheteurs.csv";
     private static String outputRevendeurFile = "src/main/resources/data/revendeurs.csv";
 
+    private static String fichiersInfoProduit= "src/main/resources/data/databaseInitiale/fichiersProduits.csv";
+    private static String fichiersInfoAcheteur= "src/main/resources/data/databaseInitiale/fichiersAcheteurs.csv";
+    private static String fichiersInfoRevendeur= "src/main/resources/data/databaseInitiale/fichiersRevendeurs.csv";
+
+
     static void checkProduitPath(){
         try {
             checkFileExistence(produitPath);
@@ -109,5 +114,17 @@ public class DatabasePath {
 
     public static String getOutputRevendeurFile() {
         return outputRevendeurFile;
+    }
+
+    public static String getFichiersInfoProduit() {
+        return fichiersInfoProduit;
+    }
+
+    public static String getFichiersInfoAcheteur() {
+        return fichiersInfoAcheteur;
+    }
+
+    public static String getFichiersInfoRevendeur() {
+        return fichiersInfoRevendeur;
     }
 }

@@ -5,8 +5,8 @@ import java.util.List;
 
 public class reset {
 
-    public static void resetDatabases(List<String> lines) {
-        String baseFolderPath = "src/main/resources/data"; // Chemin vers le dossier principal
+    public static void resetDatabases(List<String> lines, List<String> additionalFiles) {
+        String baseFolderPath = "src/main/resources/data/acheteur"; // Chemin vers le dossier principal
         String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier
 
         for (String line : lines) {
@@ -25,26 +25,27 @@ public class reset {
                 try (PrintWriter writer = new PrintWriter(new FileWriter(mainFile))) {
                     writer.println(line); // Écrire la ligne dans le fichier principal
 
-                    // Créer d'autres fichiers CSV ici si nécessaire
+                    // Créer d'autres fichiers CSV si nécessaire
+                    for (String additionalFile : additionalFiles) {
+                        File file = new File(folder, additionalFile);
+                        file.createNewFile(); // Créer un fichier vide
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-
         System.out.println("Reset complete.");
     }
 
     public static void main(String[] args) {
-        List<String> lines = Arrays.asList(
-                "auteur1,#We123123,teng.wanting@umontreal.ca,Teng,Wanting,5148888888,H3C3J7,0",
-                "auteur2,#We123123,he.yongkang@gmail.com,he,yongkang,5140003333,H3C3J7,0",
-                "auteur3,#We123123,lin.yuxiang@umontreal.ca,Lin,Yuxiang,5147775555,H3C3J7,0",
-                "test,#We123123,test@gmail.com,testNom,testPrenom,5141231231,H5W3X3,0",
-                "we,#We123123,we@gmail.com,weNom,wePrenom,4381231231,H5W3X3,0",
-                "temp,#We123123,temp@gmail.com,tempNom,tempPrenom,1281231231,H5W3X3,0"
-        );
+        String csvFilePath = "src/main/resources/data/databaseInitiale/Database0Acheteurs.csv";
+        List<String> lines = CSVHandler.readLinesFromCSV(csvFilePath);
 
-        resetDatabases(lines);
+        String csvAddiFilePath = "src/main/resources/data/databaseInitiale/fichiersAcheteurs.csv";
+        List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);
+
+
+        resetDatabases(lines, additionalFiles);
     }
 }

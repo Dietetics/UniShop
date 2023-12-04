@@ -6,6 +6,23 @@ import java.util.List;
 
 public class CSVHandler {
 
+    // pour reset DataBase
+    public static List<String> readLinesFromCSV(String filePath) {
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lines;
+    }
+
+
     /**
      * Lit un fichier CSV et retourne les données.
      *

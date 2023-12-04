@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -74,6 +77,10 @@ public class Inscription {
     }
 
 
+
+
+
+
     public static void inscriptionRevendeur() {
         System.out.println("----- Bienvenu a notre page d'inscription pour devenir Revendeur -----");
 
@@ -100,31 +107,40 @@ public class Inscription {
 
 
     private static void saveAcheteurData(String nom, String prenom, String adresse, String courriel, String telephone, String pseudo, String password) {
-        List<String[]> userData = new ArrayList<>();
-        userData.add(new String[]{pseudo, password, courriel, nom, prenom, telephone, adresse, "0"});
 
-        String directoryPath = DatabasePath.getAcheteurComptePath() + pseudo + "/";
-        createDirectory(directoryPath);
+        String csvLine = FormatAdjust.convertToCSV(pseudo, password, courriel, nom, prenom, telephone, adresse, "0");
 
-        String acheteurCompte = directoryPath + "main.csv";
-        String acheteurPanier = directoryPath + "panier.csv";
-        String acheteurHistoire = directoryPath + "histoire.csv";
-        String acheteurBillet = directoryPath + "billet.csv";
-        String acheteurSuivre = directoryPath + "suivre.csv";
-        String acheteurSuiviPar = directoryPath + "suiviPar.csv";
-        String acheteurNotification = directoryPath + "notification.csv";
-        String acheteurLikes = directoryPath + "likes.csv";
+        String csvAddiFilePath = DatabasePath.getFichiersInfoAcheteur();
+        List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);
 
-        CSVHandler.coverCSV(acheteurCompte, userData);
-        CSVHandler.coverCSV(acheteurPanier, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurHistoire, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurBillet, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurSuivre, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurSuiviPar, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurNotification, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurLikes, new ArrayList<>());
+        ajoutAcheteur(pseudo, csvLine, additionalFiles);
 
         Database.refreshAcheteurs();
+    }
+
+    public static void ajoutAcheteur(String folderName, String csvLine, List<String> additionalFiles) {
+        String baseFolderPath = DatabasePath.getBaseAcheteurFolderPath(); // Chemin vers le dossier principal
+        String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier
+
+        File folder = new File(baseFolderPath, folderName);
+
+        if (!folder.exists()) {
+            folder.mkdirs(); // Créer le dossier s'il n'existe pas
+        }
+
+        File mainFile = new File(folder, mainFileName);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(mainFile))) {
+            writer.println(csvLine); // Écrire la ligne dans le fichier principal
+
+            // Créer d'autres fichiers CSV si nécessaire
+            for (String additionalFile : additionalFiles) {
+                File file = new File(folder, additionalFile);
+                file.createNewFile(); // Créer un fichier vide
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
