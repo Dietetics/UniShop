@@ -1,7 +1,14 @@
 billet.csv
+commande.csv
 histoire.csv
 notification.csv
 panier.csv
 suiviPar.csv
-suivre.csv
-likes.csv
+suivreAcheteur.csv
+suivreRevendeur.csv
+likerProduit.csv
+likerRevendeur.csv
+metriques.csv
+evaluation.csv
+points.csv
+signaler.csv

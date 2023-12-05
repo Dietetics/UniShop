@@ -14,7 +14,7 @@ public class Connexion {
      * @return Aucune valeur de retour.
      */
     public static void connecter() {
-        System.out.println("----- Bienvenu a notre page de connexion -----");
+        System.out.println("\n\n----- Bienvenu a notre page de connexion -----");
         System.out.println("Etes-vous un revendeur ou un acheteur");
         System.out.println(":q Retourner a la page d'acceuil");
         System.out.println(":a Acheteur");
@@ -51,7 +51,7 @@ public class Connexion {
      */
     public static void connectRevendeur(){
 
-        System.out.println("----- Veuillez vous connectez -----");
+        System.out.println("\n\n----- Veuillez vous connectez -----");
 
         Boolean condition = true;
         while (condition) {
@@ -73,7 +73,8 @@ public class Connexion {
 
                 condition = false;
 
-                new ProfilRevendeur(nom,password);
+                ProfilRevendeur temp = new ProfilRevendeur(nom);
+                temp.displayMenuRevendeur();
             } catch (Exception e) {
                 System.out.println("Erreur: " + e.getMessage());
             }
@@ -90,7 +91,7 @@ public class Connexion {
      */
     public static void connectAcheteur(){
 
-        System.out.println("----- Veuillez vous connectez -----");
+        System.out.println("\n\n----- Veuillez vous connectez -----");
 
         Boolean condition = true;
         while (condition) {
@@ -112,7 +113,6 @@ public class Connexion {
 
                 condition = false;
 
-                System.out.println("passer");
 
                 new ProfilAcheteur(pseudo,password);
             } catch (Exception e) {

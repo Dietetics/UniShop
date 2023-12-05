@@ -40,7 +40,7 @@ public class VF {
                     case 0: System.out.println("Au revoir !");
                     System.exit(choix);
                         break;
-                    case 1: Information.displayInformation(); break;
+                    case 1: RecherchePublic.display(); break;
                     case 2: Inscription.inscription(); break;
                     case 3: Connexion.connecter(); break;
                     default:

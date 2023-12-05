@@ -166,9 +166,10 @@ public class CSVHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return matchingLines;
     }
+
+
 
     // méthode pour rechercher exactement le mot-clé et un argument qui indique les colonnes quon veut
     public static List<String> searchExaAndFilterColumnsInCSV(String filePath, String keyword, int searchColumnIndex, List<Integer> outputColumnIndices) {
@@ -762,4 +763,38 @@ public class CSVHandler {
         }
         return null;
     }
+
+
+    public static void removeLineFromCSV(String filePath, int lineIndex) {
+        // Lire le fichier CSV et stocker chaque ligne dans une liste
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Vérifier si l'index de la ligne à supprimer est valide
+        if (lineIndex >= 0 && lineIndex < lines.size()) {
+            // Supprimer la ligne spécifiée
+            lines.remove(lineIndex);
+
+            // Réécrire le fichier avec les lignes mises à jour
+            try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+                for (String updatedLine : lines) {
+                    writer.println(updatedLine);
+                }
+                System.out.println("Ligne retirée avec succès.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Index de ligne invalide.");
+        }
+    }
+
 }

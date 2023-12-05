@@ -3,29 +3,33 @@ import java.util.*;
 public class ProfilRevendeur {
     private static Scanner scanner = new Scanner(System.in);
 
-    private String nom, password, courriel, adresse, telephone, nbLikes;
+    private static String nom,password,courriel,adresse,telephone;
+    private static int nbLikes;
 
 
-    public ProfilRevendeur(String nom, String password) {
+    public ProfilRevendeur(String nom) {
 
         this.nom = nom;
-        this.password = password;
 
 
         int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(),getNom(),0);
         String data = CSVHandler.readLineByIndex(DatabasePath.getRevendeurPath(),lineIndex);
 
+        String password = CSVHandler.getColumnValue(data, 1);
         String courriel = CSVHandler.getColumnValue(data, 2);
         String adresse = CSVHandler.getColumnValue(data, 3);
         String telephone = CSVHandler.getColumnValue(data, 4);
-        String nbLikes = CSVHandler.getColumnValue(data, 5);
+        String likes = CSVHandler.getColumnValue(data, 5);
 
+        int nbLikes = Integer.parseInt(likes);
+
+        this.password = password;
         this.courriel = courriel;
         this.telephone = telephone;
         this.adresse = adresse;
         this.nbLikes = nbLikes;
 
-        displayMenuRevendeur();
+
     }
 
 
@@ -148,7 +152,9 @@ public class ProfilRevendeur {
 
 
     private void saveChanges() {
-        List<String> newCSVLine = Arrays.asList(nom, getPassword(), courriel, getAdresse(), getTelephone(),getNbLikes());
+        String nbLikes = Integer.toString(getNbLikes());
+
+        List<String> newCSVLine = Arrays.asList(nom, getPassword(), courriel, getAdresse(), getTelephone(),nbLikes);
 
         String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/main.csv";
         CSVHandler.coverCSV(directoryPath, FormatAdjust.transformList(newCSVLine));
@@ -288,32 +294,51 @@ public class ProfilRevendeur {
 
 
 
-    public String getNom() {
+    public static void modified(){
+        List<String[]> userData = new ArrayList<>();
+
+        System.out.println(getNbLikes());
+        String likes1 = Integer.toString(getNbLikes());
+
+
+
+        userData.add(new String[]{getNom(),getPassword(),getCourriel(),getAdresse(),getTelephone(),likes1});
+
+        String directoryPath = DatabasePath.getRevendeurComptePath() + getNom() + "/main.csv";
+        CSVHandler.coverCSV(directoryPath, userData);
+
+        Database.refreshRevendeurs();
+    }
+
+
+
+    public static String getNom() {
         return nom;
     }
 
-    public String getTelephone() {
+    public static String getTelephone() {
         return telephone;
     }
 
-    public String getAdresse() {
+    public static String getAdresse() {
         return adresse;
     }
 
-    public String getNbLikes() {
+    public static int getNbLikes() {
         return nbLikes;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
-    public String getCourriel() {
+    public static String getCourriel() {
         return courriel;
     }
 
-
-
+    public void setNbLikes(int nbLikes) {
+        this.nbLikes = nbLikes;
+    }
 }
 
 

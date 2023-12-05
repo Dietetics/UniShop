@@ -22,7 +22,7 @@ public class InfoRevendeur {
         System.out.print("Entrez quelque chose pour retourner a la recherche");
         String decision = myScanner.getStringInput();
 
-        if (decision != null) Information.displayInformation();
+        if (decision != null) return;
 
     }
 

@@ -8,23 +8,6 @@ database
     -void refreshRevendeurs()
 
 
-Inscription
-    -inscriptionAcheteur
-    -inscriptionRevendeur
-
-InputRestrint
-    - (...)
-
-Connexion
-    -connectAcheteur
-    -connectRevendeur
-
-
-ProfilAcheteur
-    - modifierProfil
-
-ProfilRevendeur
-    - modifierProfil
 
 Information
     -displayInformation
@@ -38,7 +21,6 @@ InfoRevendeur
 InfoProduit
     -void voirProduit(String path, String motCle, int colonne)
 
-
 RecherchePublic
     -void recuperer(String path, int info)
     -void rechercheProduits()
@@ -47,6 +29,31 @@ RecherchePublic
 
 
 
+Inscription
+    -inscriptionAcheteur
+    -inscriptionRevendeur
+
+InputRestrint
+    - (...)
+
+
+
+
+Connexion
+    -connectAcheteur
+    -connectRevendeur
+
+
+ProfilAcheteur
+    - modifierProfil
+
+    - catalogue
+
+RechercheAcheteur
+
+
+ProfilRevendeur
+    - modifierProfil
 
 
 
@@ -56,3 +63,4 @@ RecherchePublic
 to do:
 metriques voir photo
 
+inscription: saveRevendeurData
