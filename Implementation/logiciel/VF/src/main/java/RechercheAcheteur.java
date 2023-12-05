@@ -42,7 +42,7 @@ public class RechercheAcheteur {
                         Recherche.rechercheRevendeurs();
                         break;
                     case 7:
-                        catalogueProduit(acheteur);
+                        catalogue(acheteur);
                         break;
                     default:
                         System.out.println("Choix invalide. Veuillez reessayer.");
@@ -56,7 +56,7 @@ public class RechercheAcheteur {
         System.out.println("\n");
         System.out.println("------ Bienvenu a notre section de recherche, cher " + getAcheteur() + "-------");
         System.out.println("0. Quitter");
-        System.out.println("Recuperer la liste ... pour voir plus d informations, liker ou suivre");
+        System.out.println("Recuperer la liste ... pour voir plus d informations, liker ou suivre, passer au panier");
         System.out.println("    1. des produits");
         System.out.println("    2. des acheteurs");
         System.out.println("    3. des revendeurs");
@@ -64,14 +64,14 @@ public class RechercheAcheteur {
         System.out.println("    4. un produit");
         System.out.println("    5. un acheteur");
         System.out.println("    6. un revendeur");
-        System.out.println("Rechercher tout ... pour liker");
+        System.out.println("Rechercher tout ... pour liker ou passer au panier");
         System.out.println("    7. un produit");
         System.out.print("\n");
     }
 
 
     public static void decisionProduit(String path, int colonne) {
-
+        String produit;
         String choix = "90";
         while (choix != "0") {
             try {
@@ -87,9 +87,15 @@ public class RechercheAcheteur {
                         voirProduit(path,colonne); //voir les produits
                         break;
                     case 3:
-                        String produit = siExiste(path); //verifie si existe
+                        produit = siExiste(path); //verifie si existe
                         if(produit != "-1"){
                             Operation.acheteurLikerProduit(produit,getAcheteur());
+                        };
+                        break;
+                    case 4:
+                        produit = siExiste(path); //verifie si existe
+                        if(produit != "-1"){
+                            Operation.acheteurCommandeProduit(produit,getAcheteur());
                         };
                         break;
                     default:
@@ -108,6 +114,7 @@ public class RechercheAcheteur {
         System.out.println("1. Recuperer liste des produits");
         System.out.println("2. Voir plus d'information");
         System.out.println("3. Liker");
+        System.out.println("4. Placer dans le panier");
         System.out.print("\n");
     }
 
@@ -350,6 +357,59 @@ public class RechercheAcheteur {
             }
         }
     }
+
+
+    public static void catalogue(String auteur) {
+        String choix = "99";
+
+        while (!choix.equals("0")) {
+            try {
+                System.out.println("\n\nCher acheteur: " + auteur + ", Voici nos produits");
+                System.out.println("-----------------------------------------------------");
+                CSVHandler.printCSV(CSVHandler.readCSV(DatabasePath.getProduitPath(), 30));
+                System.out.println("-----------------------------------------------------");
+                System.out.println(" ");
+
+                System.out.println("Options : ");
+                System.out.println("1. Liker un produit");
+                System.out.println("2. Passer au panier");
+                System.out.println("0. Retourner");
+
+                System.out.print("Entrez le numéro de l'option : ");
+                String scanned = myScanner.getStringInput();
+
+                switch (scanned) {
+                    case "0":
+                        choix = "0";
+                        break;
+                    case "1":
+                        System.out.print("Entrez le nom du produit à liker : ");
+                        String produitNom = myScanner.getStringInput();
+                        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getProduitPath(), produitNom, 0);
+
+                        if (index != -1) {
+                            String produit = CSVHandler.getColumnValue(CSVHandler.readLineByIndex(DatabasePath.getProduitPath(), index), 0);
+                            Operation.acheteurLikerProduit(produit, auteur);
+                        } else {
+                            System.out.println("Aucun produit correspondant trouvé. Veuillez réessayer.");
+                        }
+                        break;
+                    case "2":
+                        String produit = siExiste(DatabasePath.getProduitPath()); //verifie si existe
+                        if(produit != "-1"){
+                            Operation.acheteurCommandeProduit(produit,getAcheteur());
+                        };
+                        break;
+                    default:
+                        System.out.println("Option invalide. Veuillez entrer de nouveau.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Erreur : Veuillez entrer de nouveau.");
+            }
+        }
+    }
+
 
 
 

@@ -29,6 +29,23 @@ public class Operation {
         }
     }
 
+    public static void acheteurCommandeProduit(String produit, String auteur) {
+        String path = DatabasePath.getAcheteurComptePath() + auteur + "/panier.csv";
+
+        try {
+            Boolean condition = CSVHandler.isExiste(path, produit);
+
+            if (!condition) {
+                CSVHandler.appendCSV(path, produit);
+                System.out.println("Produit ajouter avec succss.");
+            } else {
+                System.out.println("Vous avez ce produit dans le panier.");
+            }
+        } catch (Exception e) {
+            System.out.println("Une erreur s'est produite : " + e.getMessage());
+        }
+    }
+
 
     public static void acheteurSuivreAcheteur(String acheteur, String auteur) {
         String path = DatabasePath.getAcheteurComptePath() + auteur + "/suivreAcheteur.csv";

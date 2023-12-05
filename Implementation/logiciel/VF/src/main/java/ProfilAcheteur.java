@@ -47,21 +47,18 @@ public class ProfilAcheteur {
                         break;
                     case 1: modifie_profil(); break;
                     case 2: new RechercheAcheteur(getPseudo()); break;
-
-
-                    case 3: Recherche.rechercheProduits(); break;
+                    case 3: gererSuiveurs(); break;
                     case 4:
-                        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),2);
-                        int[] excludedColumns = {2, 3};
-                        //Recherche.trouverAcheteur(index,excludedColumns); break;
-                    case 5: //Recherche.trouverRevendeur();; break;
-                    case 6: PanierAchat.panierAchat(); break;
-                    case 7: Histoire.pageHistoire(); break;
-                    case 8: Metrique.voir_metriques(); break;
-                    case 9: Notification.recevoirNotifications(); break;
-                    case 10: voir_pts(); break;
-                    case 11: SignalementProbleme.signalerProblemeProduit(); break;
-                    case 12: gererSuiveurs(); break;
+                        PanierAchat panier = new PanierAchat(getPseudo());
+                        panier.menu();
+                        break;
+
+//                    case 7: Histoire.pageHistoire(); break;
+//                    case 8: Metrique.voir_metriques(); break;
+//                    case 9: Notification.recevoirNotifications(); break;
+//                    case 10: voir_pts(); break;
+//                    case 11: SignalementProbleme.signalerProblemeProduit(); break;
+
                     default:
                         System.out.println("Choix invalide. Veuillez reessayer.");
                 }
@@ -77,16 +74,19 @@ public class ProfilAcheteur {
         System.out.println("0. deconnecter");
         System.out.println("1. modifier le Profil");
         System.out.println("2. recherche");
-        System.out.println("3. recherche de produits");
-        System.out.println("4. trouver un acheteur"); // suivre
-        System.out.println("5. trouver un revendeur");
-        System.out.println("6. panier d'achat"); // passer une commande
-        System.out.println("7. gestion de commandes"); // confirmer la reception,  retournerUechanger, commenter et evaluer un produit
-        System.out.println("8. voir les metriques");
-        System.out.println("9. voir les notifications");
-        System.out.println("10. voir les points du programme de fidelite");
-        System.out.println("11. signaler un probleme");
-        System.out.println("12. gerer les suiveurs");
+        System.out.println("3. gerer les suiveurs");
+        System.out.println("4. panier d'achat"); // passer une commande
+
+//        System.out.println("12. voir les points du programme de fidelite");
+
+//        System.out.println("7. gestion de commandes"); // confirmer la reception,  retournerUechanger, commenter et evaluer un produit
+//
+//        System.out.println("8. voir les metriques");
+//        System.out.println("9. voir les notifications");
+//        System.out.println("10. voir les points du programme de fidelite");
+
+//        System.out.println("11. signaler un probleme");
+
         System.out.print("\n");
     }
 

@@ -46,7 +46,6 @@ Connexion
 
 ProfilAcheteur
     - modifierProfil
-
     - catalogue
 
 RechercheAcheteur

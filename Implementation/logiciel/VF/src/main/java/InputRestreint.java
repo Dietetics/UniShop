@@ -331,6 +331,28 @@ public class InputRestreint {
     }
 
 
+
+
+    static String getValidCredit(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String cvv = myScanner.getStringInput();
+
+                if (!isValidCredit(cvv)) {
+                    throw new IllegalArgumentException("Les informations de la carte de crédit ne sont pas valides. le nombre cvv est une longueur de 3");
+                }
+                return cvv;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur : " + e.getMessage());
+            }
+        }
+    }
+
+    static boolean isValidCredit(String cvv) {
+        return cvv.length() == 3;
+    }
+
 }
 
 

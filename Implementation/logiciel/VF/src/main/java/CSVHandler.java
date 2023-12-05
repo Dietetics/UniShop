@@ -788,12 +788,37 @@ public class CSVHandler {
                 for (String updatedLine : lines) {
                     writer.println(updatedLine);
                 }
-                System.out.println("Ligne retirée avec succès.");
+                System.out.println("retiree avec succes.");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             System.out.println("Index de ligne invalide.");
+        }
+    }
+
+
+
+    public static int countLines(String filePath) {
+        int lineCount = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            while (reader.readLine() != null) {
+                lineCount++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lineCount;
+    }
+
+
+    public static void clearCSV(String filePath) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            // Le fichier est ouvert en mode écriture, ce qui efface son contenu
+            // Le bloc try-with-resources garantit que le fichier sera correctement fermé
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
