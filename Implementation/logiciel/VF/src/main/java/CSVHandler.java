@@ -916,4 +916,31 @@ public class CSVHandler {
         }
     }
 
+
+    public static int sumIntegersFromCSV(String filePath) {
+        int sum = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Séparer les valeurs par virgule
+                String[] values = line.split(",");
+
+                // Parcourir les valeurs et les ajouter à la somme
+                for (String value : values) {
+                    try {
+                        int intValue = Integer.parseInt(value.trim());
+                        sum += intValue;
+                    } catch (NumberFormatException e) {
+                        // Ignorer les valeurs qui ne sont pas des entiers
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sum;
+    }
+
 }

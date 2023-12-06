@@ -145,25 +145,45 @@ public class Inscription {
 
 
     private static void saveRevendeurData(String nom, String adresse, String courriel, String telephone, String password) {
-        List<String[]> userData = new ArrayList<>();
-        userData.add(new String[]{nom, adresse, courriel, telephone, "0", password});
 
-        String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/";
-        createDirectory(directoryPath);
+        String csvLine = FormatAdjust.convertToCSV(nom, password, courriel, adresse, telephone, "0");
 
-        String revendeurCompte = directoryPath + "main.csv";
-        String revendeurResolution = directoryPath + "resolution.csv";
-        String revendeurOffre = directoryPath + "offre.csv";
-        String revendeurNotification = directoryPath + "notification.csv";
+        String csvAddiFilePath = DatabasePath.getFichiersInfoRevendeur();
+        List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);
 
-
-        CSVHandler.coverCSV(revendeurCompte, userData);
-        CSVHandler.coverCSV(revendeurResolution, new ArrayList<>());
-        CSVHandler.coverCSV(revendeurOffre, new ArrayList<>());
-        CSVHandler.coverCSV(revendeurNotification, new ArrayList<>());
+        ajoutRevendeur(nom, csvLine, additionalFiles);
 
         Database.refreshRevendeurs();
     }
+
+    public static void ajoutRevendeur(String folderName, String csvLine, List<String> additionalFiles) {
+        String baseFolderPath = DatabasePath.getBaseRevendeurFolderPath(); // Chemin vers le dossier principal
+        String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier
+
+        File folder = new File(baseFolderPath, folderName);
+
+        if (!folder.exists()) {
+            folder.mkdirs(); // Créer le dossier s'il n'existe pas
+        }
+
+        File mainFile = new File(folder, mainFileName);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(mainFile))) {
+            writer.println(csvLine); // Écrire la ligne dans le fichier principal
+
+            // Créer d'autres fichiers CSV si nécessaire
+            for (String additionalFile : additionalFiles) {
+                File file = new File(folder, additionalFile);
+                file.createNewFile(); // Créer un fichier vide
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
 
 

@@ -6,6 +6,7 @@ public class PanierAchat {
     private static String pathPanier;
     private static String pathPts;
     private static String pathHistoire;
+    private static String pathNotifications;
     private static int pts;
 
     public PanierAchat(String acheteur) {
@@ -13,6 +14,7 @@ public class PanierAchat {
         this.acheteur = acheteur;
         this.pathPanier = DatabasePath.getAcheteurComptePath() + acheteur + "/panier.csv";
         this.pathPts = DatabasePath.getAcheteurComptePath() + acheteur + "/points.csv";
+        this.pathNotifications = DatabasePath.getAcheteurComptePath() + acheteur + "/notifications.csv";
         this.pathHistoire = DatabasePath.getAcheteurComptePath() + acheteur + "/histoire.csv";
     }
 
@@ -108,10 +110,10 @@ public class PanierAchat {
 
 
     private static void recap(){
-        System.out.println("\n\n\nVu Black friday, grand liquidation!!! tous les produits sont a 4.99$ et chaques produits donnent 2points!!!");
+        System.out.println("\n\n\nVu Black friday, grand liquidation!!! tous les produits sont a 5$ et chaques produits donnent 2points!!!");
         afficherPanier();
         int nbArticles = CSVHandler.countLines(getPathPanier());
-        double prix = nbArticles *4.99;
+        int prix = nbArticles *5;
         int pts = nbArticles *2;
         setPts(pts);
         System.out.println("Apres nos calculs, le prix total est "+prix + "$");
@@ -134,6 +136,7 @@ public class PanierAchat {
                 CSVHandler.transfereCSVEnproduction(getPathPanier(),getPathHistoire());
 
                 CSVHandler.appendCSV(getPathPts(),pts);
+                CSVHandler.appendCSV(getPathNotifications(),"Merci davoir magasiner chez UniShop");
                 viderPanier();
 
                 break;
@@ -176,5 +179,9 @@ public class PanierAchat {
 
     public static String getPathHistoire() {
         return pathHistoire;
+    }
+
+    public static String getPathNotifications() {
+        return pathNotifications;
     }
 }

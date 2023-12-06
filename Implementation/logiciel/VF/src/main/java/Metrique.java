@@ -3,37 +3,69 @@ import java.util.Map;
 
 public class Metrique {
 
-    private static final int NOMBRE_COMMANDES = 50;
-    private static final int NOMBRE_ARTICLES_ACHETES = 120;
-    private static final int LIKES_EVALUATIONS = 300;
 
 
-    public static void voir_metriques() {
-        System.out.println("----- Métriques des Activités -----");
+    public static void voirMetriquesAcheteur(String auteur){
 
-        // Métriques liées à ses propres activités
-        System.out.println("Vos Métriques :");
-        System.out.println("Nombre de Commandes Passées : " + NOMBRE_COMMANDES);
-        System.out.println("Nombre d'Articles Achetés : " + NOMBRE_ARTICLES_ACHETES);
-        System.out.println("Likes Reçus sur les Évaluations : " + LIKES_EVALUATIONS);
+        String pathHistoire = DatabasePath.getAcheteurComptePath() + auteur + "/histoire.csv";
+        String pathSuiviPar = DatabasePath.getAcheteurComptePath() + auteur + "/suiviPar.csv";
+        String pathSuivreAcheteur = DatabasePath.getAcheteurComptePath() + auteur + "/suivreAcheteur.csv";
+        String pathSuivreRevendeur = DatabasePath.getAcheteurComptePath() + auteur + "/suivreRevendeur.csv";
+        String pathLikerProduit = DatabasePath.getAcheteurComptePath() + auteur + "/likerProduit.csv";
+        String pathLikerRevendeur = DatabasePath.getAcheteurComptePath() + auteur + "/likerRevendeur.csv";
 
-        // Métriques liées aux produits
-        System.out.println("\nMétriques des Produits :");
-        Map<String, Integer> metriquesProduits = recupererMetriquesProduits();
-        for (Map.Entry<String, Integer> entry : metriquesProduits.entrySet()) {
-            System.out.println(entry.getKey() + " : " + entry.getValue());
-        }
+
+        int articles = CSVHandler.countLines(pathHistoire);
+        int fans = CSVHandler.countLines(pathSuiviPar);
+        int acheteurSuivi = CSVHandler.countLines(pathSuivreAcheteur);
+        int revendeurSuivi = CSVHandler.countLines(pathSuivreRevendeur);
+
+        int nbLikerProduit = CSVHandler.countLines(pathLikerProduit);
+        int nbLikerRevendeur = CSVHandler.countLines(pathLikerRevendeur);
+        int sommeLikes = nbLikerProduit + nbLikerRevendeur;
+
+
+        System.out.println("Voici vos metriques");
+        System.out.println("-----------------------");
+        System.out.println("Nombre d'Articles Achetés : " + articles);
+        System.out.println("Nombre de fans : " + fans);
+        System.out.println("Nombre d'acheteur suivi : " + acheteurSuivi);
+        System.out.println("Nombre de revendeur suivi : " + revendeurSuivi);
+        System.out.println("Nombre de likes envoyer : " + sommeLikes);
+        // System.out.println("Likes Reçus sur les Évaluations : " + LIKES_EVALUATIONS);
+        System.out.println("-----------------------\n");
     }
 
-    // Simulation de métriques pour les produits (à remplacer par votre logique réelle)
-    private static Map<String, Integer> recupererMetriquesProduits() {
-        Map<String, Integer> metriques = new HashMap<>();
-        metriques.put("Nombre de Likes", 150);
-        metriques.put("Note Moyenne", 4);
-        metriques.put("Nombre d'Évaluations", 50);
-        return metriques;
+
+    public static void voirMetriquesRevendeur(String auteur){
+
+//        String pathHistoire = DatabasePath.getAcheteurComptePath() + auteur + "/histoire.csv";
+//        String pathSuiviPar = DatabasePath.getAcheteurComptePath() + auteur + "/suiviPar.csv";
+//        String pathSuivreAcheteur = DatabasePath.getAcheteurComptePath() + auteur + "/suivreAcheteur.csv";
+//        String pathSuivreRevendeur = DatabasePath.getAcheteurComptePath() + auteur + "/suivreRevendeur.csv";
+//        String pathLikerProduit = DatabasePath.getAcheteurComptePath() + auteur + "/likerProduit.csv";
+//        String pathLikerRevendeur = DatabasePath.getAcheteurComptePath() + auteur + "/likerRevendeur.csv";
+//
+//
+//        int articles = CSVHandler.countLines(pathHistoire);
+//        int fans = CSVHandler.countLines(pathSuiviPar);
+//        int acheteurSuivi = CSVHandler.countLines(pathSuivreAcheteur);
+//        int revendeurSuivi = CSVHandler.countLines(pathSuivreRevendeur);
+//
+//        int nbLikerProduit = CSVHandler.countLines(pathLikerProduit);
+//        int nbLikerRevendeur = CSVHandler.countLines(pathLikerRevendeur);
+//        int sommeLikes = nbLikerProduit + nbLikerRevendeur;
+//
+//
+//        System.out.println("Voici vos metriques");
+//        System.out.println("-----------------------");
+//        System.out.println("Nombre d'Articles Achetés : " + articles);
+//        System.out.println("Nombre de fans : " + fans);
+//        System.out.println("Nombre d'acheteur suivi : " + acheteurSuivi);
+//        System.out.println("Nombre de revendeur suivi : " + revendeurSuivi);
+//        System.out.println("Nombre de likes envoyer : " + sommeLikes);
+//        // System.out.println("Likes Reçus sur les Évaluations : " + LIKES_EVALUATIONS);
+//        System.out.println("-----------------------\n");
     }
-
-
 
 }

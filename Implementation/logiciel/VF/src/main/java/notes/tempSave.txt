@@ -1,31 +1,89 @@
-public static void confirmerReception() {
-        System.out.println("\nVeuillez entrer le nom du produit recu");
-        String produit = myScanner.getStringInput();
-        String etatExpedition = "enLivraison";
+public void offrir_produit(){
 
-        try {
-            int columnIndex = 0; // Index de la colonne contenant le nom du produit
-            int etatExpeditionIndex = 1; // Index de la colonne contenant l'état de l'expédition
+        System.out.println("\n");
+        System.out.println("Cher revendeur: " + getNom() + "      " + "Page: ajout des produits");
+        System.out.println("-----------------------------------------------------");
 
-            Boolean condition = CSVHandler.isExiste(getPathHistoire(), produit, columnIndex);
-
-            if (condition) {
-                // Vérifier si l'état de l'expédition est "enLivraison"
+        Boolean condition = true;
+        while (condition) {
+            try {
+                System.out.print("Veuillez entrer un titre(unique): ");
+                String titre = scanner.next();
 
 
-
-                if (CSVHandler.isExiste(getPathHistoire(), etatExpedition, etatExpeditionIndex)) {
-                    int index = CSVHandler.findOccurrenceIndex(getPathHistoire(), produit, columnIndex);
-                    // Modifier l'état de l'expédition à "livré"
-                    CSVHandler.modifyCSVValue(getPathHistoire(), index-1, etatExpeditionIndex, "livre");
-                    System.out.println("L'état du produit est changé avec succès.");
-                } else {
-                    System.out.println("Le produit n'est pas en cours de livraison.");
+                if (!InputRestreint.isValidUniqueRow(DatabasePath.getProduitPath(), titre, 0)) {
+                    throw new IllegalArgumentException("Le nom doit etre unique.");
                 }
-            } else {
-                System.out.println("Vous n'avez pas ce produit dans l'histoire.");
+
+                System.out.println("Veuillez indiquer le categorie: ");
+                System.out.println("-----------------------------------------------------");
+                System.out.println("LivresManuels");
+                System.out.println("ArticlesPapeterie");
+                System.out.println("MaterielInformatique");
+                System.out.println("EquipementBureau");
+                System.out.println("RessourcesDapprentissage");
+                System.out.println("-----------------------------------------------------");
+                String categorie = scanner.next();
+
+                if (!InputRestreint.isValidType(categorie)) {
+                    throw new IllegalArgumentException("le categorie doit etre ceux du haut");
+                }
+
+                System.out.print("Veuillez entrer une description: ");
+                String desc = scanner.next();
+
+
+                if (!InputRestreint.isValidMots(desc)) {
+                    throw new IllegalArgumentException("Le nombre de mots doit etre inferieur a 100");
+                }
+
+
+                System.out.print("Veuillez entrer le quantite initial: ");
+                Integer quantite0 = scanner.nextInt();
+
+                if (!InputRestreint.isValidInt(quantite0)) {
+                    throw new IllegalArgumentException("Entrez un nombre et On ne peut que stocker au max 9999items");
+                }
+
+                System.out.print("Veuillez entrer un prix: ");
+                Integer prix = scanner.nextInt();
+
+                if (!InputRestreint.isValidInt(prix)) {
+                    throw new IllegalArgumentException("Entrez un nombre et le prix doit etre inferieure a 9999$");
+                }
+
+
+                System.out.print("Veuillez entrer le nombre de points bonus ou 0: ");
+                Double points = scanner.nextDouble();
+
+                if (!InputRestreint.isValidDouble(points)) {
+                    throw new IllegalArgumentException("Entrez un nombre a <=20, puis 0 pour aucun point");
+                }
+
+                System.out.println("Avez vous des images a ajouter? ");
+                System.out.println("cette fonction est encore en developpement, veuillez rajouter des images plutard");
+                System.out.println("Avez vous des videos a ajouter? ");
+                System.out.println("cette fonction est encore en developpement, veuillez rajouter des videos plutard");
+
+                condition = false;
+
+                System.out.println("Donnees enregistrees avec succes");
+                System.out.println("--------------------------------");
+
+                List<String[]> produitData = new ArrayList<>();
+                String quantite0new = String.valueOf(quantite0);
+                String prixnew = String.valueOf(prix);
+                String pointsnew = String.valueOf(points);
+                produitData.add(new String[]{titre, categorie, desc, quantite0new, prixnew, pointsnew, "non", "non", "0", "0", "non"});
+
+                CSVHandler.appendCSV(DatabasePath.getProduitPath(), produitData);
+
+
+                break;
+            } catch (Exception e) {
+                System.out.println("Erreur: " + e.getMessage());
+                scanner.nextLine();
             }
-        } catch (Exception e) {
-            System.out.println("Une erreur s'est produite : " + e.getMessage());
         }
+
     }

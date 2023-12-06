@@ -1,7 +1,6 @@
 import java.util.*;
 
 public class ProfilRevendeur {
-    private static Scanner scanner = new Scanner(System.in);
 
     private static String nom,password,courriel,adresse,telephone;
     private static int nbLikes;
@@ -43,44 +42,47 @@ public class ProfilRevendeur {
             try {
                 menuMsg();
                 System.out.print("Choix : ");
-                choix = scanner.nextInt();
+                choix = myScanner.getIntInput();
 
                 switch (choix) {
                     case 0:
                         System.out.println("Votre compte est bien deconnecter: " + nom + "-------");
                         VF.displayMenuPrincipale();
                         break;
-                    case 1: modifie_profil(); break;
-                    case 2: offrir_produit(); break;
-                    case 3: System.out.println("option choisi est en maintenance "); break;
-                    case 4: Metrique.voir_metriques(); break;
-                    case 5: GestionProbleme.gestionProblemes(); break;
-                    case 6: GestionCommande.GererCommandes(); break;
-                    case 7: offrirPromotion(); break;
-                    case 8: Notification.recevoirNotifications(); break;
+                    case 1: RecherchePublic.display(); break;
+                    case 2: modifie_profil(); break;
+                    case 3: offrir_produit(); break;
+                    case 4: gererProduits(); break;
+                    case 5: diffuserMedias(); break;
+                    case 6: //actions(); break;    modifier etat, repond aux problemes, confirmer reception, expedier les produits
+                    case 7: VisualiserRevendeur voir = new VisualiserRevendeur(getNom());
+                        voir.menu();
+                    break;
                     default:
                         System.out.println("Choix invalide. Veuillez reessayer.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }
+
+    public static void gererProduits(){}
+    public static void diffuserMedias(){}
+
 
     private void menuMsg() {
         System.out.println("\n");
         System.out.println("Bonsoir cher Revendeur:" + getNom() + "              " + getCourriel() );
         System.out.println("----------------------------------------------------------" );
         System.out.println("0. deconnecter");
-        System.out.println("1. modifier le Profil");
-        System.out.println("2. Offrir un Produit");
-        System.out.println("3. modifier l'etat d'une commande");
-        System.out.println("4. voir les metriques");
-        System.out.println("5. gestion de probleme");
-        System.out.println("6. gererCommandes");
-        System.out.println("7. offrir une promo");
-        System.out.println("8. voir les notifications");
+        System.out.println("1. Recherche");
+        System.out.println("2. Modifier le Profil");
+        System.out.println("3. Offrir un Produit");
+        System.out.println("4. Gerer kes oridyuts");
+        System.out.println("5. Diffuser les medias");
+        System.out.println("6. Tous actions");
+        System.out.println("7. Voir nos informations");
         System.out.print("\n");
 
 
@@ -105,7 +107,7 @@ public class ProfilRevendeur {
                 System.out.print("\n");
 
                 System.out.print("Entrez une option : ");
-                choix = scanner.next();
+                choix = myScanner.getStringInput();
 
 
                 switch (choix) {
@@ -134,7 +136,6 @@ public class ProfilRevendeur {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }
@@ -180,7 +181,7 @@ public class ProfilRevendeur {
         while (condition) {
             try {
                 System.out.print("Veuillez entrer un titre(unique): ");
-                String titre = scanner.next();
+                String titre = myScanner.getStringInput();
 
 
                 if (!InputRestreint.isValidUniqueRow(DatabasePath.getProduitPath(), titre, 0)) {
@@ -195,14 +196,14 @@ public class ProfilRevendeur {
                 System.out.println("EquipementBureau");
                 System.out.println("RessourcesDapprentissage");
                 System.out.println("-----------------------------------------------------");
-                String categorie = scanner.next();
+                String categorie = myScanner.getStringInput();
 
                 if (!InputRestreint.isValidType(categorie)) {
                     throw new IllegalArgumentException("le categorie doit etre ceux du haut");
                 }
 
                 System.out.print("Veuillez entrer une description: ");
-                String desc = scanner.next();
+                String desc = myScanner.getStringInput();
 
 
                 if (!InputRestreint.isValidMots(desc)) {
@@ -211,14 +212,14 @@ public class ProfilRevendeur {
 
 
                 System.out.print("Veuillez entrer le quantite initial: ");
-                Integer quantite0 = scanner.nextInt();
+                Integer quantite0 = myScanner.getIntInput();
 
                 if (!InputRestreint.isValidInt(quantite0)) {
                     throw new IllegalArgumentException("Entrez un nombre et On ne peut que stocker au max 9999items");
                 }
 
                 System.out.print("Veuillez entrer un prix: ");
-                Integer prix = scanner.nextInt();
+                Integer prix = myScanner.getIntInput();
 
                 if (!InputRestreint.isValidInt(prix)) {
                     throw new IllegalArgumentException("Entrez un nombre et le prix doit etre inferieure a 9999$");
@@ -226,7 +227,7 @@ public class ProfilRevendeur {
 
 
                 System.out.print("Veuillez entrer le nombre de points bonus ou 0: ");
-                Double points = scanner.nextDouble();
+                Double points = myScanner.getDoubleInput();
 
                 if (!InputRestreint.isValidDouble(points)) {
                     throw new IllegalArgumentException("Entrez un nombre a <=20, puis 0 pour aucun point");
@@ -254,7 +255,6 @@ public class ProfilRevendeur {
                 break;
             } catch (Exception e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
 
@@ -263,34 +263,6 @@ public class ProfilRevendeur {
 
 
 
-
-    public void offrirPromotion() {
-        try {
-            System.out.println("----- Offrir une Promotion sur un Produit -----");
-
-            // Simulation du revendeur offrant une promotion
-            System.out.println("Entrez le nom du produit sur lequel vous souhaitez offrir une promotion : ");
-            String nomProduit = scanner.nextLine();
-
-            System.out.println("Entrez le montant de la promotion (baisse de prix ou points bonus) : ");
-            double montantPromotion = scanner.nextDouble();
-
-            System.out.println("Entrez la duree de la promotion (en jours) : ");
-            int dureePromotion = scanner.nextInt();
-
-            // Illustration de l'offre de la promotion
-            System.out.println("\nPromotion Offerte :");
-            System.out.println("Produit : " + nomProduit);
-            System.out.println("Montant de la Promotion : " + montantPromotion);
-            System.out.println("Duree de la Promotion : " + dureePromotion + " jours");
-
-            // Simulation du revendeur appliquant la promotion sur le produit
-            System.out.println("\nLa promotion a ete offerte avec succes sur le produit.");
-
-        } catch (Exception e) {
-            System.out.println("Erreur lors de l'offre de la promotion : " + e.getMessage());
-        }
-    }
 
 
 
