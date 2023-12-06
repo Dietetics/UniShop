@@ -4,196 +4,251 @@ import java.util.Scanner;
 
 public class Histoire {
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static String pathHistoire;
+    private static String acheteur;
 
+    public Histoire(String acheteur) {
+        this.pathHistoire = DatabasePath.getAcheteurComptePath() + acheteur + "/histoire.csv";
+        this.acheteur = acheteur;
+    }
 
-
-
-    public static void pageHistoire() {
+    public static void menu() {
 
         try {
-            while (true) {
-
-                System.out.println("\nVoici vos commandes anterieurs:");
-                System.out.println("---------------------------");
-                System.out.println("1,Livre1,13nov2012,35$");
-                System.out.println("2,Livre2,3nov2012,135$");
-                System.out.println("3,Souris1,15dec2012,325$");
-                System.out.println("4,Clavier1,15oct2013,100$");
-                System.out.println("5,livre3,13jan2014,45$");
-                System.out.println("6,Calculatrice,5nov2014,25$");
-                System.out.println("7,PC,10nov2023,1335$");
+            Boolean condition = true;
+            while (condition) {
+                System.out.println("\nMenu de l'histoire:");
+                System.out.println("--------------------------------");
+                System.out.println("1. Suivre les Commandes");
+                System.out.println("2. Confirmer la reception");
+                System.out.println("3. Sgnaler un probleme");
+                System.out.println("4. Retouner ou Echanger un produit");
                 System.out.println("0. quitter");
 
-                System.out.print("Entrez un chiffre pour regarder en detaille une commande : ");
-                int choix = scanner.nextInt();
+                System.out.print("Votre choix : ");
 
-                switch (choix) {
-                    case 1:
-                        System.out.println("On peut seulement visualiser les commandes des 6 dernieres annees");
-                        break;
-                    case 2:
-                        System.out.println("On peut seulement visualiser les commandes des 6 dernieres annees");
-                        break;
-                    case 3:
-                        System.out.println("On peut seulement visualiser les commandes des 6 dernieres annees");
-                        break;
-                    case 4:
-                        System.out.println("On peut seulement visualiser les commandes des 6 dernieres annees");
-                        break;
-                    case 5:
-                        System.out.println("On peut seulement visualiser les commandes des 6 dernieres annees");
-                        break;
-                    case 6:
-                        System.out.println("On peut seulement visualiser les commandes des 6 dernieres annees");
-                        break;
-                    case 7:
-                        gestionCommandes();
-                        break;
-                    case 0:
-                        return;
-                    default:
-                        System.out.println("Choix invalide. Veuillez réessayer.");
-                }
+                condition = optionHistoire();
+
             }
         } catch (InputMismatchException e) {
             System.out.println("Erreur : Veuillez entrer un nombre entier.");
-            scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
+        } catch (Exception e) {
+            System.out.println("Erreur: " + e.getMessage());
         }
     }
 
-
-
-    /**
-     * Methode pour permettre aux acheteurs de gerer leurs commandes.
-     */
-    public static void gestionCommandes() {
+    public static Boolean optionHistoire() {
         try {
-            System.out.println("----- Gestion de Commandes -----");
 
-            // Recuperer l'identifiant de la commande
-            String numeroCommande = "1231231";
-
-            // Afficher les details de la commande
-            afficherDetailsCommande(numeroCommande);
-
-            // Options de gestion de commande
-            System.out.println("\nOptions de Gestion de Commande :");
-            System.out.println("1. Suivre la Commande");
-            System.out.println("2. Effectuer un Retour ou Echange");
-            System.out.println("3. Annuler la Commande");
-            System.out.println("4. Confirmer la reception");
-            System.out.println("0. Retourner au Menu Principal");
-
-            System.out.print("\nChoix : ");
-            int choix = scanner.nextInt();
+            int choix = myScanner.getIntInput();
 
             switch (choix) {
-                case 1: suivreCommande(); break;
-                case 2: retourOuEchange(); break;
-                case 3: annulerCommande(); break;
-                case 4: confirmerReception(); break;
-                case 0: System.out.println("Retour au Menu precedent"); break;
-                default: System.out.println("Choix invalide. Veuillez entrer un nombre entre 0 et 4.");
+                case 1:
+                    suivreCommande();
+                    break;
+                case 2:
+                    confirmerReception();
+                    break;
+                case 3:
+                    signalerProbleme();
+                    break;
+                case 4:
+                    retourEchangeProduit();
+                    break;
+                case 0:
+                    return false;
+                default:
+                    System.out.println("Choix invalide. Veuillez réessayer.");
             }
+        } catch (InputMismatchException e) {
+            System.out.println("Erreur : Veuillez entrer un nombre entier.");
         } catch (Exception e) {
-            System.out.println("Erreur : " + e.getMessage());
-            scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
+            System.out.println("Erreur: " + e.getMessage());
         }
-    }
-
-    /**
-     * Affiche les details de la commande en fonction de son identifiant.
-     *
-     * @param numeroCommande Identifiant de la commande.
-     */
-    private static void afficherDetailsCommande(String numeroCommande) {
-        System.out.println("\nDetails de la Commande " + numeroCommande + " :");
-        System.out.println("Etat de la Commande : En Livraison");
-        System.out.println("Date d'Arrivee Estimee : 12/20/2023");
-        System.out.println("Produits Commandes : PC");
-    }
-
-    /**
-     * Permet a l'acheteur de suivre l'etat de sa commande.
-     */
-    private static void suivreCommande() {
-        System.out.println("Suivi de la Commande en Temps Reel : En Livraison");
-        System.out.println("Arrivee Estimee : 12/20/2023");
-    }
-
-    /**
-     * Permet a l'acheteur d'effectuer un retour ou un echange pour les produits de la commande.
-     */
-    private static void retourOuEchange() {
-        System.out.println("----- Retour ou Echange -----");
-        System.out.println("Veuillez indiquer le motif du retour ou de l'echange :");
-        scanner.nextLine();
-        String motif = scanner.nextLine();
-        System.out.println("Demande de Retour ou Echange enregistree. Motif : " + motif);
-    }
-
-    /**
-     * Permet a l'acheteur d'annuler la commande.
-     */
-    private static void annulerCommande() {
-        System.out.println("----- Annulation de Commande -----");
-        System.out.println("Veuillez confirmer l'annulation de la commande (Oui/Non) :");
-        String confirmation = scanner.next().toLowerCase();
-
-        if (confirmation.equals("Oui")) {
-            System.out.println("Commande Annulee avec Succes !");
-        } else {
-            System.out.println("Annulation de Commande Annulee.");
-        }
+        return true;
     }
 
 
 
+    public static void suivreCommande() {
+
+        System.out.println("\nVoici vos achats");
+        System.out.println("----------------------------------------------");
+        CSVHandler.printCSV(CSVHandler.readCSV(getPathHistoire(),9999));
+        System.out.println("----------------------------------------------");
+    }
 
 
+    public static void confirmerReception(){
 
+        System.out.println("\nVeuillez entrer le nom du produit arriver");
+        String suspect = myScanner.getStringInput();
+        if (rechercherDansPremiereColonne(getPathHistoire(),suspect)) {
+            modifierEtatProduit(getPathHistoire(),suspect,"enLivraison");
+        };
+    }
 
-
-    /**
-     * Methode pour permettre a l'acheteur de confirmer la reception de sa commande.
-     */
-    public static void confirmerReception() {
+    public static boolean rechercherDansPremiereColonne(String filePath, String valeurRecherchee) {
         try {
-            System.out.println("----- Confirmation de Reception -----");
+            // Lire toutes les lignes du fichier CSV
+            List<String> lines = CSVHandler.readLinesFromCSV(filePath);
 
-            // Recuperer l'identifiant de la commande (simule ici)
-            String numeroCommande = "1231231";
+            for (String line : lines) {
+                String[] columns = line.split(",");
 
-            // Afficher les details de la commande
-            afficherDetailsCommande(numeroCommande);
-
-            // Demander la confirmation de reception
-            System.out.println("\nVeuillez confirmer la reception de la commande (Oui/Non) :");
-            String confirmation = scanner.next().toLowerCase();
-
-            if (confirmation.equals("oui")) {
-
-                mettreAJourEtatLivraison(numeroCommande);
-                System.out.println("Reception Confirmee avec Succes !");
-            } else {
-                System.out.println("Confirmation de Reception Annulee.");
+                // Vérifier si la valeur recherchée est présente dans la première colonne
+                if (columns.length > 0 && columns[0].equals(valeurRecherchee)) {
+                    System.out.println("Le produit est recherche.");
+                    return true;
+                }
             }
+
+            System.out.println("On na pas pu trouver le. Veuillez entrer de nouveau");
+            return false;
         } catch (Exception e) {
-            System.out.println("Erreur : " + e.getMessage());
-            scanner.nextLine();
+            System.out.println("Une erreur s'est produite : " + e.getMessage());
+            return false;
         }
     }
 
 
-    /**
-     * Met a jour l'etat de la commande a "livre".
-     *
-     * @param numeroCommande Identifiant de la commande.
-     */
-    private static void mettreAJourEtatLivraison(String numeroCommande) {
-        System.out.println("Etat de la Commande Mis a Jour : Livre");
+    public static void modifierEtatProduit(String filePath, String nomProduit, String nouvelEtat) {
+        try {
+            // Lire toutes les lignes du fichier CSV
+            List<String> lines = CSVHandler.readLinesFromCSV(filePath);
+
+            for (int i = 0; i < lines.size(); i++) {
+                String line = lines.get(i);
+                String[] columns = line.split(",");
+
+                // Vérifier si le nom du produit correspond
+                if (columns.length > 1 && columns[0].equals(nomProduit)) {
+                    // Vérifier si l'état correspond
+                    if (columns[1].equals(nouvelEtat)) {
+                        // Modifier l'état
+                        columns[1] = "livre";
+                        lines.set(i, String.join(",", columns));
+
+                        // Écrire les modifications dans le fichier
+                        CSVHandler.writeLinesToCSV(filePath, lines);
+                        System.out.println("L'etat du produit est maintenant livre.");
+                        return; // Arrêter la boucle après la modification
+                    }
+                }
+            }
+
+            System.out.println("Votre produit nest pas en etat de livraison, elle nest donc pas possible de lavoir recu, si jamais quoi que ce soit " +
+                    "veuillez nos contact");
+        } catch (Exception e) {
+            System.out.println("Une erreur s'est produite : " + e.getMessage());
+        }
     }
 
+
+
+
+    public static void signalerProbleme() {
+        Boolean condition = true;
+
+        while (condition) {
+            try {
+                System.out.println("\nVeuillez entrer le nom du revendeur pour signaler un problème ou :q pour quitter");
+                System.out.println("---------------------------------------------------------------");
+                String revendeur = myScanner.getStringInput();
+
+                if (condition.equals(":q")) return;
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(), revendeur, 0);
+
+                if (index != -1) {
+                    System.out.println("Veuillez entrer un message pour signaler le problème");
+                    String msg = myScanner.getStringInput();
+
+                    String pathRevendeurSignaler = DatabasePath.getRevendeurComptePath() + revendeur + "/signalProbleme.csv";
+                    String pathRevendeurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
+                    String pathAcheteurSignaler = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/signaler.csv";
+
+                    // Ajoutez le message dans les fichiers CSV correspondants
+                    CSVHandler.appendCSV(pathRevendeurSignaler, getAcheteur()+ ": " + msg);
+                    CSVHandler.appendCSV(pathRevendeurNotification, getAcheteur()+ " vous a envoyer un signalement de probleme" );
+                    CSVHandler.appendCSV(pathAcheteurSignaler, msg);
+
+
+                    condition = false;
+                    System.out.println("Votre message est bien envoyer");
+                } else {
+                    System.out.println("Revendeur non trouvé dans la base de données.");
+                }
+
+                // Sortez de la boucle après avoir effectué la tâche avec succès
+            } catch (Exception e) {
+                // Gérez les exceptions ici (par exemple, IOException, InputMismatchException)
+                System.out.println("Une erreur s'est produite : " + e.getMessage());
+            }
+        }
+    }
+
+    public static void retourEchangeProduit(){
+        Boolean condition = true;
+
+        while (condition) {
+            try {
+                System.out.println("\nVeuillez entrer le nom du revendeur pour demander un retour ou une echange");
+                System.out.println("---------------------------------------------------------------");
+                String revendeur = myScanner.getStringInput();
+
+                if (condition.equals(":q")) return;
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(), revendeur, 0);
+
+                if (index != -1) {
+                    System.out.println("Veuillez entrer la raison pour un retour ou une echange");
+                    String msg = myScanner.getStringInput();
+
+                    String pathRevendeurRetourEchange = DatabasePath.getRevendeurComptePath() + revendeur + "/retourEchange.csv";
+                    String pathRevendeurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
+                    String pathAcheteurRetourEchange = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/retourEchange.csv";
+
+                    // Ajoutez le message dans les fichiers CSV correspondants
+                    CSVHandler.appendCSV(pathRevendeurRetourEchange, getAcheteur()+ ": " + msg);
+                    CSVHandler.appendCSV(pathRevendeurNotification, getAcheteur()+ " vous a envoyer une demande de change ou retour" );
+                    CSVHandler.appendCSV(pathAcheteurRetourEchange, msg);
+
+
+                    condition = false;
+                    System.out.println("Votre message est bien envoyer, le revendeur recevra sous peu, puis evaluer votre situation, s'il accepte votre parole" +
+                            " il vous contactera");
+                } else {
+                    System.out.println("Revendeur non trouvé dans la base de données.");
+                }
+
+                // Sortez de la boucle après avoir effectué la tâche avec succès
+            } catch (Exception e) {
+                // Gérez les exceptions ici (par exemple, IOException, InputMismatchException)
+                System.out.println("Une erreur s'est produite : " + e.getMessage());
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static String getPathHistoire() {
+        return pathHistoire;
+    }
+
+    public static String getAcheteur() {
+        return acheteur;
+    }
 }
 

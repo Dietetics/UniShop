@@ -5,6 +5,7 @@ public class PanierAchat {
     private static String acheteur;
     private static String pathPanier;
     private static String pathPts;
+    private static String pathHistoire;
     private static int pts;
 
     public PanierAchat(String acheteur) {
@@ -12,6 +13,7 @@ public class PanierAchat {
         this.acheteur = acheteur;
         this.pathPanier = DatabasePath.getAcheteurComptePath() + acheteur + "/panier.csv";
         this.pathPts = DatabasePath.getAcheteurComptePath() + acheteur + "/points.csv";
+        this.pathHistoire = DatabasePath.getAcheteurComptePath() + acheteur + "/histoire.csv";
     }
 
     public static void menu() {
@@ -129,6 +131,7 @@ public class PanierAchat {
                 System.out.println("Commande confirmee ! Merci pour votre achat.");
 
                 String pts = String.valueOf(getPts());
+                CSVHandler.transfereCSVEnproduction(getPathPanier(),getPathHistoire());
 
                 CSVHandler.appendCSV(getPathPts(),pts);
                 viderPanier();
@@ -169,5 +172,9 @@ public class PanierAchat {
 
     public static String getPathPts() {
         return pathPts;
+    }
+
+    public static String getPathHistoire() {
+        return pathHistoire;
     }
 }

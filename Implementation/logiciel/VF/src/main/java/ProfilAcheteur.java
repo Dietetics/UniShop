@@ -52,8 +52,10 @@ public class ProfilAcheteur {
                         PanierAchat panier = new PanierAchat(getPseudo());
                         panier.menu();
                         break;
-
-//                    case 7: Histoire.pageHistoire(); break;
+                    case 5:
+                        Histoire histoire = new Histoire(getPseudo());
+                        histoire.menu();
+                        break;
 //                    case 8: Metrique.voir_metriques(); break;
 //                    case 9: Notification.recevoirNotifications(); break;
 //                    case 10: voir_pts(); break;
@@ -75,7 +77,8 @@ public class ProfilAcheteur {
         System.out.println("1. modifier le Profil");
         System.out.println("2. recherche");
         System.out.println("3. gerer les suiveurs");
-        System.out.println("4. panier d'achat"); // passer une commande
+        System.out.println("4. panier d'achat");
+        System.out.println("5. Histoire"); // passer une commande
 
 //        System.out.println("12. voir les points du programme de fidelite");
 

@@ -145,6 +145,41 @@ public class CSVHandler {
     }
 
 
+    public static void transfereCSV(String sourceFilePath, String destinationFilePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(sourceFilePath));
+             PrintWriter writer = new PrintWriter(new FileWriter(destinationFilePath, true))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Ajouter la ligne au fichier de destination
+                writer.println(line);
+            }
+
+            System.out.println("Données ajoutées avec succès au fichier CSV.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void transfereCSVEnproduction(String sourceFilePath, String destinationFilePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(sourceFilePath));
+             PrintWriter writer = new PrintWriter(new FileWriter(destinationFilePath, true))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Ajouter "enProduction" à chaque ligne avant de l'écrire dans le fichier de destination
+                String modifiedLine = line + ",enProduction";
+                writer.println(modifiedLine);
+            }
+
+            System.out.println("Données ajoutées avec succès au fichier CSV avec la mention 'enProduction'.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     /**
      * Recherche un mot-clé dans un fichier CSV.
@@ -817,6 +852,65 @@ public class CSVHandler {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             // Le fichier est ouvert en mode écriture, ce qui efface son contenu
             // Le bloc try-with-resources garantit que le fichier sera correctement fermé
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /**
+     * Modifie la valeur d'une cellule spécifique dans un fichier CSV.
+     *
+     * @param filePath  Chemin du fichier CSV.
+     * @param rowIndex  Indice de la ligne à modifier.
+     * @param colIndex  Indice de la colonne à modifier.
+     * @param newValue  Nouvelle valeur à assigner à la cellule.
+     * @throws IOException En cas d'erreur d'entrée/sortie lors de la modification du fichier.
+     */
+    public static void modifyCSVValue(String filePath, int rowIndex, int colIndex, String newValue) throws IOException {
+        List<String[]> lines = readCSV(filePath, Integer.MAX_VALUE);
+
+        if (rowIndex >= 0 && rowIndex < lines.size()) {
+            String[] row = lines.get(rowIndex);
+
+            if (colIndex >= 0 && colIndex < row.length) {
+                row[colIndex] = newValue;
+                lines.set(rowIndex, row);
+
+                writeCSV(filePath, lines);
+            } else {
+                System.out.println("Invalid column index");
+            }
+        } else {
+            System.out.println("Invalid row index");
+        }
+    }
+
+    /**
+     * Écrit les données CSV dans un fichier.
+     *
+     * @param filePath Chemin du fichier CSV.
+     * @param data     Liste des lignes CSV à écrire.
+     * @throws IOException En cas d'erreur d'entrée/sortie lors de l'écriture dans le fichier.
+     */
+    public static void writeCSV(String filePath, List<String[]> data) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String[] row : data) {
+                writer.write(String.join(",", row));
+                writer.newLine();
+            }
+        }
+    }
+
+
+
+    public static void writeLinesToCSV(String filePath, List<String> lines) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            for (String line : lines) {
+                writer.println(line);
+            }
+            System.out.println("Données écrites avec succès dans le fichier CSV.");
         } catch (IOException e) {
             e.printStackTrace();
         }
