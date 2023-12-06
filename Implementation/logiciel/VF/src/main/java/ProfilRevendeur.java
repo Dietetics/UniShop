@@ -3,29 +3,33 @@ import java.util.*;
 public class ProfilRevendeur {
     private static Scanner scanner = new Scanner(System.in);
 
-    private String nom, courriel, telephone, adresse, nbLikes, password;
+    private static String nom,password,courriel,adresse,telephone;
+    private static int nbLikes;
 
 
-    public ProfilRevendeur(String nom, String password) {
+    public ProfilRevendeur(String nom) {
 
         this.nom = nom;
-        this.password = password;
 
 
         int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(),getNom(),0);
         String data = CSVHandler.readLineByIndex(DatabasePath.getRevendeurPath(),lineIndex);
 
-        String adresse = CSVHandler.getColumnValue(data, 1);
+        String password = CSVHandler.getColumnValue(data, 1);
         String courriel = CSVHandler.getColumnValue(data, 2);
-        String telephone = CSVHandler.getColumnValue(data, 3);
-        String nbLikes = CSVHandler.getColumnValue(data, 4);
+        String adresse = CSVHandler.getColumnValue(data, 3);
+        String telephone = CSVHandler.getColumnValue(data, 4);
+        String likes = CSVHandler.getColumnValue(data, 5);
 
+        int nbLikes = Integer.parseInt(likes);
+
+        this.password = password;
         this.courriel = courriel;
         this.telephone = telephone;
         this.adresse = adresse;
         this.nbLikes = nbLikes;
 
-        displayMenuRevendeur();
+
     }
 
 
@@ -37,7 +41,7 @@ public class ProfilRevendeur {
         int choix = 90;
         while (choix != 0) {
             try {
-                offrirOption();
+                menuMsg();
                 System.out.print("Choix : ");
                 choix = scanner.nextInt();
 
@@ -64,7 +68,7 @@ public class ProfilRevendeur {
         }
     }
 
-    private void offrirOption() {
+    private void menuMsg() {
         System.out.println("\n");
         System.out.println("Bonsoir cher Revendeur:" + getNom() + "              " + getCourriel() );
         System.out.println("----------------------------------------------------------" );
@@ -97,10 +101,10 @@ public class ProfilRevendeur {
         while (choix != ":q") {
             try {
                 displayProfile();
-                System.out.println(":e pour enregistrer la modification ou :q pour quitter");
+                System.out.println("tapez un titre pour modifier ou :e pour enregistrer la modification ou :q pour quitter");
                 System.out.print("\n");
 
-                System.out.print("Choix : ");
+                System.out.print("Entrez une option : ");
                 choix = scanner.next();
 
 
@@ -148,9 +152,16 @@ public class ProfilRevendeur {
 
 
     private void saveChanges() {
-        List<String> newCSVLine = Arrays.asList(nom, getAdresse(), courriel, getTelephone(),getNbLikes(),getPassword());
-        int lineIndex2 = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(),getNom(),0);
-        CSVHandler.uploadCSVLine(DatabasePath.getRevendeurPath(),lineIndex2-1,newCSVLine);
+        String nbLikes = Integer.toString(getNbLikes());
+
+        List<String> newCSVLine = Arrays.asList(nom, getPassword(), courriel, getAdresse(), getTelephone(),nbLikes);
+
+        String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/main.csv";
+        CSVHandler.coverCSV(directoryPath, FormatAdjust.transformList(newCSVLine));
+
+        Database.refreshRevendeurs();
+        System.out.println("les donnees sont bien enregistrer \n\n");
+
     }
 
 
@@ -283,32 +294,51 @@ public class ProfilRevendeur {
 
 
 
-    public String getNom() {
+    public static void modified(){
+        List<String[]> userData = new ArrayList<>();
+
+        System.out.println(getNbLikes());
+        String likes1 = Integer.toString(getNbLikes());
+
+
+
+        userData.add(new String[]{getNom(),getPassword(),getCourriel(),getAdresse(),getTelephone(),likes1});
+
+        String directoryPath = DatabasePath.getRevendeurComptePath() + getNom() + "/main.csv";
+        CSVHandler.coverCSV(directoryPath, userData);
+
+        Database.refreshRevendeurs();
+    }
+
+
+
+    public static String getNom() {
         return nom;
     }
 
-    public String getTelephone() {
+    public static String getTelephone() {
         return telephone;
     }
 
-    public String getAdresse() {
+    public static String getAdresse() {
         return adresse;
     }
 
-    public String getNbLikes() {
+    public static int getNbLikes() {
         return nbLikes;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
-    public String getCourriel() {
+    public static String getCourriel() {
         return courriel;
     }
 
-
-
+    public void setNbLikes(int nbLikes) {
+        this.nbLikes = nbLikes;
+    }
 }
 
 

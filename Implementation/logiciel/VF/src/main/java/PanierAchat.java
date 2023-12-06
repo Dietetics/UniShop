@@ -2,22 +2,33 @@ import java.util.*;
 
 public class PanierAchat {
 
-    private static Scanner scanner = new Scanner(System.in);
-    public PanierAchat() {
+    private static String acheteur;
+    private static String pathPanier;
+    private static String pathPts;
+    private static String pathHistoire;
+    private static int pts;
+
+    public PanierAchat(String acheteur) {
+
+        this.acheteur = acheteur;
+        this.pathPanier = DatabasePath.getAcheteurComptePath() + acheteur + "/panier.csv";
+        this.pathPts = DatabasePath.getAcheteurComptePath() + acheteur + "/points.csv";
+        this.pathHistoire = DatabasePath.getAcheteurComptePath() + acheteur + "/histoire.csv";
     }
 
-    public static void panierAchat() {
+    public static void menu() {
 
         try {
             Boolean condition = true;
             while (condition) {
                 System.out.println("\nMenu du Panier:");
                 System.out.println("--------------------------------");
-                System.out.println("1. Ajouter un produit");
+                System.out.println("X. Ajouter un produit a partir de recherche ");
                 System.out.println("2. Retirer un produit");
                 System.out.println("3. Afficher le panier");
                 System.out.println("4. Recap du panier");
                 System.out.println("5. Passer une commande");
+                System.out.println("6. vider panier");
                 System.out.println("0. quitter");
 
                 System.out.print("Votre choix : ");
@@ -27,46 +38,31 @@ public class PanierAchat {
             }
         } catch (InputMismatchException e) {
             System.out.println("Erreur : Veuillez entrer un nombre entier.");
-            scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
         } catch (Exception e) {
             System.out.println("Erreur: " + e.getMessage());
-            scanner.nextLine();
         }
     }
 
     public static Boolean optionPanier() {
         try {
-            List<String> panier = new ArrayList<>();
-            double montantTotal = 0;
-            int pointsTotal = 0;
 
-            int choix = scanner.nextInt();
+            int choix = myScanner.getIntInput();
+
             switch (choix) {
-                case 1:
-                    System.out.println("----- Ajouter un Produit -----");
-                    System.out.println("Entrez le UUID du produit que vous voulez ajouter ainsi que ses informations");
-                    int ajoutProduit = scanner.nextInt();
-                    System.out.println("Le produit est bien enregistre au systeme");
-                    break;
                 case 2:
-                    System.out.println("----- Retirer un Produit -----");
-                    System.out.println("Entrez le UUID du produit que vous voulez retirer de votre panier");
-                    int removeProduit = scanner.nextInt();
-                    System.out.println("Le produit est bien retirer de votre panier");
+                    retirer();
                     break;
                 case 3:
-                    System.out.println("----- Panier Actuel -----");
-                    afficherPanier(panier);
+                    afficherPanier();
                     break;
                 case 4:
-                    System.out.println("----- Recap du panier -----");
-                    afficherPanier(panier);
-                    montantTotal = calculerMontantTotal(panier);
-                    pointsTotal = calculerPointsTotal(montantTotal);
-                    afficherRecapitulatif(montantTotal, pointsTotal);
+                    recap();
                     break;
                 case 5:
                     passerCommande();
+                    break;
+                case 6:
+                    viderPanier();
                     break;
                 case 0:
                     return false;
@@ -75,147 +71,82 @@ public class PanierAchat {
             }
         } catch (InputMismatchException e) {
             System.out.println("Erreur : Veuillez entrer un nombre entier.");
-            scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
         } catch (Exception e) {
             System.out.println("Erreur: " + e.getMessage());
-            scanner.nextLine();
         }
         return true;
     }
 
-// Ajoutez des blocs try-catch similaires pour les méthodes appelées dans optionPanier
 
 
 
-    /**
-     * Affiche les produits actuels dans le panier.
-     *
-     * @param panier Liste des produits dans le panier.
-     */
-    private static void afficherPanier(List<String> panier) {
-        if (panier.isEmpty()) {
-            System.out.println("Le panier est vide.");
-        } else {
-            System.out.println("Produits dans le Panier :");
-            for (String produit : panier) {
-                System.out.println("- " + produit);
-            }
-        }
-    }
+    public static void retirer() {
 
-    /**
-     * Calcule le montant total des produits dans le panier.
-     *
-     * @param panier Liste des produits dans le panier.
-     * @return Montant total.
-     */
-    private static double calculerMontantTotal(List<String> panier) {
-        return 0;
-    }
-
-    /**
-     * Calcule le nombre de points à accumuler pour l'achat.
-     *
-     * @param montantTotal Montant total de l'achat.
-     * @return Nombre de points à accumuler.
-     */
-    private static int calculerPointsTotal(double montantTotal) {
-        return 10;
-    }
-
-    /**
-     * Affiche un récapitulatif de l'achat avec le montant total et les points accumulés.
-     *
-     * @param montantTotal Montant total de l'achat.
-     * @param pointsTotal  Nombre de points accumulés.
-     */
-    private static void afficherRecapitulatif(double montantTotal, int pointsTotal) {
-        System.out.println("Récapitulatif de l'Achat :");
-        System.out.println("Montant Total : " + montantTotal);
-        System.out.println("Points Accumulés : " + pointsTotal);
-        System.out.println("Merci pour votre achat !");
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Methode pour permettre aux acheteurs de passer une commande.
-     */
-    public static void passerCommande() {
+        System.out.println("\nVeuillez entrer le nom du produit a retirer");
+        String produit = myScanner.getStringInput();
         try {
-            System.out.println("----- Passer une Commande -----");
+            Boolean condition = CSVHandler.isExiste(getPathPanier(), produit);
 
-            // Recuperer les informations de l'acheteur
-            String pseudoAcheteur = "auteur2";
-            String adresseLivraison = "H3C3J7";
-            String numeroTelephone = "5140003333";
-
-            // Afficher les informations de l'acheteur
-            System.out.println("Vos informations :");
-            System.out.println("Pseudo : " + pseudoAcheteur);
-            System.out.println("Adresse de Livraison : " + adresseLivraison);
-            System.out.println("Numero de Telephone : " + numeroTelephone);
-
-            // Selection des produits
-            List<String> produitsSelectionnes = new ArrayList<>();
-            produitsSelectionnes.add("Cahier1");
-            produitsSelectionnes.add("OrdinateurPortable1");
-
-            // Afficher les produits selectionnes
-            System.out.println("\nProduits Selectionnes :");
-            afficherProduits(produitsSelectionnes);
-
-            // Calculer le montant total
-            double montantTotal = calculerMontantTotal(produitsSelectionnes);
-
-            // generer un identifiant unique pour la commande
-            String numeroCommande = UUID.randomUUID().toString();
-
-            // Afficher le recapitulatif de la commande
-            System.out.println("\nRecapitulatif de la Commande :");
-            System.out.println("Numero de Commande : " + numeroCommande);
-            System.out.println("Montant Total : " + montantTotal);
-            System.out.println("Adresse de Livraison : " + adresseLivraison);
-
-            // metre a jour l'inventaire du revendeur
-            mettreAJourInventaire(produitsSelectionnes);
-
-            System.out.println("\nCommande Passee avec Succes !");
+            if (condition) {
+                int index = CSVHandler.findOccurrenceIndex(getPathPanier(),produit,0);
+                CSVHandler.removeLineFromCSV(getPathPanier(), index-1);
+                System.out.println("Produit est retirer avec succss.");
+            } else {
+                System.out.println("Vous n'avez pas ce produit dans le panier.");
+            }
         } catch (Exception e) {
-            System.out.println("Erreur : " + e.getMessage());
-            scanner.nextLine();
+            System.out.println("Une erreur s'est produite : " + e.getMessage());
+        }
+    }
+    private static void afficherPanier() {
+        System.out.println("\nVoici les produits dans votre panier d'achat");
+        System.out.println("----------------------------------------------");
+        CSVHandler.printCSV(CSVHandler.readCSV(getPathPanier(),9999));
+        System.out.println("----------------------------------------------");
+    }
+
+
+
+    private static void recap(){
+        System.out.println("\n\n\nVu Black friday, grand liquidation!!! tous les produits sont a 4.99$ et chaques produits donnent 2points!!!");
+        afficherPanier();
+        int nbArticles = CSVHandler.countLines(getPathPanier());
+        double prix = nbArticles *4.99;
+        int pts = nbArticles *2;
+        setPts(pts);
+        System.out.println("Apres nos calculs, le prix total est "+prix + "$");
+        System.out.println("Apres nos calculs, le nombre de points total est "+pts);
+    }
+
+    private static void passerCommande(){
+        recap();
+        System.out.print("\nConfirmez-vous la commande ? (1 pour confirmer, tout autre pour annuler) : ");
+        String choix = myScanner.getStringInput();
+
+        switch (choix) {
+            case "1":
+                String msg = "Veuillez entrer les informations de votre carte de crédit(un cvv est de longueur de trois)";
+                InputRestreint.getValidCredit(msg);
+
+                System.out.println("Commande confirmee ! Merci pour votre achat.");
+
+                String pts = String.valueOf(getPts());
+                CSVHandler.transfereCSVEnproduction(getPathPanier(),getPathHistoire());
+
+                CSVHandler.appendCSV(getPathPts(),pts);
+                viderPanier();
+
+                break;
+            default:
+                System.out.println("Commande annulée.");
+                break;
         }
     }
 
-    /**
-     * Affiche les produits selectionnes dans la commande.
-     *
-     * @param produits Liste des produits selectionnes.
-     */
-    private static void afficherProduits(List<String> produits) {
-        for (String produit : produits) {
-            System.out.println("- " + produit);
-        }
-    }
 
-
-    /**
-     * Met a jour l'inventaire du revendeur apres que la commande a ete passee.
-     *
-     * @param produits Liste des produits selectionnes dans la commande.
-     */
-    private static void mettreAJourInventaire(List<String> produits) {
+    private static void viderPanier(){
+        CSVHandler.clearCSV(getPathPanier());
+        System.out.println("Le panier a ete vide avec succes.");
     }
 
 
@@ -223,4 +154,27 @@ public class PanierAchat {
 
 
 
+    public static String getAcheteur() {
+        return acheteur;
+    }
+
+    public static String getPathPanier() {
+        return pathPanier;
+    }
+
+    public static int getPts() {
+        return pts;
+    }
+
+    public static void setPts(int pts) {
+        PanierAchat.pts = pts;
+    }
+
+    public static String getPathPts() {
+        return pathPts;
+    }
+
+    public static String getPathHistoire() {
+        return pathHistoire;
+    }
 }

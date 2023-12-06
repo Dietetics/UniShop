@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,8 +11,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Inscription {
+    public Inscription() {
+    }
 
-    private static Scanner scanner = new Scanner(System.in);
 
 
 
@@ -30,7 +34,8 @@ public class Inscription {
                 System.out.println("");
                 System.out.println(essai);
                 essai = "continuez a inscrire d'autres comptes? \n:a pour acheteur \n:r pour revendeur \n:q pour quitter";
-                String keyword = scanner.next();
+                System.out.print("Reponse: ");
+                String keyword = myScanner.getStringInput();
 
                 switch (keyword.toLowerCase()) {
                     case ":q": quitter = true; break;
@@ -40,7 +45,6 @@ public class Inscription {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur de saisie. Veuillez entrer une option valide.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
         VF.displayMenuPrincipale();
@@ -57,7 +61,7 @@ public class Inscription {
             String nom = InputRestreint.getValidInput("Veuillez entrer votre nom: ");
             String prenom = InputRestreint.getValidInput("Veuillez entrer votre prenom: ");
             String adresse = InputRestreint.getValidAdresse("Veuillez entrer votre adresse d'expedition: ");
-            String courriel = InputRestreint.getValidCourriel("Veuillez entrer votre adresse courriel(unique): ",3);
+            String courriel = InputRestreint.getValidAcheteurCourriel("Veuillez entrer votre adresse courriel(unique): ",2);
             String telephone = InputRestreint.getValidTelephone("Veuillez entrer votre telephone: ");
             String pseudo = InputRestreint.getValidPseudo("Veuillez entrer votre pseudo(unique): ");
             String password = InputRestreint.getValidPassword("Veuillez entrer votre password: ");
@@ -69,9 +73,12 @@ public class Inscription {
 
         } catch (Exception e) {
             System.out.println("Erreur: " + e.getMessage());
-            scanner.nextLine();
         }
     }
+
+
+
+
 
 
     public static void inscriptionRevendeur() {
@@ -80,7 +87,7 @@ public class Inscription {
         try {
             String nom = InputRestreint.getValidInputVRevendeur("Veuillez entrer votre nom: ");
             String adresse = InputRestreint.getValidAdresse("Veuillez entrer votre adresse d'expedition: ");
-            String courriel = InputRestreint.getValidCourriel("Veuillez entrer votre adresse courriel(unique): ",2);
+            String courriel = InputRestreint.getValidRevendeurCourriel("Veuillez entrer votre adresse courriel(unique): ",2);
             String telephone = InputRestreint.getValidTelephone("Veuillez entrer votre telephone: ");
             String password = InputRestreint.getValidPassword("Veuillez entrer votre password: ");
 
@@ -91,7 +98,6 @@ public class Inscription {
 
         } catch (Exception e) {
             System.out.println("Erreur: " + e.getMessage());
-            scanner.nextLine();
         }
     }
 
@@ -101,28 +107,40 @@ public class Inscription {
 
 
     private static void saveAcheteurData(String nom, String prenom, String adresse, String courriel, String telephone, String pseudo, String password) {
-        List<String[]> userData = new ArrayList<>();
-        userData.add(new String[]{nom, prenom, pseudo, courriel, telephone, adresse, "0", password});
 
-        String directoryPath = DatabasePath.getAcheteurComptePath() + pseudo + "/";
-        createDirectory(directoryPath);
+        String csvLine = FormatAdjust.convertToCSV(pseudo, password, courriel, nom, prenom, telephone, adresse, "0");
 
-        String acheteurCompte = directoryPath + pseudo + ".csv";
-        String acheteurPanier = directoryPath + "panier.csv";
-        String acheteurHistoire = directoryPath + "histoire.csv";
-        String acheteurBillet = directoryPath + "billet.csv";
-        String acheteurSuivre = directoryPath + "suivre.csv";
-        String acheteurSuiviPar = directoryPath + "suiviPar.csv";
-        String acheteurNotification = directoryPath + "notification.csv";
+        String csvAddiFilePath = DatabasePath.getFichiersInfoAcheteur();
+        List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);
 
-        CSVHandler.appendCSV(DatabasePath.getAcheteurPath(), userData);
-        CSVHandler.coverCSV(acheteurCompte, userData);
-        CSVHandler.coverCSV(acheteurPanier, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurHistoire, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurBillet, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurSuivre, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurSuiviPar, new ArrayList<>());
-        CSVHandler.coverCSV(acheteurNotification, new ArrayList<>());
+        ajoutAcheteur(pseudo, csvLine, additionalFiles);
+
+        Database.refreshAcheteurs();
+    }
+
+    public static void ajoutAcheteur(String folderName, String csvLine, List<String> additionalFiles) {
+        String baseFolderPath = DatabasePath.getBaseAcheteurFolderPath(); // Chemin vers le dossier principal
+        String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier
+
+        File folder = new File(baseFolderPath, folderName);
+
+        if (!folder.exists()) {
+            folder.mkdirs(); // Créer le dossier s'il n'existe pas
+        }
+
+        File mainFile = new File(folder, mainFileName);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(mainFile))) {
+            writer.println(csvLine); // Écrire la ligne dans le fichier principal
+
+            // Créer d'autres fichiers CSV si nécessaire
+            for (String additionalFile : additionalFiles) {
+                File file = new File(folder, additionalFile);
+                file.createNewFile(); // Créer un fichier vide
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -133,12 +151,18 @@ public class Inscription {
         String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/";
         createDirectory(directoryPath);
 
-        String revendeurCompte = directoryPath + nom + ".csv";
+        String revendeurCompte = directoryPath + "main.csv";
         String revendeurResolution = directoryPath + "resolution.csv";
+        String revendeurOffre = directoryPath + "offre.csv";
+        String revendeurNotification = directoryPath + "notification.csv";
 
-        CSVHandler.appendCSV(DatabasePath.getRevendeurPath(), userData);
+
         CSVHandler.coverCSV(revendeurCompte, userData);
         CSVHandler.coverCSV(revendeurResolution, new ArrayList<>());
+        CSVHandler.coverCSV(revendeurOffre, new ArrayList<>());
+        CSVHandler.coverCSV(revendeurNotification, new ArrayList<>());
+
+        Database.refreshRevendeurs();
     }
 
 

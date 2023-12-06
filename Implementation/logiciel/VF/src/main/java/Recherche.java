@@ -5,215 +5,248 @@ import java.util.Scanner;
 
 public class Recherche {
 
-    private static String produitPath = "src/main/resources/data/produits.csv";
-
-    private static String acheteurPath = "src/main/resources/data/acheteur.csv";
-    private static String revendeurPath = "src/main/resources/data/revendeur.csv";
-    private static Scanner scanner = new Scanner(System.in);
-
-
-
-
-
-
-    public static void rechercherAcheteur(){}
-    public static void rechercherRevendeur(){}
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public static void recuperer(String path, int info){
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("Voici les resultats de recherche");
+        System.out.println("--------------------------------");
+        CSVHandler.printCSV(CSVHandler.readCSV(path,99999),info);
+    }
 
 
 
     /**
-     * Recherche et affiche les acheteurs en fonction du mot-clé.
-     *
-     * @param ligne L'index de la ligne du compte de l'utilisateur.
-     * @param excludedColumns Les colonnes à exclure lors de l'affichage.
+     * Méthode principale pour la recherche et le tri des produits.
      */
-    public static void trouverAcheteur(int ligne, int[] excludedColumns) {
-        String essai = "Entrez l'Information de l'acheteur recherche ou ':q' (pour quitter):";
+    public static void rechercheProduits() {
+        boolean quitter = false;
+        String essai = "Entrez le mot-cle de recherche ou ':q' (pour quitter):";
 
-        while (true) {
+        while (!quitter) {
             try {
                 System.out.println("");
-                System.out.println(essai);
-                essai = "Continuez? Entrez l'Information de l'acheteur recherche ou ':q' (pour quitter):";
-                String keyword = scanner.next();
+                System.out.print(essai);
+                essai = "Nouveau mot-cle de recherche ou ':q' (pour quitter): ";
+
+                String keyword = myScanner.getStringInput();
 
                 switch (keyword.toLowerCase()) {
-                    case ":q": return;
-                    // case ":t":    pour le tout
+                    case ":q":
+                        quitter = true;
+                        break;
                     default:
-                        List<String> matchingLines = CSVHandler.searchKeywordInCSV(getAcheteurPath(), keyword);
-                        List<Integer> matchingLinesIndex = CSVHandler.searchKeywordInCSVIndex(getAcheteurPath(), keyword);
-                        int indexNous = matchingLinesIndex.indexOf(ligne);
-
-                        // VERIFIE SI NOTRE COMPTE EST INCLUDE, SI OUI EXCLURE, SINON CONTINUER
-                        if (indexNous != -1) {
-                            matchingLines.remove(indexNous);
-                            matchingLinesIndex.remove(indexNous);
+                        // on fait la search seulement base sur les colonnes specifiers
+                        List<Integer> searchColumnIndices = Arrays.asList(0, 1,4);
+                        List<Integer> outputColumnIndices = Arrays.asList(0);
+                        List<String> matchingLines = CSVHandler.searchAndFilterColumnsInCSV(DatabasePath.getProduitPath(), keyword,searchColumnIndices,outputColumnIndices);
+                        if (!matchingLines.isEmpty()) {
+                            trierProduits(matchingLines);
+                        } else {
+                            System.out.println("Aucun produit trouve selon le mot-cle.");
                         }
-
-                        afficherListeAcheteurs(matchingLines, matchingLinesIndex, excludedColumns);
-
-                        while (true) {
-                            if (!choisirOption(matchingLinesIndex)) {
-                                return;
-                            }
-                        }
+                        break;
                 }
             } catch (Exception e) {
                 System.out.println("Erreur : " + e.getMessage());
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }
 
     /**
-     * Affiche la liste des acheteurs en fonction des critères de recherche.
+     * Méthode pour trier les produits en fonction de la colonne choisie et de l'ordre spécifié.
      *
-     * @param matchingLines Les lignes correspondant aux acheteurs.
-     * @param matchingLinesIndex Les index correspondant aux lignes affichées.
-     * @param excludedColumns Les colonnes à exclure lors de l'affichage.
+     * @param matchingLines Liste des lignes de produits correspondantes à la recherche.
      */
-    private static void afficherListeAcheteurs(List<String> matchingLines, List<Integer> matchingLinesIndex, int[] excludedColumns) {
-        int nb = 1;
-        System.out.println("Voici la liste des acheteurs selon vos recherches");
-        System.out.println("-------------------------------------------------- ");
+    public static void trierProduits(List<String> matchingLines) {
+        CSVHandler.SortOrder order = null;
+        int colomn = 0;
 
-        if (!matchingLines.isEmpty()) {
-            List<String[]> formattedLines = FormatAdjust.transformList(matchingLines);
+        do {
+            try {
+                trierMessage();
+                System.out.print("Choix: ");
+                String type = myScanner.getStringInput();
 
-            for (String[] line : formattedLines) {
-                for (int excludedColumn : excludedColumns) {
-                    if (excludedColumn >= 0 && excludedColumn < line.length) {
-                        line[excludedColumn] = "non visible";  // Remplacer la valeur par une chaîne vide
-                    }
+                switch (type.toLowerCase()) {
+                    case "titre": colomn = 1;break;
+                    case "categorie": colomn = 2;break;
+                    case "prix": colomn = 5;break;
+                    case "note": colomn = 12;break;
+                    case "popularite": colomn = 11;break;
+                    case "promo": colomn = 13;break;
+                    default: System.out.println("Choix invalide. Veuillez reessayer.");
                 }
-
-                int index = matchingLinesIndex.get(nb - 1);
-                nb++;
-
-                // Affiche la ligne sans les colonnes spécifiées
-                System.out.println(index + " " + Arrays.toString(line));
+            } catch (Exception e) {
+                System.out.println("Erreur : " + e.getMessage());
             }
+        } while (colomn == 0); // Répéter tant que colomn n'est pas initialisé
+
+        do {
+            try {
+                System.out.println(" ");
+                System.out.println("Choisir l'ordre (ASCENDING ou DESCENDING): ");
+                System.out.println("---------------------");
+                System.out.print("Choix: ");
+                order = CSVHandler.SortOrder.valueOf(myScanner.getStringInput());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Ordre invalide. Veuillez choisir ASCENDING ou DESCENDING.");
+            }
+        } while (order == null); // Répéter tant que order n'est pas initialisé
+
+        List<String[]> data = FormatAdjust.transformList(matchingLines);
+        CSVHandler.sortByColumn(data, colomn - 1, order);
+        afficherProduits(data);
+    }
+    public static void trierMessage(){
+        System.out.println(" ");
+        System.out.println("choisir le filtrage base sur quel type:");
+        System.out.println("---------------------");
+        System.out.println("titre");
+        System.out.println("categorie");
+        System.out.println("prix");
+        System.out.println("note");
+        System.out.println("popularite");
+        System.out.println("promo");
+    }
+
+
+
+    /**
+     * Méthode pour afficher les produits après la recherche et le tri.
+     *
+     * @param data Liste des lignes de produits triées.
+     */
+    public static void afficherProduits(List<String[]> data) {
+        System.out.println("\n\n\n\n\n");
+        System.out.println("Voici la liste selon votre mot-cle et apres trier");
+        System.out.println("-------------------------------------------------");
+        for (String[] row : data) {
+            for (String value : row) {
+                System.out.print(value + " ");
+            }
+            System.out.println();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Méthode principale pour la recherche et le tri des acheteurs.
+     */
+    public static void rechercheAcheteurs() {
+        boolean quitter = false;
+
+        while (!quitter) {
+            try {
+                rechercheAcheteurMsg();
+
+                System.out.print("Choix: ");
+                int keyword = myScanner.getIntInput();
+
+                switch (keyword) {
+                    case 0:
+                        quitter = true;
+                        break;
+                    case 1: infoDunAcheteur(); break;
+                    case 2: infoSuiveursDunAcheteur();break;
+                    case 3: infoSuiviDunAcheteur();break;
+                    default:
+                        System.out.println("Veuillez entrer un entier(option) valide");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Erreur : " + e.getMessage());
+            }
+        }
+    }
+
+    public static void rechercheAcheteurMsg(){
+        System.out.println(" ");
+        System.out.println("choisir un option:");
+        System.out.println("---------------------");
+        System.out.println("0. quitter");
+        System.out.println("1. recherche par pseudo");
+        System.out.println("2. recherche la liste des suiveurs dun acheteur specifique ");
+        System.out.println("3. recherche la liste des suivi dun acheteur specifique ");
+    }
+
+    public static void infoDunAcheteur(){
+        System.out.println("\n");
+        System.out.print("Quel est le pseudo: ");
+        String keyword = myScanner.getStringInput();
+
+        System.out.println("\n");
+        System.out.println("pseudo, nom, prenom, likes");
+        System.out.println("--------------------------");
+        List<Integer> outputColumnIndices = Arrays.asList(0, 3, 4, 7);
+        List<String> matchingLines = CSVHandler.searchExaAndFilterColumnsInCSV(DatabasePath.getAcheteurPath(), keyword,0,outputColumnIndices);
+        if (!matchingLines.isEmpty()) {
+            System.out.println(matchingLines);
         } else {
             System.out.println("Aucun acheteur trouve selon le mot-cle.");
         }
-        System.out.println("-------------------------------------------------- ");
-        System.out.println("");
     }
 
-    /**
-     * Permet à l'utilisateur de choisir une option parmi Suivi, Liker, ou Quitter.
-     *
-     * @param matchingLinesIndex Les index correspondant aux lignes affichées.
-     * @return True si l'utilisateur choisit une option valide, sinon False.
-     */
-    private static boolean choisirOption(List<Integer> matchingLinesIndex) {
-        try {
-            System.out.println("Choisissez une option :");
-            System.out.println("1. Suivi");
-            System.out.println("2. Liker");
-            System.out.println("0. Quitter");
+    public static void infoSuiveursDunAcheteur(){
+        System.out.println("\n");
+        System.out.print("Quel est le pseudo: ");
+        String keyword = myScanner.getStringInput();
 
-            int option = scanner.nextInt();
+        System.out.println("\n");
+        System.out.println("Voici la liste des suiveurs");
+        System.out.println("--------------------------");
 
-            switch (option) {
-                case 1:
-                    // cas "Suivi" un achteur
-                    System.out.println("Vous avez choisi l'option Suivi.");
-                    buttonSuivre(matchingLinesIndex);
-                    return true;
-                case 2:
-                    // cas "Liker" un acheteur
-                    System.out.println("Vous avez choisi l'option Liker.");
-                    buttonLiker(matchingLinesIndex);
-                    return true;
-                case 0:
-                    return false;
-                default:
-                    System.out.println("Option invalide. Veuillez choisir une option valide.");
-                    return true;
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("Erreur : Veuillez entrer un entier valide.");
-            scanner.next(); // Effacer la mauvaise entrée du scanner
-            return true;
-        } catch (Exception e) {
-            System.out.println("Erreur : " + e.getMessage());
-            scanner.next(); // Effacer l'entrée incorrecte du scanner
-            return true;
+        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),keyword,0);
+
+        if (index != -1) {
+            String data = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(),index);
+            String pseudo = CSVHandler.getColumnValue(data,0);
+
+            String suiviPar = DatabasePath.getAcheteurComptePath() + pseudo + "/suiviPar.csv" ;
+
+            System.out.println("suiviPar: ");
+            System.out.println("------------");
+            CSVHandler.printCSV(CSVHandler.readCSV(suiviPar,99999));
+            System.out.println("------------");
+            System.out.println(" ");
+
+        } else {
+            System.out.println("Aucun acheteur trouve selon le mot-cle.");
         }
     }
 
+    public static void infoSuiviDunAcheteur(){
+        System.out.println("\n");
+        System.out.print("Quel est le pseudo: ");
+        String keyword = myScanner.getStringInput();
 
+        System.out.println("\n");
+        System.out.println("Voici la liste des suivis");
+        System.out.println("--------------------------");
 
-    /**
-     * Permet à l'utilisateur de liker un acheteur en saisissant le chiffre correspondant.
-     *
-     * @param suspectPos La liste des lignes disponibles pour liker.
-     */
-    public static void buttonLiker(List<Integer> suspectPos){
-        while (true) {
-            try {
-                System.out.println("0 pour quitter ou Entrez le chiffre du acheteur pour liker: ");
-                int valeur = scanner.nextInt();
+        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),keyword,0);
 
-                if (suspectPos.contains(valeur)) {
-                    Operation.likerAcheteur(valeur);
-                } else if (valeur == 0) {
-                    return;
-                } else {
-                    System.out.println("Ceci n'est pas un option, veuillez entrer le chiffre du acheteur");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Erreur : Veuillez entrer un entier valide.");
-                scanner.next(); // Effacer la mauvaise entrée du scanner
-            } catch (Exception e) {
-                System.out.println("Erreur : " + e.getMessage());
-                scanner.next(); // Effacer l'entrée incorrecte du scanner
-            }
-        }
-    }
+        if (index != -1) {
+            String data = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(),index);
+            String pseudo = CSVHandler.getColumnValue(data,0);
 
+            String suivre = DatabasePath.getAcheteurComptePath() + pseudo + "/suivreAcheteur.csv" ;
 
-    /**
-     * Permet à l'utilisateur de suivre un acheteur en saisissant le chiffre correspondant.
-     *
-     * @param suspectPos La liste des positions d'acheteurs disponibles pour suivre.
-     */
-    public static void buttonSuivre(List<Integer> suspectPos){
+            System.out.println("suivre: ");
+            System.out.println("------------");
+            CSVHandler.printCSV(CSVHandler.readCSV(suivre,99999));
+            System.out.println("------------");
+            System.out.println(" ");
 
-        while (true) {
-            try {
-                System.out.println("0 pour quitter ou Entrez le chiffre du acheteur pour suivre: ");
-                int aimsLigne = scanner.nextInt();
-
-                if (suspectPos.contains(aimsLigne)) {
-                    Operation.suivreAcheteur(aimsLigne);
-                } else if (aimsLigne == 0) {
-                    return;
-                } else {
-                    System.out.println("Ceci n'est pas un option, veuillez entrer le chiffre du acheteur");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Erreur : Veuillez entrer un entier valide.");
-                scanner.next(); // Effacer la mauvaise entrée du scanner
-            } catch (Exception e) {
-                System.out.println("Erreur : " + e.getMessage());
-                scanner.next(); // Effacer l'entrée incorrecte du scanner
-            }
+        } else {
+            System.out.println("Aucun acheteur trouve selon le mot-cle.");
         }
     }
 
@@ -227,54 +260,100 @@ public class Recherche {
 
 
 
-    public static void trouverRevendeur() {
 
-        while (true) {
+
+    public static void rechercheRevendeurs() {
+        boolean quitter = false;
+        String essai = "Entrez le mot-cle de recherche ou ':q' (pour quitter):";
+
+        while (!quitter) {
             try {
                 System.out.println("");
-                System.out.println("Choisissez un des options en indiquant le numero");
-                System.out.println("-------------------------");
-                System.out.println("1. recherche un revendeur");
-                System.out.println("2. recherche un revendeur avec filtrage");
-                System.out.println("3. liker un revendeur");
-                System.out.println("0. quitter");
-                String keyword = scanner.next();
+                System.out.print(essai);
+                essai = "Nouveau mot-cle de recherche ou ':q' (pour quitter): ";
+
+                String keyword = myScanner.getStringInput();
 
                 switch (keyword.toLowerCase()) {
-                    case "0": return;
-                    case "1":
-                        System.out.println("veuillez fournir un indice") ;
-                        String indice = scanner.next();
-                        System.out.println("voici la liste de revendeur chercher") ;
-                        CSVHandler.printCSV(CSVHandler.readCSV(getRevendeurPath(),9999)); break;
-                    case "2":
-                        System.out.println("veuillez fournir un indice") ;
-                        String indice2 = scanner.next();
-                        System.out.println("veuillez fournir le filtrage base sur:") ;
-                        String indice3 = scanner.next();
-                        System.out.println("voici la liste de revendeur chercher") ;
-                        CSVHandler.printCSV(CSVHandler.readCSV(getRevendeurPath(),9999)); break;
-                    case "3":
-                        System.out.println("votre like est enregistrer") ;break;
+                    case ":q":
+                        quitter = true;
+                        break;
                     default:
-                        System.out.println("veuillez fournir un chiffre valide") ;
+                        List<Integer> searchColumnIndices = Arrays.asList(0, 3);
+                        List<Integer> outputColumnIndices = Arrays.asList(0);
+                        List<String> matchingLines = CSVHandler.searchAndFilterColumnsInCSV(DatabasePath.getRevendeurPath(), keyword,searchColumnIndices,outputColumnIndices);
+                        if (!matchingLines.isEmpty()) {
+                            trierRevendeurs(matchingLines);
+                        } else {
+                            System.out.println("Aucun revendeur trouve selon le mot-cle.");
+                        }
+                        break;
                 }
             } catch (Exception e) {
                 System.out.println("Erreur : " + e.getMessage());
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }
 
-    public static String getProduitPath() {
-        return produitPath;
+
+    public static void trierRevendeurs(List<String> matchingLines) {
+        CSVHandler.SortOrder order = null;
+        int colomn = 0;
+
+        do {
+            try {
+                trierMessageRevendeur();
+                System.out.print("Choix: ");
+                String type = myScanner.getStringInput();
+
+                switch (type.toLowerCase()) {
+                    case "nom": colomn = 1;break;
+                    case "likes": colomn = 6;break;
+                    default: System.out.println("Choix invalide. Veuillez reessayer.");
+                }
+            } catch (Exception e) {
+                System.out.println("Erreur : " + e.getMessage());
+            }
+        } while (colomn == 0); // Répéter tant que colomn n'est pas initialisé
+
+        do {
+            try {
+                System.out.println(" ");
+                System.out.print("Choisir l'ordre (ASCENDING ou DESCENDING): ");
+                System.out.println("---------------------");
+                order = CSVHandler.SortOrder.valueOf(myScanner.getStringInput());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Ordre invalide. Veuillez choisir ASCENDING ou DESCENDING.");
+            }
+        } while (order == null); // Répéter tant que order n'est pas initialisé
+
+        List<String[]> data = FormatAdjust.transformList(matchingLines);
+        CSVHandler.sortByColumn(data, colomn - 1, order);
+        afficherRevendeurs(data);
+    }
+    public static void trierMessageRevendeur(){
+        System.out.println(" ");
+        System.out.println("choisir le filtrage base sur quel type:");
+        System.out.println("---------------------");
+        System.out.println("nom");
+        System.out.println("likes");
     }
 
-    public static String getAcheteurPath() {
-        return acheteurPath;
-    }
 
-    public static String getRevendeurPath() {
-        return revendeurPath;
+
+    /**
+     * Méthode pour afficher les produits après la recherche et le tri.
+     *
+     * @param data Liste des lignes de produits triées.
+     */
+    public static void afficherRevendeurs(List<String[]> data) {
+        System.out.println("\n\n\n\n\n");
+        System.out.println("Voici la liste selon votre mot-cle et après trier");
+        System.out.println("-------------------------------------------------");
+        for (String[] row : data) {
+            if (row.length > 0) { // Vérifier si le tableau a au moins un élément
+                System.out.println(row[0]); // Imprimer seulement le premier élément
+            }
+        }
     }
 }

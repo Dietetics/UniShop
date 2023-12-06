@@ -1,19 +1,17 @@
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 public class VF {
 
-    private static Scanner scanner = new Scanner(System.in);
+    static myScanner myScanner = new myScanner();
 
     public static void main(String[] args) {
         DatabasePath.checkProduitPath();
         DatabasePath.checkAcheteurPath();
         DatabasePath.checkRevendeurPath();
+        Database.refreshAcheteurs();
+        Database.refreshRevendeurs();
+        Database.refreshProduits();
         displayMenuPrincipale();
-        scanner.close();
     }
 
     /**
@@ -36,13 +34,13 @@ public class VF {
                 System.out.print("\n");
 
                 System.out.print("Choix : ");
-                choix = scanner.nextInt();
+                choix = myScanner.getIntInput();
 
                 switch (choix) {
                     case 0: System.out.println("Au revoir !");
                     System.exit(choix);
                         break;
-                    case 1: Information.displayInformation(); break;
+                    case 1: RecherchePublic.display(); break;
                     case 2: Inscription.inscription(); break;
                     case 3: Connexion.connecter(); break;
                     default:
@@ -50,7 +48,6 @@ public class VF {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }

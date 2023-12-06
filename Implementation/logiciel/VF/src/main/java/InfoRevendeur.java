@@ -5,10 +5,10 @@ public class InfoRevendeur {
         String data = CSVHandler.readLineByIndex(path,CSVHandler.findOccurrenceIndex(path, motCle, colonne));
 
         String nom = CSVHandler.getColumnValue(data, 0);
-        String adresse = CSVHandler.getColumnValue(data, 1);
         String courriel = CSVHandler.getColumnValue(data, 2);
-        String telephone = CSVHandler.getColumnValue(data, 3);
-        String likes = CSVHandler.getColumnValue(data, 4);
+        String adresse = CSVHandler.getColumnValue(data, 3);
+        String telephone = CSVHandler.getColumnValue(data, 4);
+        String likes = CSVHandler.getColumnValue(data, 5);
 
 
         System.out.println("\n\n\n\n\n\n\n\n\n\n");
@@ -19,10 +19,10 @@ public class InfoRevendeur {
 
         System.out.println("\n\n\n");
 
-        System.out.println("Entrez quelque chose pour retourner a la recherche");
+        System.out.print("Entrez quelque chose pour retourner a la recherche");
         String decision = myScanner.getStringInput();
 
-        if (decision != null) Information.displayInformation();
+        if (decision != null) return;
 
     }
 

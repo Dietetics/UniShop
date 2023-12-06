@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class InputRestreint {
 
-    private static Scanner scanner = new Scanner(System.in);
+
     public InputRestreint() {
     }
 
@@ -106,7 +106,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidInput(input)) {
                     throw new IllegalArgumentException("Le nom et prenom doivent contenir uniquement des caracteres alphabetiques et au moins deux.");
@@ -115,7 +115,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
     }
@@ -123,7 +122,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidAddress(input)) {
                     throw new IllegalArgumentException("adresse doit avoir un longueur inferieur a 20");
@@ -132,15 +131,14 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
     }
-    static String getValidCourriel(String message, int colonne) {
+    static String getValidAcheteurCourriel(String message, int colonne) {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidCourriel(input)) {
                     throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
@@ -153,7 +151,29 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    static String getValidRevendeurCourriel(String message, int colonne) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = myScanner.getStringInput();
+
+                if (!isValidCourriel(input)) {
+                    throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
+                }
+
+                if (!isUnique(DatabasePath.getRevendeurPath(),input,colonne)) {
+                    throw new IllegalArgumentException("Ce courriel est deja utillise, veuillez entre un nouveau");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -165,7 +185,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidTelephone(input)) {
                     throw new IllegalArgumentException("Le telephone doit etre composer de 10 chiffres");
@@ -174,7 +194,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
     }
@@ -182,16 +201,15 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
-                if (!isValidPseudo(DatabasePath.getAcheteurPath(),input,2)) {
+                if (!isValidPseudo(DatabasePath.getAcheteurPath(),input,0)) {
                     throw new IllegalArgumentException("votre pseudo est pris, veuillez entre un nouveau");
                 }
 
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -201,7 +219,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidPass(input)) {
                     throw new IllegalArgumentException("votre paseword doit contenir au moins 8 chars, 1 majuscule, 1 minuscule, 1 chiffre, 1char special");
@@ -210,7 +228,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             }
         }
     }
@@ -218,7 +235,7 @@ public class InputRestreint {
         while (true) {
             try {
                 System.out.print(message);
-                String input = scanner.next();
+                String input = myScanner.getStringInput();
 
                 if (!isValidInput(input)) {
                     throw new IllegalArgumentException("contenir uniquement des caracteres alphabetiques et au moins deux.");
@@ -230,7 +247,6 @@ public class InputRestreint {
                 return input;
             } catch (IllegalArgumentException e) {
                 System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -314,6 +330,28 @@ public class InputRestreint {
         return points < 20;
     }
 
+
+
+
+    static String getValidCredit(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String cvv = myScanner.getStringInput();
+
+                if (!isValidCredit(cvv)) {
+                    throw new IllegalArgumentException("Les informations de la carte de crédit ne sont pas valides. le nombre cvv est une longueur de 3");
+                }
+                return cvv;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur : " + e.getMessage());
+            }
+        }
+    }
+
+    static boolean isValidCredit(String cvv) {
+        return cvv.length() == 3;
+    }
 
 }
 

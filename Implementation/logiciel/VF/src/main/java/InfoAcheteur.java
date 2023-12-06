@@ -5,13 +5,13 @@ public class InfoAcheteur {
     public static void voirProfil(String path, String motCle, int colonne){
         String data = CSVHandler.readLineByIndex(path,CSVHandler.findOccurrenceIndex(path, motCle, colonne));
 
-        String nom = CSVHandler.getColumnValue(data, 0);
-        String prenom = CSVHandler.getColumnValue(data, 1);
-        String pseudo = CSVHandler.getColumnValue(data, 2);
-        String courriel = CSVHandler.getColumnValue(data, 3);
-        String telephone = CSVHandler.getColumnValue(data, 4);
-        String adresse = CSVHandler.getColumnValue(data, 5);
-        String likes = CSVHandler.getColumnValue(data, 6);
+        String pseudo = CSVHandler.getColumnValue(data, 0);
+        String courriel = CSVHandler.getColumnValue(data, 2);
+        String nom = CSVHandler.getColumnValue(data, 3);
+        String prenom = CSVHandler.getColumnValue(data, 4);
+        String telephone = CSVHandler.getColumnValue(data, 5);
+        String adresse = CSVHandler.getColumnValue(data, 6);
+        String likes = CSVHandler.getColumnValue(data, 7);
 
 
 
@@ -25,9 +25,9 @@ public class InfoAcheteur {
 
         System.out.println("\n\n\n");
 
-        System.out.println("Entrez quelque chose pour retourner a la recherche");
+        System.out.print("Entrez quelque chose pour retourner a la recherche");
         String decision = myScanner.getStringInput();
-        if (decision != null) Information.displayInformation();
+        if (decision != null) return;
 
     }
 

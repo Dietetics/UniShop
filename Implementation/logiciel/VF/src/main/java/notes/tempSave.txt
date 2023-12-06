@@ -1,108 +1,31 @@
-public void modifie_profil(){
+public static void confirmerReception() {
+        System.out.println("\nVeuillez entrer le nom du produit recu");
+        String produit = myScanner.getStringInput();
+        String etatExpedition = "enLivraison";
 
-        String choix = "90";
-        while (choix != ":q") {
-            try {
-                System.out.println("\n");
-                System.out.println("Cher acheteur: " + getPseudo() + ", Voici votre profil");
-                System.out.println("-----------------------------------------------------");
-                System.out.println("nom: " + nom);
-                System.out.println("prenom: " + prenom);
-                System.out.println("telephone: " + telephone);
-                System.out.println("adresse: " + adresse);
-                System.out.println("-----------------------------------------------------");
-                System.out.println(":e pour enregistrer la modification ou :q pour quitter");
-                System.out.print("\n");
+        try {
+            int columnIndex = 0; // Index de la colonne contenant le nom du produit
+            int etatExpeditionIndex = 1; // Index de la colonne contenant l'état de l'expédition
 
-                System.out.print("Choix : ");
-                choix = scanner.next();
+            Boolean condition = CSVHandler.isExiste(getPathHistoire(), produit, columnIndex);
+
+            if (condition) {
+                // Vérifier si l'état de l'expédition est "enLivraison"
 
 
-                switch (choix) {
 
-                    case ":q": displayMenuAcheteur(); break;
-                    case "nom":
-                        Boolean conditionNom = true;
-                        while (conditionNom) {
-                            try{
-                            System.out.print("Votre recent nom est: " + nom + "\nquel est votre nouveau nom: ");
-                            String scannedNom = scanner.next();
-
-                            if (!InputRestreint.isValidInput(scannedNom)) {
-                                throw new IllegalArgumentException("Le nom doit contenir au moins 2 caracteres alphabetiques.");
-                            }
-                            nom = scannedNom;
-                            conditionNom = false;}
-                            catch (Exception e) {
-                                System.out.println("Erreur: " + e.getMessage());
-                                scanner.nextLine();
-                            }
-                        }
-                        break;
-                    case "prenom":
-                        Boolean conditionPrenom = true;
-                        while (conditionPrenom) {
-                            try{
-                            System.out.print("Votre recent prenom est: " + prenom + "\nquel est votre nouveau prenom: ");
-                            String scannedPrenom = scanner.next();
-
-                            if (!InputRestreint.isValidInput(scannedPrenom)) {
-                                throw new IllegalArgumentException("Le prenom doit contenir au moins 2 caracteres alphabetiques.");
-                            }
-                            prenom = scannedPrenom;
-                            conditionPrenom = false;}
-                            catch (Exception e) {
-                                System.out.println("Erreur: " + e.getMessage());
-                                scanner.nextLine();
-                            }
-                        }
-                        break;
-                    case "telephone":
-                        Boolean conditionTelephone = true;
-                        while (conditionTelephone) {try{
-                            System.out.print("Votre recent telephone est: " + telephone + "\nquel est votre nouveau telephone: ");
-                            String scannedTelephone = scanner.next();
-
-                            if (!InputRestreint.isValidTelephone(scannedTelephone)) {
-                                throw new IllegalArgumentException("Le telephone doit etre composer de 10 chiffres");
-                            }
-                            telephone = scannedTelephone;
-                            conditionTelephone = false;}
-                        catch (Exception e) {
-                            System.out.println("Erreur: " + e.getMessage());
-                            scanner.nextLine();
-                        }
-                        }
-                        break;
-                    case "adresse":
-                        Boolean conditionAdresse = true;
-                        while (conditionAdresse) {try{
-                            System.out.print("Votre recent adresse est: " + adresse + "\nquel est votre nouveau adresse: ");
-                            String scannedAdresse = scanner.next();
-
-                            if (!InputRestreint.isValidAddress(scannedAdresse)) {
-                                throw new IllegalArgumentException("adresse doit avoir un longueur inferieur a 20");
-                            }
-                            adresse = scannedAdresse;
-                            conditionAdresse = false;}
-                        catch (Exception e) {
-                            System.out.println("Erreur: " + e.getMessage());
-                            scanner.nextLine();
-                        }
-                        }
-                        break;
-                    case ":e":
-                        List<String> newCSVLine = Arrays.asList(nom, prenom, pseudo, courriel, telephone, adresse, nbLikes);
-                        int lineIndex2 = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),2);
-                        CSVHandler.uploadCSVLine(DatabasePath.getAcheteurPath(),lineIndex2-1,newCSVLine);
-//                        setPseudo(pseudo);
-                        break;
-                    default:
-                        System.out.println("Choix invalide. Veuillez reessayer.");
+                if (CSVHandler.isExiste(getPathHistoire(), etatExpedition, etatExpeditionIndex)) {
+                    int index = CSVHandler.findOccurrenceIndex(getPathHistoire(), produit, columnIndex);
+                    // Modifier l'état de l'expédition à "livré"
+                    CSVHandler.modifyCSVValue(getPathHistoire(), index-1, etatExpeditionIndex, "livre");
+                    System.out.println("L'état du produit est changé avec succès.");
+                } else {
+                    System.out.println("Le produit n'est pas en cours de livraison.");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
+            } else {
+                System.out.println("Vous n'avez pas ce produit dans l'histoire.");
             }
+        } catch (Exception e) {
+            System.out.println("Une erreur s'est produite : " + e.getMessage());
         }
     }

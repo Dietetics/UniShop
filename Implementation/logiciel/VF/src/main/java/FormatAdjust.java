@@ -23,6 +23,21 @@ public class FormatAdjust {
     }
 
 
+    public static String convertToCSV(String... values) {
+        StringBuilder csvLine = new StringBuilder();
+        for (String value : values) {
+            // Si la valeur contient une virgule, entoure-la de guillemets
+            if (value.contains(",")) {
+                csvLine.append("\"").append(value).append("\",");
+            } else {
+                csvLine.append(value).append(",");
+            }
+        }
+        // Supprime la virgule finale et retourne la ligne CSV complète
+        return csvLine.substring(0, csvLine.length() - 1);
+    }
+
+
 
 
 
