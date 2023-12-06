@@ -23,6 +23,7 @@ public class Histoire {
                 System.out.println("2. Confirmer la reception");
                 System.out.println("3. Sgnaler un probleme");
                 System.out.println("4. Retouner ou Echanger un produit");
+                System.out.println("5. Donner note et evaluation");
                 System.out.println("0. quitter");
 
                 System.out.print("Votre choix : ");
@@ -54,6 +55,9 @@ public class Histoire {
                     break;
                 case 4:
                     retourEchangeProduit();
+                    break;
+                case 5:
+                    noteEvaluation();
                     break;
                 case 0:
                     return false;
@@ -156,7 +160,7 @@ public class Histoire {
                 System.out.println("---------------------------------------------------------------");
                 String revendeur = myScanner.getStringInput();
 
-                if (condition.equals(":q")) return;
+                if (revendeur.equals(":q")) return;
                 int index = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(), revendeur, 0);
 
                 if (index != -1) {
@@ -196,7 +200,7 @@ public class Histoire {
                 System.out.println("---------------------------------------------------------------");
                 String revendeur = myScanner.getStringInput();
 
-                if (condition.equals(":q")) return;
+                if (revendeur.equals(":q")) return;
                 int index = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(), revendeur, 0);
 
                 if (index != -1) {
@@ -229,6 +233,66 @@ public class Histoire {
     }
 
 
+
+    public static void noteEvaluation(){
+        Boolean condition = true;
+
+        while (condition) {
+            try {
+                System.out.println("\nVeuillez entrer le nom du produit pour donner une note et evaluation");
+                System.out.println("---------------------------------------------------------------");
+                String produit = myScanner.getStringInput();
+
+                if (produit.equals(":q")) return;
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getProduitPath(), produit, 0);
+
+                if (index != -1) {
+
+                    int note;
+                    do {
+                        try {
+                            System.out.print("Veuillez entrer une note (entre 0 et 100) : ");
+                            note = myScanner.getIntInput();
+
+                            if (note < 0 || note > 100) {
+                                throw new IllegalArgumentException("La note doit être comprise entre 0 et 100.");
+                            }
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("Erreur : Veuillez entrer un nombre entier.");
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Erreur : " + e.getMessage());
+                        }
+                    } while (true);
+
+                    System.out.print("Veuillez entrer une evaluation: ");
+                    String eval = myScanner.getStringInput();
+
+                    String pathProduitNote = DatabasePath.getProduitInfoPath() + produit + "/note.csv";
+                    String pathProduitEval = DatabasePath.getProduitInfoPath() + produit + "/evaluation.csv";
+
+                    String pathAcheteurEval = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/evaluation.csv";
+
+                    // Ajoutez le message dans les fichiers CSV correspondants
+                    CSVHandler.appendCSV(pathProduitNote, "Par acheteur: " + getAcheteur()+ ". Note: " + note);
+                    CSVHandler.appendCSV(pathProduitEval, "Par acheteur: " + getAcheteur()+ ". Eval: " + eval );
+                    CSVHandler.appendCSV(pathAcheteurEval, produit + " a note: " + note + " evaluation: " + eval);
+
+
+                    condition = false;
+                    System.out.println("Votre message est bien envoyer, le revendeur recevra sous peu, puis evaluer votre situation, s'il accepte votre parole" +
+                            " il vous contactera");
+                } else {
+                    System.out.println("Revendeur non trouvé dans la base de données.");
+                }
+
+                // Sortez de la boucle après avoir effectué la tâche avec succès
+            } catch (Exception e) {
+                // Gérez les exceptions ici (par exemple, IOException, InputMismatchException)
+                System.out.println("Une erreur s'est produite : " + e.getMessage());
+            }
+        }
+    }
 
 
 
