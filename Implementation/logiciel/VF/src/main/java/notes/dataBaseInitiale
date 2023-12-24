@@ -1,0 +1,51 @@
+Les datas de base initiale
+
+
+acheteurs:
+pseudo(unique), password, courriel(unique), nom, prenom, telephone, adresse, likes
+
+auteur1,#We123123,teng.wanting@umontreal.ca,Teng,Wanting,5148888888,H3C3J7,0
+auteur2,#We123123,he.yongkang@gmail.com,he,yongkang,5140003333,H3C3J7,0
+auteur3,#We123123,lin.yuxiang@umontreal.ca,Lin,Yuxiang,5147775555,H3C3J7,0
+test,#We123123,test@gmail.com,testNom,testPrenom,5141231231,H5W3X3,0
+we,#We123123,we@gmail.com,weNom,wePrenom,4381231231,H5W3X3,0
+temp,#We123123,temp@gmail.com,tempNom,tempPrenom,1281231231,H5W3X3,0
+
+main, billet, histoire, notification, panier, suiviPar, suivre
+
+
+
+
+
+
+
+revendeurs:
+nom(unique), password, courriel(unique), adresse, telephone, likes
+
+auteur1,#We123123,auteur1@gmail.com,H3C3J7,5141231231,0
+auteur2,#We123123,auteur2@gmail.com,H3C3J7,4382131231,0
+auteur3,#We123123,auteur3@gmail.com,H3C3J7,1281231231,0
+we,#We123123,we@gmail.com,H3C3J7,1281231231,0
+
+main, resolution, notification, offrir
+
+
+
+
+
+
+Produits:
+titre(unique),categorie,description,quantite0,prix,pointsBoni,images,videos,identifiant uniqque,like, note_moyen, promo
+Livre1,Livres_manuels,goodchoice,22,19.99,0,non,non,0,0,0,non
+Cahier1,Articles_papeterie,good,20,5.99,1,non,non,1,0,0,non
+OrdinateurPortable1,Materiel_informatique,bad,5,699.99,2,non,non,2,0,0,non
+lampesBureau1,Equipement_bureau,good,30,30,0,non,non,3,0,0,non
+guideEtude1,Ressources_Dapprentissage,good,2,40,0,non,non,4,0,0,non
+
+main, note, evaluation
+
+
+
+
+
+

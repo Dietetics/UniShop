@@ -1,0 +1,31 @@
+public static void confirmerReception() {
+        System.out.println("\nVeuillez entrer le nom du produit recu");
+        String produit = myScanner.getStringInput();
+        String etatExpedition = "enLivraison";
+
+        try {
+            int columnIndex = 0; // Index de la colonne contenant le nom du produit
+            int etatExpeditionIndex = 1; // Index de la colonne contenant l'état de l'expédition
+
+            Boolean condition = CSVHandler.isExiste(getPathHistoire(), produit, columnIndex);
+
+            if (condition) {
+                // Vérifier si l'état de l'expédition est "enLivraison"
+
+
+
+                if (CSVHandler.isExiste(getPathHistoire(), etatExpedition, etatExpeditionIndex)) {
+                    int index = CSVHandler.findOccurrenceIndex(getPathHistoire(), produit, columnIndex);
+                    // Modifier l'état de l'expédition à "livré"
+                    CSVHandler.modifyCSVValue(getPathHistoire(), index-1, etatExpeditionIndex, "livre");
+                    System.out.println("L'état du produit est changé avec succès.");
+                } else {
+                    System.out.println("Le produit n'est pas en cours de livraison.");
+                }
+            } else {
+                System.out.println("Vous n'avez pas ce produit dans l'histoire.");
+            }
+        } catch (Exception e) {
+            System.out.println("Une erreur s'est produite : " + e.getMessage());
+        }
+    }

@@ -1,0 +1,65 @@
+done:
+
+VF
+
+database
+    -void refreshProduits()
+    -void refreshAcheteurs()
+    -void refreshRevendeurs()
+
+
+
+Information
+    -displayInformation
+
+InfoAcheteur
+    -void voirProfil(String path, String motCle, int colonne)
+
+InfoRevendeur
+    -void voirProfil(String path, String motCle, int colonne)
+
+InfoProduit
+    -void voirProduit(String path, String motCle, int colonne)
+
+RecherchePublic
+    -void recuperer(String path, int info)
+    -void rechercheProduits()
+    -void rechercheAcheteurs()
+    -void rechercheRevendeurs()
+
+
+
+Inscription
+    -inscriptionAcheteur
+    -inscriptionRevendeur
+
+InputRestrint
+    - (...)
+
+
+
+
+Connexion
+    -connectAcheteur
+    -connectRevendeur
+
+
+ProfilAcheteur
+    - modifierProfil
+    - catalogue
+
+RechercheAcheteur
+
+
+ProfilRevendeur
+    - modifierProfil
+
+
+
+
+
+
+to do:
+metriques voir photo
+
+inscription: saveRevendeurData
