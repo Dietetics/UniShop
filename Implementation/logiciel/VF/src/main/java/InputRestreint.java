@@ -31,6 +31,12 @@ public class InputRestreint {
         return address.length() <= 20;
     }
 
+
+
+    static boolean isValidDescription(String description) {
+        return description.length() <= 100;
+    }
+
     /**
      * Verifie si un numero de telephone a exactement 10 chiffres.
      *
@@ -39,6 +45,26 @@ public class InputRestreint {
      */
     static boolean isValidTelephone(String telephone) {
         return telephone.matches("^\\d{10}$");
+    }
+
+    static boolean isValidQuantite(String quantite) {
+        try {
+            int value = Integer.parseInt(quantite);
+            return value > 0 && quantite.length() < 5;
+        } catch (NumberFormatException e) {
+            return false; // La conversion en entier échoue si la chaîne n'est pas un nombre valide
+        }
+    }
+    static boolean isValidPrix(String prix) {
+        try {
+            int value = Integer.parseInt(prix);
+            return value > 0 && prix.length() < 5;
+        } catch (NumberFormatException e) {
+            return false; // La conversion en entier échoue si la chaîne n'est pas un nombre valide
+        }
+    }
+    static boolean isValidPointsBoni(String points) {
+        return points.matches("\\d{1,2}");
     }
 
     /**
@@ -51,7 +77,7 @@ public class InputRestreint {
         return courriel.endsWith("@gmail.com") || courriel.endsWith("@umontreal.ca");
     }
 
-    static boolean isUnique(String filePath, String valeur, int column) throws IOException {
+    static boolean isUnique_Mlen2(String filePath, String valeur, int column) throws IOException {
 
         List<String[]> data = CSVHandler.readCSV(filePath,9999);
         if (data != null) {
@@ -102,6 +128,22 @@ public class InputRestreint {
     }
 
 
+    static boolean isValidTitre(String filePath, String valeur, int column) throws IOException {
+
+        List<String[]> data = CSVHandler.readCSV(filePath,9999);
+        if (data != null) {
+            for (String[] row : data) {
+                if (row.length > 2 && valeur.equals(row[column])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
+
+
     static String getValidInput(String message) {
         while (true) {
             try {
@@ -134,6 +176,75 @@ public class InputRestreint {
             }
         }
     }
+
+    static String getValidDescription(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = myScanner.getStringInput();
+
+                if (!isValidDescription(input)) {
+                    throw new IllegalArgumentException("description doit avoir un longueur inferieur a 100");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+            }
+        }
+    }
+
+    static String getValidQuantite(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = myScanner.getStringInput();
+
+                if (!isValidQuantite(input)) {
+                    throw new IllegalArgumentException("quantite doit etre inferieur que 10 000 et non 0");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+            }
+        }
+    }
+
+    static String getValidPrix(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = myScanner.getStringInput();
+
+                if (!isValidPrix(input)) {
+                    throw new IllegalArgumentException("prix doit etre inferieur que 10 000$ et non 0");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+            }
+        }
+    }
+
+    static String getValidPointsBoni(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = myScanner.getStringInput();
+
+                if (!isValidPointsBoni(input)) {
+                    throw new IllegalArgumentException("points boni doit etre inferieur que 100");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+            }
+        }
+    }
+
     static String getValidAcheteurCourriel(String message, int colonne) {
         while (true) {
             try {
@@ -144,7 +255,7 @@ public class InputRestreint {
                     throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
                 }
 
-                if (!isUnique(DatabasePath.getAcheteurPath(),input,colonne)) {
+                if (!isUnique_Mlen2(DatabasePath.getAcheteurPath(),input,colonne)) {
                     throw new IllegalArgumentException("Ce courriel est deja utillise, veuillez entre un nouveau");
                 }
 
@@ -167,7 +278,7 @@ public class InputRestreint {
                     throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
                 }
 
-                if (!isUnique(DatabasePath.getRevendeurPath(),input,colonne)) {
+                if (!isUnique_Mlen2(DatabasePath.getRevendeurPath(),input,colonne)) {
                     throw new IllegalArgumentException("Ce courriel est deja utillise, veuillez entre un nouveau");
                 }
 
@@ -215,6 +326,28 @@ public class InputRestreint {
             }
         }
     }
+
+
+    static String getValidTitre(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = myScanner.getStringInput();
+
+                if (!isValidTitre(DatabasePath.getProduitPath(),input,0)) {
+                    throw new IllegalArgumentException("votre titre est pris, veuillez entre un nouveau");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
     static String getValidPassword(String message) {
         while (true) {
             try {
@@ -240,7 +373,7 @@ public class InputRestreint {
                 if (!isValidInput(input)) {
                     throw new IllegalArgumentException("contenir uniquement des caracteres alphabetiques et au moins deux.");
                 }
-                if (!isUnique(DatabasePath.getRevendeurPath(),input,0)) {
+                if (!isUnique_Mlen2(DatabasePath.getRevendeurPath(),input,0)) {
                     throw new IllegalArgumentException("Ce nom est deja utillise, veuillez entre un nouveau");
                 }
 
@@ -252,6 +385,37 @@ public class InputRestreint {
             }
         }
     }
+
+
+
+    static String getValidCategorie(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = myScanner.getStringInput();
+
+                if (!isValidCategorie(input)) {
+                    throw new IllegalArgumentException("Vous avez entrez une mauvaise categorie, veuillez entrer de nouveau");
+                }
+
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -281,14 +445,24 @@ public class InputRestreint {
 
 
 
+
+
+
+
+
+
+
+
+
     // Liste des catégories autorisées
-    private static final List<String> CATEGORIES_AUTORISEES = Arrays.asList(
+    public static final List<String> CATEGORIES_AUTORISEES = Arrays.asList(
             "LivresManuels",
             "ArticlesPapeterie",
             "MaterielInformatique",
             "EquipementBureau",
             "RessourcesDapprentissage"
     );
+
 
     /**
      * Vérifie si la catégorie spécifiée est autorisée.
@@ -299,6 +473,12 @@ public class InputRestreint {
     public static boolean isValidType(String categorie) {
         return CATEGORIES_AUTORISEES.contains(categorie);
     }
+
+    static boolean isValidCategorie(String category) {
+        return CATEGORIES_AUTORISEES.contains(category);
+    }
+
+
 
     /**
      * Vérifie si la longueur de la chaîne de caractères spécifiée ne dépasse pas 100 caractères.

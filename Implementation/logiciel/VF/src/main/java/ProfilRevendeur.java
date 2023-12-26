@@ -51,7 +51,7 @@ public class ProfilRevendeur {
                         break;
                     case 1: RecherchePublic.display(); break;
                     case 2: modifie_profil(); break;
-                    case 3: offrir_produit(); break;
+                    case 3: Inscription.inscriptionProduit(getNom()); break;
                     case 4: gererProduits(); break;
                     case 5: diffuserMedias(); break;
                     case 6: //actions(); break;    modifier etat, repond aux problemes, confirmer reception, expedier les produits
@@ -168,97 +168,6 @@ public class ProfilRevendeur {
 
 
 
-
-
-
-    public void offrir_produit(){
-
-        System.out.println("\n");
-        System.out.println("Cher revendeur: " + getNom() + "      " + "Page: ajout des produits");
-        System.out.println("-----------------------------------------------------");
-
-        Boolean condition = true;
-        while (condition) {
-            try {
-                System.out.print("Veuillez entrer un titre(unique): ");
-                String titre = myScanner.getStringInput();
-
-
-                if (!InputRestreint.isValidUniqueRow(DatabasePath.getProduitPath(), titre, 0)) {
-                    throw new IllegalArgumentException("Le nom doit etre unique.");
-                }
-
-                System.out.println("Veuillez indiquer le categorie: ");
-                System.out.println("-----------------------------------------------------");
-                System.out.println("LivresManuels");
-                System.out.println("ArticlesPapeterie");
-                System.out.println("MaterielInformatique");
-                System.out.println("EquipementBureau");
-                System.out.println("RessourcesDapprentissage");
-                System.out.println("-----------------------------------------------------");
-                String categorie = myScanner.getStringInput();
-
-                if (!InputRestreint.isValidType(categorie)) {
-                    throw new IllegalArgumentException("le categorie doit etre ceux du haut");
-                }
-
-                System.out.print("Veuillez entrer une description: ");
-                String desc = myScanner.getStringInput();
-
-
-                if (!InputRestreint.isValidMots(desc)) {
-                    throw new IllegalArgumentException("Le nombre de mots doit etre inferieur a 100");
-                }
-
-
-                System.out.print("Veuillez entrer le quantite initial: ");
-                Integer quantite0 = myScanner.getIntInput();
-
-                if (!InputRestreint.isValidInt(quantite0)) {
-                    throw new IllegalArgumentException("Entrez un nombre et On ne peut que stocker au max 9999items");
-                }
-
-                System.out.print("Veuillez entrer un prix: ");
-                Integer prix = myScanner.getIntInput();
-
-                if (!InputRestreint.isValidInt(prix)) {
-                    throw new IllegalArgumentException("Entrez un nombre et le prix doit etre inferieure a 9999$");
-                }
-
-
-                System.out.print("Veuillez entrer le nombre de points bonus ou 0: ");
-                Double points = myScanner.getDoubleInput();
-
-                if (!InputRestreint.isValidDouble(points)) {
-                    throw new IllegalArgumentException("Entrez un nombre a <=20, puis 0 pour aucun point");
-                }
-
-                System.out.println("Avez vous des images a ajouter? ");
-                System.out.println("cette fonction est encore en developpement, veuillez rajouter des images plutard");
-                System.out.println("Avez vous des videos a ajouter? ");
-                System.out.println("cette fonction est encore en developpement, veuillez rajouter des videos plutard");
-
-                condition = false;
-
-                System.out.println("Donnees enregistrees avec succes");
-                System.out.println("--------------------------------");
-
-                List<String[]> produitData = new ArrayList<>();
-                String quantite0new = String.valueOf(quantite0);
-                String prixnew = String.valueOf(prix);
-                String pointsnew = String.valueOf(points);
-                produitData.add(new String[]{titre, categorie, desc, quantite0new, prixnew, pointsnew, "non", "non", "0", "0", "non"});
-
-                CSVHandler.appendCSV(DatabasePath.getProduitPath(), produitData);
-
-
-                break;
-            } catch (Exception e) {
-                System.out.println("Erreur: " + e.getMessage());
-            }
-        }
-
-    }
 
 
 

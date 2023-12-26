@@ -1,8 +1,5 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class CSVHandler {
 
@@ -941,6 +938,24 @@ public class CSVHandler {
         }
 
         return sum;
+    }
+
+
+    public static Set<String> readColumnValuesFromCSV(String csvFilePath, int columnIndex) {
+        Set<String> values = new HashSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Supposons que les colonnes du CSV soient séparées par des virgules
+                String[] columns = line.split(",");
+                if (columns.length > columnIndex) {
+                    values.add(columns[columnIndex].trim());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return values;
     }
 
 }
