@@ -106,6 +106,15 @@ public class CSVHandler {
         }
     }
 
+    public static void coverCSV(String filePath, String data) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            // Write the data to the file
+            writer.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     /**

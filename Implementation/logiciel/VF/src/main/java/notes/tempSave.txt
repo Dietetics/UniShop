@@ -1,89 +1,178 @@
-public void offrir_produit(){
+import java.util.ArrayList;
+import java.util.List;
 
-        System.out.println("\n");
-        System.out.println("Cher revendeur: " + getNom() + "      " + "Page: ajout des produits");
-        System.out.println("-----------------------------------------------------");
-
-        Boolean condition = true;
-        while (condition) {
-            try {
-                System.out.print("Veuillez entrer un titre(unique): ");
-                String titre = scanner.next();
+public class ProfilProduit {
 
 
-                if (!InputRestreint.isValidUniqueRow(DatabasePath.getProduitPath(), titre, 0)) {
-                    throw new IllegalArgumentException("Le nom doit etre unique.");
-                }
+    private static String titre, categorie, description, identifiant, promo;
+    private static List<String> images;
+    private static List<String> videos;
+    private static int quantite, likes,note;
+    private static double prix, pointsBoni;
+    public ProfilProduit(String titre) {
 
-                System.out.println("Veuillez indiquer le categorie: ");
-                System.out.println("-----------------------------------------------------");
-                System.out.println("LivresManuels");
-                System.out.println("ArticlesPapeterie");
-                System.out.println("MaterielInformatique");
-                System.out.println("EquipementBureau");
-                System.out.println("RessourcesDapprentissage");
-                System.out.println("-----------------------------------------------------");
-                String categorie = scanner.next();
+        this.titre = titre;
 
-                if (!InputRestreint.isValidType(categorie)) {
-                    throw new IllegalArgumentException("le categorie doit etre ceux du haut");
-                }
+        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getProduitPath(),getTitre(),0);
+        String data = CSVHandler.readLineByIndex(DatabasePath.getProduitPath(),lineIndex);
 
-                System.out.print("Veuillez entrer une description: ");
-                String desc = scanner.next();
+        String categorie = CSVHandler.getColumnValue(data, 1);
+        String description = CSVHandler.getColumnValue(data, 2);
+        String quantiteTemp = CSVHandler.getColumnValue(data, 3);
+        String prixTemp = CSVHandler.getColumnValue(data, 4);
+        String pointsBonip = CSVHandler.getColumnValue(data, 5);
+        String image = CSVHandler.getColumnValue(data, 6);
+        String video = CSVHandler.getColumnValue(data, 7);
+        String identifiant = CSVHandler.getColumnValue(data, 8);
+        String likesTemp = CSVHandler.getColumnValue(data, 9);
+        String noteTemp = CSVHandler.getColumnValue(data, 10);
+        String promo = CSVHandler.getColumnValue(data, 11);
 
+        int quantite = Integer.parseInt(quantiteTemp);
+        double prix = Double.parseDouble(prixTemp);
+        double pointsBoni = Double.parseDouble(pointsBonip);
+        int likes = Integer.parseInt(likesTemp);
+        int note = Integer.parseInt(noteTemp);
 
-                if (!InputRestreint.isValidMots(desc)) {
-                    throw new IllegalArgumentException("Le nombre de mots doit etre inferieur a 100");
-                }
-
-
-                System.out.print("Veuillez entrer le quantite initial: ");
-                Integer quantite0 = scanner.nextInt();
-
-                if (!InputRestreint.isValidInt(quantite0)) {
-                    throw new IllegalArgumentException("Entrez un nombre et On ne peut que stocker au max 9999items");
-                }
-
-                System.out.print("Veuillez entrer un prix: ");
-                Integer prix = scanner.nextInt();
-
-                if (!InputRestreint.isValidInt(prix)) {
-                    throw new IllegalArgumentException("Entrez un nombre et le prix doit etre inferieure a 9999$");
-                }
+        List<String> newI = FormatAdjust.convertStringToList(image);
+        List<String> newV = FormatAdjust.convertStringToList(video);
 
 
-                System.out.print("Veuillez entrer le nombre de points bonus ou 0: ");
-                Double points = scanner.nextDouble();
-
-                if (!InputRestreint.isValidDouble(points)) {
-                    throw new IllegalArgumentException("Entrez un nombre a <=20, puis 0 pour aucun point");
-                }
-
-                System.out.println("Avez vous des images a ajouter? ");
-                System.out.println("cette fonction est encore en developpement, veuillez rajouter des images plutard");
-                System.out.println("Avez vous des videos a ajouter? ");
-                System.out.println("cette fonction est encore en developpement, veuillez rajouter des videos plutard");
-
-                condition = false;
-
-                System.out.println("Donnees enregistrees avec succes");
-                System.out.println("--------------------------------");
-
-                List<String[]> produitData = new ArrayList<>();
-                String quantite0new = String.valueOf(quantite0);
-                String prixnew = String.valueOf(prix);
-                String pointsnew = String.valueOf(points);
-                produitData.add(new String[]{titre, categorie, desc, quantite0new, prixnew, pointsnew, "non", "non", "0", "0", "non"});
-
-                CSVHandler.appendCSV(DatabasePath.getProduitPath(), produitData);
-
-
-                break;
-            } catch (Exception e) {
-                System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
-            }
-        }
-
+        this.categorie = categorie;
+        this.description = description;
+        this.quantite = quantite;
+        this.prix = prix;
+        this.pointsBoni = pointsBoni;
+        this.images = newI;
+        this.videos = newV;
+        this.identifiant = identifiant;
+        this.likes = likes;
+        this.note = note;
+        this.promo = promo;
     }
+
+
+    public static void modified(){
+        List<String[]> userData = new ArrayList<>();
+
+        String quantite1 = Integer.toString(getQuantite());
+        String prix1 = Double.toString(getPrix());
+        String pointsBoni1 = Double.toString(getPointsBoni());
+        String likes1 = Integer.toString(getLikes());
+        String note1 = Integer.toString(getNote());
+
+
+        String stringImages = String.join("; ", getImages());
+        String stringVideos = String.join("; ", getVideos());
+
+
+        userData.add(new String[]{getTitre(),getCategorie(),getDescription(),quantite1,prix1,pointsBoni1,stringImages,stringVideos,getIdentifiant(),likes1,note1,getPromo()});
+
+        String directoryPath = DatabasePath.getProduitInfoPath() + getTitre() + "/main.csv";
+        CSVHandler.coverCSV(directoryPath, userData);
+
+        Database.refreshProduits();
+    }
+
+
+    public static List<String> getImages() {
+        return images;
+    }
+
+    public static List<String> getVideos() {
+        return videos;
+    }
+
+    public void ajouterImage(String imageUrl) {
+        images.add(imageUrl);
+        System.out.println("Image ajoutée au produit " + titre + ": " + imageUrl);
+    }
+
+    public void ajouterVideo(String videoUrl) {
+        videos.add(videoUrl);
+        System.out.println("Vidéo ajoutée au produit " + titre + ": " + videoUrl);
+    }
+
+
+
+    public static String getTitre() {
+        return titre;
+    }
+
+    public static String getCategorie() {
+        return categorie;
+    }
+
+    public static String getDescription() {
+        return description;
+    }
+
+    public static int getQuantite() {
+        return quantite;
+    }
+
+    public static Double getPrix() {
+        return prix;
+    }
+
+    public static Double getPointsBoni() {
+        return pointsBoni;
+    }
+
+
+    public static String getIdentifiant() {
+        return identifiant;
+    }
+
+    public static int getLikes() {
+        return likes;
+    }
+
+    public static int getNote() {
+        return note;
+    }
+
+    public static String getPromo() {
+        return promo;
+    }
+
+    public static void setTitre(String titre) {
+        ProfilProduit.titre = titre;
+    }
+
+    public static void setCategorie(String categorie) {
+        ProfilProduit.categorie = categorie;
+    }
+
+    public static void setDescription(String description) {
+        ProfilProduit.description = description;
+    }
+
+    public static void setQuantite(int quantite) {
+        ProfilProduit.quantite = quantite;
+    }
+
+    public static void setPrix(int prix) {
+        ProfilProduit.prix = prix;
+    }
+
+    public static void setPointsBoni(int pointsBoni) {
+        ProfilProduit.pointsBoni = pointsBoni;
+    }
+
+    public static void setIdentifiant(String identifiant) {
+        ProfilProduit.identifiant = identifiant;
+    }
+
+    public static void setLikes(int likes) {
+        ProfilProduit.likes = likes;
+    }
+
+    public static void setNote(int note) {
+        ProfilProduit.note = note;
+    }
+
+    public static void setPromo(String promo) {
+        ProfilProduit.promo = promo;
+    }
+}

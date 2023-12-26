@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -460,7 +462,8 @@ public class InputRestreint {
             "ArticlesPapeterie",
             "MaterielInformatique",
             "EquipementBureau",
-            "RessourcesDapprentissage"
+            "RessourcesDapprentissage",
+            "Autres"
     );
 
 
@@ -531,6 +534,39 @@ public class InputRestreint {
 
     static boolean isValidCredit(String cvv) {
         return cvv.length() == 3;
+    }
+
+
+
+
+
+
+
+
+    public static boolean isValidUrl(String urlString) {
+        try {
+            new URL(urlString);
+            return true;
+        } catch (MalformedURLException e) {
+            return false;
+        }
+    }
+
+
+    static String getValidUrl(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                String input = myScanner.getStringInput();
+
+                if (!isValidUrl(input)) {
+                    throw new IllegalArgumentException("Vous avez entrez une mauvaise url, veuillez entrer de nouveau");
+                }
+                return input;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur: " + e.getMessage());
+            }
+        }
     }
 
 }

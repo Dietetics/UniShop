@@ -8,7 +8,7 @@ public class VisualiserRevendeur {
     public VisualiserRevendeur(String revendeur) {
 
         this.revendeur = revendeur;
-        this.pathNotifications = DatabasePath.getRevendeurComptePath() + revendeur + "/notifications.csv";
+        this.pathNotifications = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
     }
 
     public static void menu() {

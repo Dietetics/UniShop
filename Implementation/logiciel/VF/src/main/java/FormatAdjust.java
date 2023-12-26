@@ -38,6 +38,16 @@ public class FormatAdjust {
     }
 
 
+    public static List<String> convertStringToList(String input) {
+        // Diviser la chaîne en une liste de chaînes en utilisant le point-virgule comme séparateur
+        String[] elements = input.split(";");
+
+        // Convertir le tableau en une liste
+        List<String> resultList = Arrays.asList(elements);
+
+        return resultList;
+    }
+
 
 
 

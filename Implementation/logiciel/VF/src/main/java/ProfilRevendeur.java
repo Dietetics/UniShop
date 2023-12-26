@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.*;
 
 public class ProfilRevendeur {
@@ -53,7 +54,7 @@ public class ProfilRevendeur {
                     case 2: modifie_profil(); break;
                     case 3: Inscription.inscriptionProduit(getNom()); break;
                     case 4: gererProduits(); break;
-                    case 5: diffuserMedias(); break;
+                    case 5: Media.display(getNom()); break;
                     case 6: //actions(); break;    modifier etat, repond aux problemes, confirmer reception, expedier les produits
                     case 7: VisualiserRevendeur voir = new VisualiserRevendeur(getNom());
                         voir.menu();
@@ -67,9 +68,6 @@ public class ProfilRevendeur {
         }
     }
 
-    public static void gererProduits(){}
-    public static void diffuserMedias(){}
-
 
     private void menuMsg() {
         System.out.println("\n");
@@ -79,14 +77,114 @@ public class ProfilRevendeur {
         System.out.println("1. Recherche");
         System.out.println("2. Modifier le Profil");
         System.out.println("3. Offrir un Produit");
-        System.out.println("4. Gerer kes oridyuts");
+        System.out.println("4. Gerer les produits");
         System.out.println("5. Diffuser les medias");
         System.out.println("6. Tous actions");
         System.out.println("7. Voir nos informations");
         System.out.print("\n");
-
-
     }
+
+    public void gererProduits(){
+        String pathOffrir = DatabasePath.getRevendeurComptePath() + getNom() + "/offrir.csv";
+
+        System.out.println("\n\nVoici la liste des produits offer par vous");
+        System.out.println("-----------------------------------");
+        afficherProduitsOffer(pathOffrir);
+        Boolean boucle = true;
+
+        while (boucle == true) {
+            System.out.print("\nmentionner le nom du produit pour le retirer de la liste ou :q pour quitter: ");
+            String scanned = myScanner.getStringInput();
+            String nomProduit = scanned;
+
+            Boolean existe = CSVHandler.isExiste(pathOffrir,scanned);
+            if (existe == true){ scanned = "1";}
+
+            switch (scanned) {
+                case ":q":
+                    boucle = false;
+                    break;
+                case "1":
+                    String pathProduit = DatabasePath.getProduitInfoPath() + nomProduit;
+
+                    retireProduitOffer(pathOffrir,nomProduit);
+
+                    // Créer un objet File avec le chemin du dossier à supprimer
+                    File dossierASupprimer = new File(pathProduit);
+                    // Appeler la méthode pour supprimer le dossier
+                    supprimerDossier(dossierASupprimer);
+
+                    String pathAuteurNotification = DatabasePath.getRevendeurComptePath() + getNom() + "/notification.csv";
+                    notificationSystemAuto(pathAuteurNotification, nomProduit);
+
+                    Database.refreshProduits();
+
+                    break;
+                default:
+                    System.out.println("Commande inconnue. Veuillez reessayer de nouveau");
+                    break;
+            }
+        }
+    }
+
+    public void afficherProduitsOffer(String path){
+        CSVHandler.printCSV(CSVHandler.readCSV(path,9999));
+    }
+
+    public void retireProduitOffer(String path, String nomProduit){
+        int index = CSVHandler.findOccurrenceIndex(path,nomProduit,0);
+
+        System.out.println(index);
+        index--;
+
+        System.out.println(index);
+        System.out.println(path);
+
+        CSVHandler.removeLineFromCSV(path,index);
+    }
+
+    public void notificationSystemAuto(String path, String cible){
+        String msg = "vous avez bien retirer de la liste de produit offer: " + cible;
+        CSVHandler.appendCSV(path,msg);
+    }
+
+    public static void supprimerDossier(File dossier) {
+        // Vérifier si le dossier existe
+        if (dossier.exists()) {
+            // Vérifier si c'est un dossier
+            if (dossier.isDirectory()) {
+                // Liste des fichiers dans le dossier
+                File[] fichiers = dossier.listFiles();
+
+                // Supprimer tous les fichiers et sous-dossiers dans le dossier
+                if (fichiers != null) {
+                    for (File fichier : fichiers) {
+                        if (fichier.isDirectory()) {
+                            // Appeler récursivement la méthode pour supprimer les sous-dossiers
+                            supprimerDossier(fichier);
+                        } else {
+                            // Supprimer le fichier
+                            fichier.delete();
+                        }
+                    }
+                }
+            }
+            // Supprimer le dossier lui-même
+            dossier.delete();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
