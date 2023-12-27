@@ -5,10 +5,8 @@ import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 
 public class Inscription {
     public Inscription() {
@@ -117,7 +115,7 @@ public class Inscription {
             String pointsBoni = InputRestreint.getValidPointsBoni("Veuillez entrer des points Bonus: ");
 
             System.out.println("Vous pouvez ajouter des images, videos apres");
-            String uuid = generateurAuto.uniqueUUID(DatabasePath.getProduitPath(),8);
+            String uuid = GenerateurAuto.uniqueUUID(DatabasePath.getProduitPath(),8);
             System.out.println("L'uuid genere automatiquement par le systeme est: " + uuid);
             System.out.println("Vous pouvez ajouter des promos apres");
 

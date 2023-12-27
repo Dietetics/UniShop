@@ -54,7 +54,7 @@ public class ProfilRevendeur {
                     case 2: modifie_profil(); break;
                     case 3: Inscription.inscriptionProduit(getNom()); break;
                     case 4: gererProduits(); break;
-                    case 5: Media.display(getNom()); break;
+                    case 5: GestionProduit.display(getNom()); break;
                     case 6: //actions(); break;    modifier etat, repond aux problemes, confirmer reception, expedier les produits
                     case 7: VisualiserRevendeur voir = new VisualiserRevendeur(getNom());
                         voir.menu();

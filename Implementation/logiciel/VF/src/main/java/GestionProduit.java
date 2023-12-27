@@ -1,68 +1,101 @@
-import java.io.File;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 
-public class Media {
+public class GestionProduit {
 
 
 
-//    public void modifie_Produit(){
-//
-//        String choix = "90";
-//        while (choix != ":q") {
-//            try {
-//                displayProfile();
-//                System.out.println("tapez un titre pour modifier ou :e pour enregistrer la modification ou :q pour quitter");
-//                System.out.print("\n");
-//
-//                System.out.print("Entrez une option : ");
-//                choix = myScanner.getStringInput();
-//
-//
-//                switch (choix) {
-//
-//                    case ":q": displayMenuRevendeur(); break;
-//                    case "telephone":
-//                        System.out.print("Votre recent telephone est: " + telephone + "\n");
-//                        String telephone = InputRestreint.getValidTelephone("quel est votre nouveau telephone: ");
-//                        this.telephone = telephone;
-//                        break;
-//                    case "adresse":
-//                        System.out.print("Votre recent adresse est: " + adresse + "\n");
-//                        String adresse = InputRestreint.getValidAdresse("quel est votre nouveau adresse: ");
-//                        this.adresse = adresse;
-//                        break;
-//                    case "password":
-//                        System.out.print("Votre recent password est: " + "********" + "\n");
-//                        String password = InputRestreint.getValidPassword("quel est votre nouveau password: ");
-//                        this.password = password;
-//                        break;
-//                    case ":e":
-//                        saveChanges();
-//                        break;
-//                    default:
-//                        System.out.println("Choix invalide. Veuillez reessayer.");
-//                }
-//            } catch (InputMismatchException e) {
-//                System.out.println("Erreur : Veuillez entrer un nombre entier.");
-//            }
-//        }
-//    }
-//
-//    private void displayProfile() {
-//        System.out.println("\n");
-//        System.out.println("Cher revendeur: " + getNom() + ", Voici votre profil");
-//        System.out.println("-----------------------------------------------------");
-//        System.out.println("adresse: " + adresse);
-//        System.out.println("telephone: " + telephone);
-//        System.out.println("password: " + "********");
-//        System.out.println("-----------------------------------------------------");
-//
-//    }
-//
-//
-//    private void saveChanges() {
+    public static void display(String nom){
+
+
+        String pathOffrir = DatabasePath.getRevendeurComptePath() + nom + "/offrir.csv";
+        displayProfile(pathOffrir);
+
+        Boolean boucle = true;
+        while (boucle == true) {
+            System.out.print("\nmentionner le nom du produit faire une action ou :q pour quitter: ");
+            String scanned = myScanner.getStringInput();
+            String nomProduit = scanned;
+
+            Boolean existe = CSVHandler.isExiste(pathOffrir, scanned);
+            if (existe == true) {scanned = "1";}
+
+            switch (scanned) {
+                case ":q":
+                    boucle = false;
+                    break;
+                case "1":
+                    action(nom,pathOffrir,nomProduit);
+                    break;
+                default:
+                    System.out.println("Choix invalide. Veuillez reessayer.");
+            }
+        }
+    }
+
+    private static void displayProfile(String path) {
+        System.out.println("\n\nVoici la liste des produits offer par vous");
+        System.out.println("-----------------------------------");
+        afficherProduitsOffer(path);
+    }
+
+
+    public static void actionMsg(){
+        System.out.println("\n\nVoici les options possibles");
+        System.out.println("-----------------------------------");
+        System.out.println(":q pour Quitter");
+        System.out.println(":a pour Afficher en detail");
+        System.out.println("-----------modification------------");
+        System.out.println("1 pour description");
+        System.out.println("2 pour quantite");
+        System.out.println("3 pour prix");
+        System.out.println("4 pour pointsBoni");
+        System.out.println("5 pour promo");
+        System.out.println("6 pour ajouter une image");
+        System.out.println("7 pour ajouter une video");
+        System.out.println("-----------------------------------");
+        System.out.println(":e pour enregistrer les modifications");
+        System.out.print("\n");
+    }
+
+    public static void action(String nom, String path, String titre){
+
+        actionMsg();
+
+        // faire une instance du produit
+
+        String choix = "90";
+        while (choix != ":q") {
+            try {
+                System.out.print("\nEntrez une option : ");
+                choix = myScanner.getStringInput();
+
+                switch (choix) {
+
+                    case ":q": display(nom); break;
+                    case ":a": break;
+                    case "1":  break;
+                    case "2":  break;
+                    case "3":  break;
+                    case "4":  break;
+                    case "5":  break;
+                    case "6":  break;
+                    case "7":  break;
+                    case ":e": saveChanges();break;
+                    default:
+                        System.out.println("Choix invalide. Veuillez reessayer.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Erreur : Veuillez entrer un nombre entier.");
+            }
+        }
+    }
+
+
+
+    private static void saveChanges() {
+        // get les instances pour append dans les deux spots
 //        String nbLikes = Integer.toString(getNbLikes());
 //
 //        List<String> newCSVLine = Arrays.asList(nom, getPassword(), courriel, getAdresse(), getTelephone(),nbLikes);
@@ -72,17 +105,9 @@ public class Media {
 //
 //        Database.refreshRevendeurs();
 //        System.out.println("les donnees sont bien enregistrer \n\n");
-//
-//    }
 
-    public static void display(String revendeur){
-        String pathOffrir = DatabasePath.getRevendeurComptePath() + revendeur + "/offrir.csv";
-
-        System.out.println("\n\nVoici la liste des produits offer par vous");
-        System.out.println("-----------------------------------");
-        afficherProduitsOffer(pathOffrir);
-        ajouterImage(revendeur,pathOffrir);
     }
+
 
 
     public static void ajouterImage(String revendeur, String pathOffrir){
