@@ -1,3 +1,5 @@
+package Implementation.logiciel.VF.src.main.java;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
