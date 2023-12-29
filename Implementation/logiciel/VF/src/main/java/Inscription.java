@@ -139,7 +139,7 @@ public class Inscription {
 
     public static void saveProduitData(String titre, String categorie, String description, String quantite0, String prix, String pointsBoni, String uuid) {
 
-        String csvLine = FormatAdjust.convertToCSV(titre, categorie, description, quantite0, prix, pointsBoni, "non", "non", uuid, "0", "0", "non");
+        String csvLine = FormatAdjust.convertToCSV(titre, categorie, description, quantite0, prix, pointsBoni, "aucun", "aucun", uuid, "0", "0", "non");
 
         String csvAddiFilePath = DatabasePath.getFichiersInfoProduit();
         List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);

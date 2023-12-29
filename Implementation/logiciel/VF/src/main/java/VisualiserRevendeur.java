@@ -43,7 +43,7 @@ public class VisualiserRevendeur {
 
             switch (choix) {
                 case 1:
-                    // Evaluation;
+                    Evaluation.display(getRevendeur());//besoin nom du produit, puis generaliser le path
                     break;
                 case 2:
                     Metrique.voirMetriquesRevendeur(getRevendeur());

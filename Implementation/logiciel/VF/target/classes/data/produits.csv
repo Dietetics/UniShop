@@ -1,7 +1,7 @@
-bbb,Autres,wer,23,23,4,http://www.example.com; http://www.example.com,non,7847678e-5558-4b5e-bf4a-fb78ee0e6de1,0,0,non
-Cahier1,Articles_papeterie,good,20,5.99,1,non; http://www.example.com; http://www.example.com,non,1,0,0,non
-ff,Autres,23123,2,12,3,non,non,952d99ac-4bf9-4a72-b3fe-4db0f4e872e5,0,0,non
-guideEtude1,Ressources_Dapprentissage,good,2,40,0,non,non,4,0,0,non
-lampesBureau1,Equipement_bureau,good,30,30,0,non,non,3,0,0,non
-Livre1,Livres_manuels,goodchoice,22,19.99,0,non,non,0,0,0,non
-OrdinateurPortable1,Materiel_informatique,bad,5,699.99,2,non,non,2,0,0,non
+Cahier1,Articles_papeterie,good,20,5.99,1,aucun,aucun,89fe31ce-f801-4971-a8da-05e31f8c7ca6,0,0,non
+guideEtude1,Ressources_Dapprentissage,good,2,40,0,aucun,aucun,89fe31ce-f801-4971-a8da-05e31f8c7ca9,0,0,non
+lampesBureau1,Equipement_bureau,good,30,30,0,aucun,aucun,89fe31ce-f801-4971-a8da-05e31f8c7ca8,0,0,non
+Livre1,Livres_manuels,goodchoice,22,19.99,0,aucun,aucun,89fe31ce-f801-4971-a8da-05e31f8c7ca5,0,0,non
+OrdinateurPortable1,Materiel_informatique,bad,5,699.99,2,aucun,aucun,89fe31ce-f801-4971-a8da-05e31f8c7ca7,0,0,non
+test,Autres,new,11,11.0,11.0,aucun,aucun,ba290cd6-7c86-46f7-ae36-87defc6a1217,0,0,non
+we,Autres,sdf,4,34,3,aucun,aucun,2a14e0eb-41ea-4e1f-898d-bb8001ed2349,0,0,non

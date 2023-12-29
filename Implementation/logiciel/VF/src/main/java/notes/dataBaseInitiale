@@ -32,11 +32,11 @@ main, resolution, notification, offrir
 
 Produits:
 titre(unique),categorie,description,quantite0,prix,pointsBoni,images,videos,identifiant uniqque,like, note_moyen, promo
-Livre1,Livres_manuels,goodchoice,22,19.99,0,non,non,89fe31ce-f801-4971-a8da-05e31f8c7ca5,0,0,non
-Cahier1,Articles_papeterie,good,20,5.99,1,non,non,89fe31ce-f801-4971-a8da-05e31f8c7ca6,0,0,non
-OrdinateurPortable1,Materiel_informatique,bad,5,699.99,2,non,non,89fe31ce-f801-4971-a8da-05e31f8c7ca7,0,0,non
-lampesBureau1,Equipement_bureau,good,30,30,0,non,non,89fe31ce-f801-4971-a8da-05e31f8c7ca8,0,0,non
-guideEtude1,Ressources_Dapprentissage,good,2,40,0,non,non,89fe31ce-f801-4971-a8da-05e31f8c7ca9,0,0,non
+Livre1,Livres_manuels,goodchoice,22,19.99,0,aucun,aucun,89fe31ce-f801-4971-a8da-05e31f8c7ca5,0,0,non
+Cahier1,Articles_papeterie,good,20,5.99,1,aucun,aucun,89fe31ce-f801-4971-a8da-05e31f8c7ca6,0,0,non
+OrdinateurPortable1,Materiel_informatique,bad,5,699.99,2,aucun,aucun,89fe31ce-f801-4971-a8da-05e31f8c7ca7,0,0,non
+lampesBureau1,Equipement_bureau,good,30,30,0,aucun,aucun,89fe31ce-f801-4971-a8da-05e31f8c7ca8,0,0,non
+guideEtude1,Ressources_Dapprentissage,good,2,40,0,aucun,aucun,89fe31ce-f801-4971-a8da-05e31f8c7ca9,0,0,non
 
 main, note, evaluation
 

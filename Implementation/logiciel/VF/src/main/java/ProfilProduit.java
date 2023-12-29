@@ -47,6 +47,8 @@ public class ProfilProduit {
     }
 
 
+
+    //enregistrer le produit
     public static void modified(){
         List<String[]> userData = new ArrayList<>();
 
@@ -57,99 +59,106 @@ public class ProfilProduit {
         String note1 = Integer.toString(getNote());
 
 
-
         userData.add(new String[]{getTitre(),getCategorie(),getDescription(),quantite1,prix1,pointsBoni1,getImage(),getVideo(),getIdentifiant(),likes1,note1,getPromo()});
 
+        // modifier le data du fichier du produit, qui par la suite affect le fichier principale
         String directoryPath = DatabasePath.getProduitInfoPath() + getTitre() + "/main.csv";
         CSVHandler.coverCSV(directoryPath, userData);
 
+        // refresh le fichier principale base sur les data des fichiers des produits
         Database.refreshProduits();
     }
+
+
+
+
+
+
+
+
+
+    // afficher le produit
+    public static void display(){
+        System.out.println("\n\nVoici les informations du produit: " + getTitre()
+                + "\n--------------------------------------- "
+                + "\nCategorie: " + getCategorie()
+                + "\nDescription: " + getDescription()
+                + "\nQuantite: " + getQuantite()
+                + "\nPrix: " + getPrix()
+                + "\nPoints Bonies: " + getPointsBoni()
+                + "\nImages: " + getImage()
+                + "\nVideos: " + getVideo()
+                + "\nID: " + getIdentifiant()
+                + "\nLikes: " + getLikes()
+                + "\nNotes: " + getNote()
+                + "\nPromo: " + getPromo()
+                + "\n-----------------------------------: ");
+    }
+
+
+
+
+
+
+
 
     public static String getTitre() {
         return titre;
     }
-
     public static String getCategorie() {
         return categorie;
     }
-
     public static String getDescription() {
         return description;
     }
-
     public static int getQuantite() {
         return quantite;
     }
-
     public static Double getPrix() {
         return prix;
     }
-
     public static Double getPointsBoni() {
         return pointsBoni;
     }
-
     public static String getImage() {
         return image;
     }
-
     public static String getVideo() {
         return video;
     }
-
     public static String getIdentifiant() {
         return identifiant;
     }
-
     public static int getLikes() {
         return likes;
     }
-
     public static int getNote() {
         return note;
     }
-
     public static String getPromo() {
         return promo;
     }
-
-    public static void setTitre(String titre) {
-        ProfilProduit.titre = titre;
-    }
-
-    public static void setCategorie(String categorie) {
-        ProfilProduit.categorie = categorie;
-    }
-
     public static void setDescription(String description) {
         ProfilProduit.description = description;
     }
-
     public static void setQuantite(int quantite) {
         ProfilProduit.quantite = quantite;
     }
-
     public static void setPrix(int prix) {
         ProfilProduit.prix = prix;
     }
-
     public static void setPointsBoni(int pointsBoni) {
         ProfilProduit.pointsBoni = pointsBoni;
     }
-
     public static void setImage(String image) {
         ProfilProduit.image = image;
     }
-
     public static void setVideo(String video) {
         ProfilProduit.video = video;
     }
-
     public static void setIdentifiant(String identifiant) {
         ProfilProduit.identifiant = identifiant;
     }
-
     public static void setLikes(int likes) {
         ProfilProduit.likes = likes;
     }
@@ -157,7 +166,6 @@ public class ProfilProduit {
     public static void setNote(int note) {
         ProfilProduit.note = note;
     }
-
     public static void setPromo(String promo) {
         ProfilProduit.promo = promo;
     }

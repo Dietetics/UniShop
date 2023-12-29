@@ -27,20 +27,6 @@ public class myScanner {
 
 
 
-    /**
-     * Reads a double from the user.
-     *
-     * @return The double entered by the user.
-     */
-    public static double getDoubleInput() {
-        while (!scanner.hasNextDouble()) {
-            System.out.println("Invalid input. veuillez entrer un double.");
-            scanner.next(); // Consume the invalid input
-        }
-        double result = scanner.nextDouble();
-        scanner.nextLine(); // Consume the newline character
-        return result;
-    }
 
 
 
