@@ -5,10 +5,8 @@ import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 
 public class Inscription {
     public Inscription() {
@@ -75,12 +73,6 @@ public class Inscription {
             System.out.println("Erreur: " + e.getMessage());
         }
     }
-
-
-
-
-
-
     public static void inscriptionRevendeur() {
         System.out.println("----- Bienvenu a notre page d'inscription pour devenir Revendeur -----");
 
@@ -101,6 +93,86 @@ public class Inscription {
         }
     }
 
+
+
+    public static void inscriptionProduit(String nom) {
+        System.out.println("\n");
+        System.out.println("Cher revendeur: " + nom + "      " + "Page: ajout des produits");
+        System.out.println("-----------------------------------------------------");
+
+        try {
+            String titre = InputRestreint.getValidTitre("Veuillez entrer un titre unique: ");
+
+            System.out.println("\nVoici la liste de categorie: ");
+            System.out.println("-----------------------------");
+            InputRestreint.CATEGORIES_AUTORISEES.forEach(System.out::println);
+            System.out.println("-----------------------------");
+            String categorie = InputRestreint.getValidCategorie("Veuillez entrer un categorie: ");
+
+            String description = InputRestreint.getValidDescription("Veuillez entrer un description: ");
+            String quantite0 = InputRestreint.getValidQuantite("Veuillez entrer une quantite initiale: ");
+            String prix = InputRestreint.getValidPrix("Veuillez entrer un prix: ");
+            String pointsBoni = InputRestreint.getValidPointsBoni("Veuillez entrer des points Bonus: ");
+
+            System.out.println("Vous pouvez ajouter des images, videos apres");
+            String uuid = GenerateurAuto.uniqueUUID(DatabasePath.getProduitPath(),8);
+            System.out.println("L'uuid genere automatiquement par le systeme est: " + uuid);
+            System.out.println("Vous pouvez ajouter des promos apres");
+
+
+
+            saveProduitData(titre, categorie, description, quantite0, prix, pointsBoni, uuid);
+            offer(nom, titre);
+
+            System.out.println("Donnees enregistrees avec succes");
+            System.out.println("--------------------------------");
+
+        } catch (Exception e) {
+            System.out.println("Erreur: " + e.getMessage());
+        }
+    }
+    public static void offer(String nom,String titre){
+        String path = DatabasePath.getRevendeurComptePath() + nom + "/offrir.csv";
+        CSVHandler.appendCSV(path,titre);
+    };
+
+
+    public static void saveProduitData(String titre, String categorie, String description, String quantite0, String prix, String pointsBoni, String uuid) {
+
+        String csvLine = FormatAdjust.convertToCSV(titre, categorie, description, quantite0, prix, pointsBoni, "aucun", "aucun", uuid, "0", "0", "non");
+
+        String csvAddiFilePath = DatabasePath.getFichiersInfoProduit();
+        List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);
+
+        ajoutProduits(titre, csvLine, additionalFiles);
+
+        Database.refreshProduits();
+    }
+
+    public static void ajoutProduits(String folderName, String csvLine, List<String> additionalFiles) {
+        String baseFolderPath = DatabasePath.getBaseProduitFolderPath(); // Chemin vers le dossier principal
+        String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier
+
+        File folder = new File(baseFolderPath, folderName);
+
+        if (!folder.exists()) {
+            folder.mkdirs(); // Créer le dossier s'il n'existe pas
+        }
+
+        File mainFile = new File(folder, mainFileName);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(mainFile))) {
+            writer.println(csvLine); // Écrire la ligne dans le fichier principal
+
+            // Créer d'autres fichiers CSV si nécessaire
+            for (String additionalFile : additionalFiles) {
+                File file = new File(folder, additionalFile);
+                file.createNewFile(); // Créer un fichier vide
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
@@ -145,25 +217,45 @@ public class Inscription {
 
 
     private static void saveRevendeurData(String nom, String adresse, String courriel, String telephone, String password) {
-        List<String[]> userData = new ArrayList<>();
-        userData.add(new String[]{nom, adresse, courriel, telephone, "0", password});
 
-        String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/";
-        createDirectory(directoryPath);
+        String csvLine = FormatAdjust.convertToCSV(nom, password, courriel, adresse, telephone, "0");
 
-        String revendeurCompte = directoryPath + "main.csv";
-        String revendeurResolution = directoryPath + "resolution.csv";
-        String revendeurOffre = directoryPath + "offre.csv";
-        String revendeurNotification = directoryPath + "notification.csv";
+        String csvAddiFilePath = DatabasePath.getFichiersInfoRevendeur();
+        List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);
 
-
-        CSVHandler.coverCSV(revendeurCompte, userData);
-        CSVHandler.coverCSV(revendeurResolution, new ArrayList<>());
-        CSVHandler.coverCSV(revendeurOffre, new ArrayList<>());
-        CSVHandler.coverCSV(revendeurNotification, new ArrayList<>());
+        ajoutRevendeur(nom, csvLine, additionalFiles);
 
         Database.refreshRevendeurs();
     }
+
+    public static void ajoutRevendeur(String folderName, String csvLine, List<String> additionalFiles) {
+        String baseFolderPath = DatabasePath.getBaseRevendeurFolderPath(); // Chemin vers le dossier principal
+        String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier
+
+        File folder = new File(baseFolderPath, folderName);
+
+        if (!folder.exists()) {
+            folder.mkdirs(); // Créer le dossier s'il n'existe pas
+        }
+
+        File mainFile = new File(folder, mainFileName);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(mainFile))) {
+            writer.println(csvLine); // Écrire la ligne dans le fichier principal
+
+            // Créer d'autres fichiers CSV si nécessaire
+            for (String additionalFile : additionalFiles) {
+                File file = new File(folder, additionalFile);
+                file.createNewFile(); // Créer un fichier vide
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
 
 

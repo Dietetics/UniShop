@@ -56,11 +56,10 @@ public class ProfilAcheteur {
                         Histoire histoire = new Histoire(getPseudo());
                         histoire.menu();
                         break;
-//                    case 8: Metrique.voir_metriques(); break;
-//                    case 9: Notification.recevoirNotifications(); break;
-//                    case 10: voir_pts(); break;
-//                    case 11: SignalementProbleme.signalerProblemeProduit(); break;
-
+                    case 6:
+                        VisualiserAcheteur voir = new VisualiserAcheteur(getPseudo());
+                        voir.menu();
+                        break;
                     default:
                         System.out.println("Choix invalide. Veuillez reessayer.");
                 }
@@ -78,18 +77,8 @@ public class ProfilAcheteur {
         System.out.println("2. recherche");
         System.out.println("3. gerer les suiveurs");
         System.out.println("4. panier d'achat");
-        System.out.println("5. Histoire"); // passer une commande
-
-//        System.out.println("12. voir les points du programme de fidelite");
-
-//        System.out.println("7. gestion de commandes"); // confirmer la reception,  retournerUechanger, commenter et evaluer un produit
-//
-//        System.out.println("8. voir les metriques");
-//        System.out.println("9. voir les notifications");
-//        System.out.println("10. voir les points du programme de fidelite");
-
-//        System.out.println("11. signaler un probleme");
-
+        System.out.println("5. Histoire");
+        System.out.println("6. Voir ses informations");
         System.out.print("\n");
     }
 

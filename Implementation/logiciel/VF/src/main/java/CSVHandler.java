@@ -1,8 +1,5 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class CSVHandler {
 
@@ -104,6 +101,15 @@ public class CSVHandler {
                 writer.write(String.join(",", row));
                 writer.newLine(); // Ajouter un saut de ligne après chaque ligne
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void coverCSV(String filePath, String data) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            // Write the data to the file
+            writer.write(data);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -914,6 +920,51 @@ public class CSVHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static int sumIntegersFromCSV(String filePath) {
+        int sum = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Séparer les valeurs par virgule
+                String[] values = line.split(",");
+
+                // Parcourir les valeurs et les ajouter à la somme
+                for (String value : values) {
+                    try {
+                        int intValue = Integer.parseInt(value.trim());
+                        sum += intValue;
+                    } catch (NumberFormatException e) {
+                        // Ignorer les valeurs qui ne sont pas des entiers
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sum;
+    }
+
+
+    public static Set<String> readColumnValuesFromCSV(String csvFilePath, int columnIndex) {
+        Set<String> values = new HashSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Supposons que les colonnes du CSV soient séparées par des virgules
+                String[] columns = line.split(",");
+                if (columns.length > columnIndex) {
+                    values.add(columns[columnIndex].trim());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return values;
     }
 
 }

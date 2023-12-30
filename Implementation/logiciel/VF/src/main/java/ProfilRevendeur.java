@@ -1,7 +1,7 @@
+import java.io.File;
 import java.util.*;
 
 public class ProfilRevendeur {
-    private static Scanner scanner = new Scanner(System.in);
 
     private static String nom,password,courriel,adresse,telephone;
     private static int nbLikes;
@@ -43,48 +43,60 @@ public class ProfilRevendeur {
             try {
                 menuMsg();
                 System.out.print("Choix : ");
-                choix = scanner.nextInt();
+                choix = myScanner.getIntInput();
 
                 switch (choix) {
                     case 0:
                         System.out.println("Votre compte est bien deconnecter: " + nom + "-------");
                         VF.displayMenuPrincipale();
                         break;
-                    case 1: modifie_profil(); break;
-                    case 2: offrir_produit(); break;
-                    case 3: System.out.println("option choisi est en maintenance "); break;
-                    case 4: Metrique.voir_metriques(); break;
-                    case 5: GestionProbleme.gestionProblemes(); break;
-                    case 6: GestionCommande.GererCommandes(); break;
-                    case 7: offrirPromotion(); break;
-                    case 8: Notification.recevoirNotifications(); break;
+                    case 1: RecherchePublic.display(); break;
+                    case 2: modifie_profil(); break;
+                    case 3: Inscription.inscriptionProduit(getNom()); break;
+                    case 4: GestionProduit.display(getNom()); break;
+                    case 5: GestionProduit.supprimerProduits(getNom()); break;
+                    case 6: //actions(); break;    modifier etat, repond aux problemes, confirmer reception, expedier les produits
+                    case 7: VisualiserRevendeur voir = new VisualiserRevendeur(getNom());
+                        voir.menu();
+                    break;
                     default:
                         System.out.println("Choix invalide. Veuillez reessayer.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }
+
 
     private void menuMsg() {
         System.out.println("\n");
         System.out.println("Bonsoir cher Revendeur:" + getNom() + "              " + getCourriel() );
         System.out.println("----------------------------------------------------------" );
         System.out.println("0. deconnecter");
-        System.out.println("1. modifier le Profil");
-        System.out.println("2. Offrir un Produit");
-        System.out.println("3. modifier l'etat d'une commande");
-        System.out.println("4. voir les metriques");
-        System.out.println("5. gestion de probleme");
-        System.out.println("6. gererCommandes");
-        System.out.println("7. offrir une promo");
-        System.out.println("8. voir les notifications");
+        System.out.println("1. Recherche");
+        System.out.println("2. Modifier le Profil");
+        System.out.println("3. Offrir un Produit");
+        System.out.println("4. Gerer les produits");
+        System.out.println("5. Supprimer un produit");
+        System.out.println("6. Tous actions");
+        System.out.println("7. Voir nos informations");
         System.out.print("\n");
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -105,7 +117,7 @@ public class ProfilRevendeur {
                 System.out.print("\n");
 
                 System.out.print("Entrez une option : ");
-                choix = scanner.next();
+                choix = myScanner.getStringInput();
 
 
                 switch (choix) {
@@ -134,11 +146,9 @@ public class ProfilRevendeur {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
             }
         }
     }
-
     private void displayProfile() {
         System.out.println("\n");
         System.out.println("Cher revendeur: " + getNom() + ", Voici votre profil");
@@ -163,136 +173,6 @@ public class ProfilRevendeur {
         System.out.println("les donnees sont bien enregistrer \n\n");
 
     }
-
-
-
-
-
-
-
-    public void offrir_produit(){
-
-        System.out.println("\n");
-        System.out.println("Cher revendeur: " + getNom() + "      " + "Page: ajout des produits");
-        System.out.println("-----------------------------------------------------");
-
-        Boolean condition = true;
-        while (condition) {
-            try {
-                System.out.print("Veuillez entrer un titre(unique): ");
-                String titre = scanner.next();
-
-
-                if (!InputRestreint.isValidUniqueRow(DatabasePath.getProduitPath(), titre, 0)) {
-                    throw new IllegalArgumentException("Le nom doit etre unique.");
-                }
-
-                System.out.println("Veuillez indiquer le categorie: ");
-                System.out.println("-----------------------------------------------------");
-                System.out.println("LivresManuels");
-                System.out.println("ArticlesPapeterie");
-                System.out.println("MaterielInformatique");
-                System.out.println("EquipementBureau");
-                System.out.println("RessourcesDapprentissage");
-                System.out.println("-----------------------------------------------------");
-                String categorie = scanner.next();
-
-                if (!InputRestreint.isValidType(categorie)) {
-                    throw new IllegalArgumentException("le categorie doit etre ceux du haut");
-                }
-
-                System.out.print("Veuillez entrer une description: ");
-                String desc = scanner.next();
-
-
-                if (!InputRestreint.isValidMots(desc)) {
-                    throw new IllegalArgumentException("Le nombre de mots doit etre inferieur a 100");
-                }
-
-
-                System.out.print("Veuillez entrer le quantite initial: ");
-                Integer quantite0 = scanner.nextInt();
-
-                if (!InputRestreint.isValidInt(quantite0)) {
-                    throw new IllegalArgumentException("Entrez un nombre et On ne peut que stocker au max 9999items");
-                }
-
-                System.out.print("Veuillez entrer un prix: ");
-                Integer prix = scanner.nextInt();
-
-                if (!InputRestreint.isValidInt(prix)) {
-                    throw new IllegalArgumentException("Entrez un nombre et le prix doit etre inferieure a 9999$");
-                }
-
-
-                System.out.print("Veuillez entrer le nombre de points bonus ou 0: ");
-                Double points = scanner.nextDouble();
-
-                if (!InputRestreint.isValidDouble(points)) {
-                    throw new IllegalArgumentException("Entrez un nombre a <=20, puis 0 pour aucun point");
-                }
-
-                System.out.println("Avez vous des images a ajouter? ");
-                System.out.println("cette fonction est encore en developpement, veuillez rajouter des images plutard");
-                System.out.println("Avez vous des videos a ajouter? ");
-                System.out.println("cette fonction est encore en developpement, veuillez rajouter des videos plutard");
-
-                condition = false;
-
-                System.out.println("Donnees enregistrees avec succes");
-                System.out.println("--------------------------------");
-
-                List<String[]> produitData = new ArrayList<>();
-                String quantite0new = String.valueOf(quantite0);
-                String prixnew = String.valueOf(prix);
-                String pointsnew = String.valueOf(points);
-                produitData.add(new String[]{titre, categorie, desc, quantite0new, prixnew, pointsnew, "non", "non", "0", "0", "non"});
-
-                CSVHandler.appendCSV(DatabasePath.getProduitPath(), produitData);
-
-
-                break;
-            } catch (Exception e) {
-                System.out.println("Erreur: " + e.getMessage());
-                scanner.nextLine();
-            }
-        }
-
-    }
-
-
-
-
-
-    public void offrirPromotion() {
-        try {
-            System.out.println("----- Offrir une Promotion sur un Produit -----");
-
-            // Simulation du revendeur offrant une promotion
-            System.out.println("Entrez le nom du produit sur lequel vous souhaitez offrir une promotion : ");
-            String nomProduit = scanner.nextLine();
-
-            System.out.println("Entrez le montant de la promotion (baisse de prix ou points bonus) : ");
-            double montantPromotion = scanner.nextDouble();
-
-            System.out.println("Entrez la duree de la promotion (en jours) : ");
-            int dureePromotion = scanner.nextInt();
-
-            // Illustration de l'offre de la promotion
-            System.out.println("\nPromotion Offerte :");
-            System.out.println("Produit : " + nomProduit);
-            System.out.println("Montant de la Promotion : " + montantPromotion);
-            System.out.println("Duree de la Promotion : " + dureePromotion + " jours");
-
-            // Simulation du revendeur appliquant la promotion sur le produit
-            System.out.println("\nLa promotion a ete offerte avec succes sur le produit.");
-
-        } catch (Exception e) {
-            System.out.println("Erreur lors de l'offre de la promotion : " + e.getMessage());
-        }
-    }
-
-
 
     public static void modified(){
         List<String[]> userData = new ArrayList<>();
