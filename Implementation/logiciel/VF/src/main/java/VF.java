@@ -5,12 +5,8 @@ public class VF {
     static myScanner myScanner = new myScanner();
 
     public static void main(String[] args) {
-        DatabasePath.checkProduitPath();
-        DatabasePath.checkAcheteurPath();
-        DatabasePath.checkRevendeurPath();
-        Database.refreshAcheteurs();
-        Database.refreshRevendeurs();
-        Database.refreshProduits();
+        DatabasePath.checkDatabaseFiles();
+        Database.refreshTous();
         displayMenuPrincipale();
     }
 
@@ -25,14 +21,7 @@ public class VF {
         int choix = 90;
         while (choix != 0) {
             try {
-                System.out.println("\n");
-                System.out.println("------ Bienvenu a notre plateforme UniShop -------");
-                System.out.println("0. Quitter");
-                System.out.println("1. Recherche");
-                System.out.println("2. Inscription");
-                System.out.println("3. Connexion");
-                System.out.print("\n");
-
+                msg();
                 System.out.print("Choix : ");
                 choix = myScanner.getIntInput();
 
@@ -50,6 +39,16 @@ public class VF {
                 System.out.println("Erreur : Veuillez entrer un nombre entier.");
             }
         }
+    }
+
+    public static void msg(){
+        System.out.println("\n");
+        System.out.println("------ Bienvenu a notre plateforme UniShop -------");
+        System.out.println("0. Quitter");
+        System.out.println("1. Recherche");
+        System.out.println("2. Inscription");
+        System.out.println("3. Connexion");
+        System.out.print("\n");
     }
 
 

@@ -5,7 +5,7 @@ public class Evaluation {
 
     public static void display(String revendeur){
 
-        String pathOffrir = DatabasePath.getRevendeurComptePath() + revendeur + "/offrir.csv";
+        String pathOffrir = DatabasePath.getPathRevendeurCompte() + revendeur + "/offrir.csv";
         displayOfferMsg(pathOffrir,revendeur);
 
         Boolean boucle = true;
@@ -22,7 +22,7 @@ public class Evaluation {
                     boucle = false;
                     break;
                 case "1":
-                    String pathEvaluation = DatabasePath.getProduitInfoPath() + nomProduit + "/evaluations.csv";
+                    String pathEvaluation = DatabasePath.getPathProduitCompte() + nomProduit + "/evaluations.csv";
                     voirEvaluations(pathEvaluation,revendeur);
                     break;
                 default:

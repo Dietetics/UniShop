@@ -22,15 +22,15 @@ public class RechercheAcheteur {
                         return;
                     case 1:
                         choix = "0";
-                        decisionProduit(DatabasePath.getProduitPath(),0); //faire decision
+                        decisionProduit(DatabasePath.getPathTousProduits(),0); //faire decision
                         break;
                     case 2:
                         choix = "0";
-                        decisionAcheteur(DatabasePath.getAcheteurPath(),0);
+                        decisionAcheteur(DatabasePath.getPathTousAcheteurs(),0);
                         break;
                     case 3:
                         choix = "0";
-                        decisionRevendeur(DatabasePath.getRevendeurPath(),0);
+                        decisionRevendeur(DatabasePath.getPathTousRevendeurs(),0);
                         break;
                     case 4:
                         Recherche.rechercheProduits();
@@ -81,7 +81,7 @@ public class RechercheAcheteur {
 
                 switch (input) {
                     case 0: return;
-                    case 1: Recherche.recuperer(DatabasePath.getProduitPath(), 0);
+                    case 1: Recherche.recuperer(DatabasePath.getPathTousProduits(), 0);
                         break; //afficher
                     case 2:
                         voirProduit(path,colonne); //voir les produits
@@ -150,7 +150,7 @@ public class RechercheAcheteur {
 
                 switch (input) {
                     case 0: return;
-                    case 1: Recherche.recuperer(DatabasePath.getAcheteurPath(), 0);
+                    case 1: Recherche.recuperer(DatabasePath.getPathTousAcheteurs(), 0);
                         break;
                     case 2:
                         voirAcheteur(path,colonne); //voir les produits
@@ -210,7 +210,7 @@ public class RechercheAcheteur {
                 switch (input) {
                     case 0: return;
                     case 1:
-                        Recherche.recuperer(DatabasePath.getRevendeurPath(), 0);
+                        Recherche.recuperer(DatabasePath.getPathTousRevendeurs(), 0);
                         break;
                     case 2:
                         voirRevendeur(path,colonne); //voir les produits
@@ -335,7 +335,7 @@ public class RechercheAcheteur {
             try {
                 System.out.println("\n\nCher acheteur: " + auteur + ", Voici nos produits");
                 System.out.println("-----------------------------------------------------");
-                CSVHandler.printCSV(CSVHandler.readCSV(DatabasePath.getProduitPath(),30));
+                CSVHandler.printCSV(CSVHandler.readCSV(DatabasePath.getPathTousProduits(),30));
                 System.out.println("-----------------------------------------------------");
                 System.out.println(" ");
 
@@ -344,10 +344,10 @@ public class RechercheAcheteur {
 
                 if (scanned.equals("0")) return;
 
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getProduitPath(),scanned,0);
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousProduits(),scanned,0);
                 if(index!= -1) {
                     choix = "0";
-                    String produit = CSVHandler.getColumnValue(CSVHandler.readLineByIndex(DatabasePath.getProduitPath(),index),0);
+                    String produit = CSVHandler.getColumnValue(CSVHandler.readLineByIndex(DatabasePath.getPathTousProduits(),index),0);
 
                     Operation.acheteurLikerProduit(produit,auteur);
                 }
@@ -366,7 +366,7 @@ public class RechercheAcheteur {
             try {
                 System.out.println("\n\nCher acheteur: " + auteur + ", Voici nos produits");
                 System.out.println("-----------------------------------------------------");
-                CSVHandler.printCSV(CSVHandler.readCSV(DatabasePath.getProduitPath(), 30));
+                CSVHandler.printCSV(CSVHandler.readCSV(DatabasePath.getPathTousProduits(), 30));
                 System.out.println("-----------------------------------------------------");
                 System.out.println(" ");
 
@@ -385,17 +385,17 @@ public class RechercheAcheteur {
                     case "1":
                         System.out.print("Entrez le nom du produit à liker : ");
                         String produitNom = myScanner.getStringInput();
-                        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getProduitPath(), produitNom, 0);
+                        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousProduits(), produitNom, 0);
 
                         if (index != -1) {
-                            String produit = CSVHandler.getColumnValue(CSVHandler.readLineByIndex(DatabasePath.getProduitPath(), index), 0);
+                            String produit = CSVHandler.getColumnValue(CSVHandler.readLineByIndex(DatabasePath.getPathTousProduits(), index), 0);
                             Operation.acheteurLikerProduit(produit, auteur);
                         } else {
                             System.out.println("Aucun produit correspondant trouvé. Veuillez réessayer.");
                         }
                         break;
                     case "2":
-                        String produit = siExiste(DatabasePath.getProduitPath()); //verifie si existe
+                        String produit = siExiste(DatabasePath.getPathTousProduits()); //verifie si existe
                         if(produit != "-1"){
                             Operation.acheteurCommandeProduit(produit,getAcheteur());
                         };

@@ -8,7 +8,7 @@ public class Histoire {
     private static String acheteur;
 
     public Histoire(String acheteur) {
-        this.pathHistoire = DatabasePath.getAcheteurComptePath() + acheteur + "/histoire.csv";
+        this.pathHistoire = DatabasePath.getPathAcheteurCompte() + acheteur + "/histoire.csv";
         this.acheteur = acheteur;
     }
 
@@ -161,15 +161,15 @@ public class Histoire {
                 String revendeur = myScanner.getStringInput();
 
                 if (revendeur.equals(":q")) return;
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(), revendeur, 0);
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousRevendeurs(), revendeur, 0);
 
                 if (index != -1) {
                     System.out.println("Veuillez entrer un message pour signaler le problème");
                     String msg = myScanner.getStringInput();
 
-                    String pathRevendeurSignaler = DatabasePath.getRevendeurComptePath() + revendeur + "/signalProbleme.csv";
-                    String pathRevendeurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
-                    String pathAcheteurSignaler = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/signaler.csv";
+                    String pathRevendeurSignaler = DatabasePath.getPathRevendeurCompte() + revendeur + "/signalProbleme.csv";
+                    String pathRevendeurNotification = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
+                    String pathAcheteurSignaler = DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/signaler.csv";
 
                     // Ajoutez le message dans les fichiers CSV correspondants
                     CSVHandler.appendCSV(pathRevendeurSignaler, getAcheteur()+ ": " + msg);
@@ -201,15 +201,15 @@ public class Histoire {
                 String revendeur = myScanner.getStringInput();
 
                 if (revendeur.equals(":q")) return;
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(), revendeur, 0);
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousRevendeurs(), revendeur, 0);
 
                 if (index != -1) {
                     System.out.println("Veuillez entrer la raison pour un retour ou une echange");
                     String msg = myScanner.getStringInput();
 
-                    String pathRevendeurRetourEchange = DatabasePath.getRevendeurComptePath() + revendeur + "/retourEchange.csv";
-                    String pathRevendeurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
-                    String pathAcheteurRetourEchange = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/retourEchange.csv";
+                    String pathRevendeurRetourEchange = DatabasePath.getPathRevendeurCompte() + revendeur + "/retourEchange.csv";
+                    String pathRevendeurNotification = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
+                    String pathAcheteurRetourEchange = DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/retourEchange.csv";
 
                     // Ajoutez le message dans les fichiers CSV correspondants
                     CSVHandler.appendCSV(pathRevendeurRetourEchange, getAcheteur()+ ": " + msg);
@@ -244,7 +244,7 @@ public class Histoire {
                 String produit = myScanner.getStringInput();
 
                 if (produit.equals(":q")) return;
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getProduitPath(), produit, 0);
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousProduits(), produit, 0);
 
                 if (index != -1) {
 
@@ -268,10 +268,10 @@ public class Histoire {
                     System.out.print("Veuillez entrer une evaluation: ");
                     String eval = myScanner.getStringInput();
 
-                    String pathProduitNote = DatabasePath.getProduitInfoPath() + produit + "/notes.csv";
-                    String pathProduitEval = DatabasePath.getProduitInfoPath() + produit + "/evaluations.csv";
+                    String pathProduitNote = DatabasePath.getPathProduitCompte() + produit + "/notes.csv";
+                    String pathProduitEval = DatabasePath.getPathProduitCompte() + produit + "/evaluations.csv";
 
-                    String pathAcheteurEval = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/evaluations.csv";
+                    String pathAcheteurEval = DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/evaluations.csv";
 
                     // Ajoutez le message dans les fichiers CSV correspondants
                     CSVHandler.appendCSV(pathProduitNote, "Par acheteur: " + getAcheteur()+ ". Note: " + note);

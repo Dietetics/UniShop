@@ -257,7 +257,7 @@ public class InputRestreint {
                     throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
                 }
 
-                if (!isUnique_Mlen2(DatabasePath.getAcheteurPath(),input,colonne)) {
+                if (!isUnique_Mlen2(DatabasePath.getPathTousAcheteurs(),input,colonne)) {
                     throw new IllegalArgumentException("Ce courriel est deja utillise, veuillez entre un nouveau");
                 }
 
@@ -280,7 +280,7 @@ public class InputRestreint {
                     throw new IllegalArgumentException("Le courriel doit terminer par @gamil.com ou @umontreal.ca");
                 }
 
-                if (!isUnique_Mlen2(DatabasePath.getRevendeurPath(),input,colonne)) {
+                if (!isUnique_Mlen2(DatabasePath.getPathTousRevendeurs(),input,colonne)) {
                     throw new IllegalArgumentException("Ce courriel est deja utillise, veuillez entre un nouveau");
                 }
 
@@ -316,7 +316,7 @@ public class InputRestreint {
                 System.out.print(message);
                 String input = myScanner.getStringInput();
 
-                if (!isValidPseudo(DatabasePath.getAcheteurPath(),input,0)) {
+                if (!isValidPseudo(DatabasePath.getPathTousAcheteurs(),input,0)) {
                     throw new IllegalArgumentException("votre pseudo est pris, veuillez entre un nouveau");
                 }
 
@@ -336,7 +336,7 @@ public class InputRestreint {
                 System.out.print(message);
                 String input = myScanner.getStringInput();
 
-                if (!isValidTitre(DatabasePath.getProduitPath(),input,0)) {
+                if (!isValidTitre(DatabasePath.getPathTousProduits(),input,0)) {
                     throw new IllegalArgumentException("votre titre est pris, veuillez entre un nouveau");
                 }
 
@@ -375,7 +375,7 @@ public class InputRestreint {
                 if (!isValidInput(input)) {
                     throw new IllegalArgumentException("contenir uniquement des caracteres alphabetiques et au moins deux.");
                 }
-                if (!isUnique_Mlen2(DatabasePath.getRevendeurPath(),input,0)) {
+                if (!isUnique_Mlen2(DatabasePath.getPathTousRevendeurs(),input,0)) {
                     throw new IllegalArgumentException("Ce nom est deja utillise, veuillez entre un nouveau");
                 }
 

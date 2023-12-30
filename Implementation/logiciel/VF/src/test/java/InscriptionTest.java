@@ -16,7 +16,7 @@ public class InscriptionTest {
 
         Path mainFilePath = Paths.get(DatabasePath.getBaseProduitFolderPath(), "TitreTest", "main.csv");
 
-        String pathProduit = DatabasePath.getProduitInfoPath() + "TitreTest";
+        String pathProduit = DatabasePath.getPathProduitCompte() + "TitreTest";
         File dossierASupprimerApresTest = new File(pathProduit);
 
         try {
@@ -53,19 +53,19 @@ public class InscriptionTest {
         String titre = "TitreTest";
 
         // creation temp des fichiers
-        CreateFileInDirectory.newFile(DatabasePath.getRevendeurComptePath() + revendeur,"offrir.csv");
-        CreateFileInDirectory.newFile(DatabasePath.getProduitInfoPath() + titre,"offerPar.csv");
+        CreateFileInDirectory.newFile(DatabasePath.getPathRevendeurCompte() + revendeur,"offrir.csv");
+        CreateFileInDirectory.newFile(DatabasePath.getPathProduitCompte() + titre,"offerPar.csv");
 
         // a soupprimer par la suite
-        String pathProduit1 = DatabasePath.getRevendeurComptePath() + revendeur;
+        String pathProduit1 = DatabasePath.getPathRevendeurCompte() + revendeur;
         File dossierASupprimerApresTest1 = new File(pathProduit1);
-        String pathProduit2 = DatabasePath.getProduitInfoPath() + titre;
+        String pathProduit2 = DatabasePath.getPathProduitCompte() + titre;
         File dossierASupprimerApresTest2 = new File(pathProduit2);
 
         try {
 
-            String path_offrir = DatabasePath.getRevendeurComptePath() + revendeur + "/offrir.csv";
-            String path_offerPar = DatabasePath.getProduitInfoPath() + titre + "/offerPar.csv";
+            String path_offrir = DatabasePath.getPathRevendeurCompte() + revendeur + "/offrir.csv";
+            String path_offerPar = DatabasePath.getPathProduitCompte() + titre + "/offerPar.csv";
 
             // execute
             Inscription.offer(revendeur, titre);
@@ -104,7 +104,7 @@ public class InscriptionTest {
         List<String> additionalFiles = List.of("file1.csv", "file2.csv");
 
         // a supprimer apres
-        String pathProduit2 = DatabasePath.getProduitInfoPath() + titre;
+        String pathProduit2 = DatabasePath.getPathProduitCompte() + titre;
         File dossierASupprimerApresTest = new File(pathProduit2);
         try {
 
@@ -112,16 +112,16 @@ public class InscriptionTest {
             Inscription.ajoutProduits(titre, csvLine, additionalFiles);
 
             // Vérifier que le fichier principal a été créé avec la ligne correcte
-            Path mainFilePath = Paths.get(DatabasePath.getProduitInfoPath() + titre + "/main.csv");
+            Path mainFilePath = Paths.get(DatabasePath.getPathProduitCompte() + titre + "/main.csv");
             assertTrue(Files.exists(mainFilePath));
             List<String> lines = Files.readAllLines(mainFilePath);
             assertEquals(1, lines.size());
             assertEquals("TitreTest,CategorieTest,DescriptionTest,10,50.0,5,aucun,aucun,uuidTest,0,0,non", lines.get(0));
 
             // Vérifier que les fichiers supplémentaires ont été créés
-            Path file1Path = Paths.get(DatabasePath.getProduitInfoPath() + titre + "/file1.csv");
+            Path file1Path = Paths.get(DatabasePath.getPathProduitCompte() + titre + "/file1.csv");
             assertTrue(Files.exists(file1Path));
-            Path file2Path = Paths.get(DatabasePath.getProduitInfoPath() + titre + "/file2.csv");
+            Path file2Path = Paths.get(DatabasePath.getPathProduitCompte() + titre + "/file2.csv");
             assertTrue(Files.exists(file2Path));
 
         } catch (Exception e) {

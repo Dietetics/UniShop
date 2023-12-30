@@ -12,10 +12,10 @@ public class PanierAchat {
     public PanierAchat(String acheteur) {
 
         this.acheteur = acheteur;
-        this.pathPanier = DatabasePath.getAcheteurComptePath() + acheteur + "/panier.csv";
-        this.pathPts = DatabasePath.getAcheteurComptePath() + acheteur + "/points.csv";
-        this.pathNotifications = DatabasePath.getAcheteurComptePath() + acheteur + "/notifications.csv";
-        this.pathHistoire = DatabasePath.getAcheteurComptePath() + acheteur + "/histoire.csv";
+        this.pathPanier = DatabasePath.getPathAcheteurCompte() + acheteur + "/panier.csv";
+        this.pathPts = DatabasePath.getPathAcheteurCompte() + acheteur + "/points.csv";
+        this.pathNotifications = DatabasePath.getPathAcheteurCompte() + acheteur + "/notifications.csv";
+        this.pathHistoire = DatabasePath.getPathAcheteurCompte() + acheteur + "/histoire.csv";
     }
 
     public static void menu() {

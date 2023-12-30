@@ -73,6 +73,43 @@ public class Inscription {
             System.out.println("Erreur: " + e.getMessage());
         }
     }
+    public static void saveAcheteurData(String nom, String prenom, String adresse, String courriel, String telephone, String pseudo, String password) {
+
+        String csvLine = FormatAdjust.convertToCSV(pseudo, password, courriel, nom, prenom, telephone, adresse, "0");
+
+        String csvAddiFilePath = DatabasePath.getFichiersInfoAcheteur();
+        List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);
+
+        ajoutAcheteur(pseudo, csvLine, additionalFiles);
+
+        Database.refreshAcheteurs();
+    }
+    public static void ajoutAcheteur(String folderName, String csvLine, List<String> additionalFiles) {
+        String baseFolderPath = DatabasePath.getBaseAcheteurFolderPath(); // Chemin vers le dossier principal
+        String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier
+
+        File folder = new File(baseFolderPath, folderName);
+
+        if (!folder.exists()) {
+            folder.mkdirs(); // Créer le dossier s'il n'existe pas
+        }
+
+        File mainFile = new File(folder, mainFileName);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(mainFile))) {
+            writer.println(csvLine); // Écrire la ligne dans le fichier principal
+
+            // Créer d'autres fichiers CSV si nécessaire
+            for (String additionalFile : additionalFiles) {
+                File file = new File(folder, additionalFile);
+                file.createNewFile(); // Créer un fichier vide
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static void inscriptionRevendeur() {
         System.out.println("----- Bienvenu a notre page d'inscription pour devenir Revendeur -----");
 
@@ -92,7 +129,41 @@ public class Inscription {
             System.out.println("Erreur: " + e.getMessage());
         }
     }
+    public static void saveRevendeurData(String nom, String adresse, String courriel, String telephone, String password) {
 
+        String csvLine = FormatAdjust.convertToCSV(nom, password, courriel, adresse, telephone, "0");
+
+        String csvAddiFilePath = DatabasePath.getFichiersInfoRevendeur();
+        List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);
+
+        ajoutRevendeur(nom, csvLine, additionalFiles);
+
+        Database.refreshRevendeurs();
+    }
+    public static void ajoutRevendeur(String folderName, String csvLine, List<String> additionalFiles) {
+        String baseFolderPath = DatabasePath.getBaseRevendeurFolderPath(); // Chemin vers le dossier principal
+        String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier
+
+        File folder = new File(baseFolderPath, folderName);
+
+        if (!folder.exists()) {
+            folder.mkdirs(); // Créer le dossier s'il n'existe pas
+        }
+
+        File mainFile = new File(folder, mainFileName);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(mainFile))) {
+            writer.println(csvLine); // Écrire la ligne dans le fichier principal
+
+            // Créer d'autres fichiers CSV si nécessaire
+            for (String additionalFile : additionalFiles) {
+                File file = new File(folder, additionalFile);
+                file.createNewFile(); // Créer un fichier vide
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
@@ -119,7 +190,7 @@ public class Inscription {
             System.out.println("-----------------------------");
 
             System.out.println("Vous pouvez ajouter des images, videos et si en promo par la suite");
-            String uuid = GenerateurAuto.uniqueUUID(DatabasePath.getProduitPath(),8);
+            String uuid = GenerateurAuto.uniqueUUID(DatabasePath.getPathTousProduits(),8);
             System.out.println("L'uuid genere automatiquement par le systeme est: " + uuid);
 
 
@@ -134,7 +205,6 @@ public class Inscription {
             System.out.println("Erreur: " + e.getMessage());
         }
     }
-
     public static void saveProduitData(String titre, String categorie, String description, String quantite0, String prix, String pointsBoni, String uuid) {
 
         String csvLine = FormatAdjust.convertToCSV(titre, categorie, description, quantite0, prix, pointsBoni, "aucun", "aucun", uuid, "0", "0", "non");
@@ -147,10 +217,10 @@ public class Inscription {
         Database.refreshProduits();
     }
     public static void offer(String revendeur,String titre){
-        String path_offrir = DatabasePath.getRevendeurComptePath() + revendeur + "/offrir.csv";
+        String path_offrir = DatabasePath.getPathRevendeurCompte() + revendeur + "/offrir.csv";
         CSVHandler.appendCSV(path_offrir,titre);
 
-        String path_offerPar = DatabasePath.getProduitInfoPath() + titre + "/offerPar.csv";
+        String path_offerPar = DatabasePath.getPathProduitCompte() + titre + "/offerPar.csv";
         CSVHandler.appendCSV(path_offerPar,titre);
     };
     public static void ajoutProduits(String folderName, String csvLine, List<String> additionalFiles) {
@@ -182,80 +252,10 @@ public class Inscription {
 
 
 
-    private static void saveAcheteurData(String nom, String prenom, String adresse, String courriel, String telephone, String pseudo, String password) {
-
-        String csvLine = FormatAdjust.convertToCSV(pseudo, password, courriel, nom, prenom, telephone, adresse, "0");
-
-        String csvAddiFilePath = DatabasePath.getFichiersInfoAcheteur();
-        List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);
-
-        ajoutAcheteur(pseudo, csvLine, additionalFiles);
-
-        Database.refreshAcheteurs();
-    }
-
-    public static void ajoutAcheteur(String folderName, String csvLine, List<String> additionalFiles) {
-        String baseFolderPath = DatabasePath.getBaseAcheteurFolderPath(); // Chemin vers le dossier principal
-        String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier
-
-        File folder = new File(baseFolderPath, folderName);
-
-        if (!folder.exists()) {
-            folder.mkdirs(); // Créer le dossier s'il n'existe pas
-        }
-
-        File mainFile = new File(folder, mainFileName);
-
-        try (PrintWriter writer = new PrintWriter(new FileWriter(mainFile))) {
-            writer.println(csvLine); // Écrire la ligne dans le fichier principal
-
-            // Créer d'autres fichiers CSV si nécessaire
-            for (String additionalFile : additionalFiles) {
-                File file = new File(folder, additionalFile);
-                file.createNewFile(); // Créer un fichier vide
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
-    private static void saveRevendeurData(String nom, String adresse, String courriel, String telephone, String password) {
 
-        String csvLine = FormatAdjust.convertToCSV(nom, password, courriel, adresse, telephone, "0");
 
-        String csvAddiFilePath = DatabasePath.getFichiersInfoRevendeur();
-        List<String> additionalFiles = CSVHandler.readLinesFromCSV(csvAddiFilePath);
-
-        ajoutRevendeur(nom, csvLine, additionalFiles);
-
-        Database.refreshRevendeurs();
-    }
-
-    public static void ajoutRevendeur(String folderName, String csvLine, List<String> additionalFiles) {
-        String baseFolderPath = DatabasePath.getBaseRevendeurFolderPath(); // Chemin vers le dossier principal
-        String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier
-
-        File folder = new File(baseFolderPath, folderName);
-
-        if (!folder.exists()) {
-            folder.mkdirs(); // Créer le dossier s'il n'existe pas
-        }
-
-        File mainFile = new File(folder, mainFileName);
-
-        try (PrintWriter writer = new PrintWriter(new FileWriter(mainFile))) {
-            writer.println(csvLine); // Écrire la ligne dans le fichier principal
-
-            // Créer d'autres fichiers CSV si nécessaire
-            for (String additionalFile : additionalFiles) {
-                File file = new File(folder, additionalFile);
-                file.createNewFile(); // Créer un fichier vide
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 

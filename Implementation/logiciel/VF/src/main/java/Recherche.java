@@ -37,7 +37,7 @@ public class Recherche {
                         // on fait la search seulement base sur les colonnes specifiers
                         List<Integer> searchColumnIndices = Arrays.asList(0, 1,4);
                         List<Integer> outputColumnIndices = Arrays.asList(0);
-                        List<String> matchingLines = CSVHandler.searchAndFilterColumnsInCSV(DatabasePath.getProduitPath(), keyword,searchColumnIndices,outputColumnIndices);
+                        List<String> matchingLines = CSVHandler.searchAndFilterColumnsInCSV(DatabasePath.getPathTousProduits(), keyword,searchColumnIndices,outputColumnIndices);
                         if (!matchingLines.isEmpty()) {
                             trierProduits(matchingLines);
                         } else {
@@ -186,7 +186,7 @@ public class Recherche {
         System.out.println("pseudo, nom, prenom, likes");
         System.out.println("--------------------------");
         List<Integer> outputColumnIndices = Arrays.asList(0, 3, 4, 7);
-        List<String> matchingLines = CSVHandler.searchExaAndFilterColumnsInCSV(DatabasePath.getAcheteurPath(), keyword,0,outputColumnIndices);
+        List<String> matchingLines = CSVHandler.searchExaAndFilterColumnsInCSV(DatabasePath.getPathTousAcheteurs(), keyword,0,outputColumnIndices);
         if (!matchingLines.isEmpty()) {
             System.out.println(matchingLines);
         } else {
@@ -203,13 +203,13 @@ public class Recherche {
         System.out.println("Voici la liste des suiveurs");
         System.out.println("--------------------------");
 
-        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),keyword,0);
+        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousAcheteurs(),keyword,0);
 
         if (index != -1) {
-            String data = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(),index);
+            String data = CSVHandler.readLineByIndex(DatabasePath.getPathTousAcheteurs(),index);
             String pseudo = CSVHandler.getColumnValue(data,0);
 
-            String suiviPar = DatabasePath.getAcheteurComptePath() + pseudo + "/suiviPar.csv" ;
+            String suiviPar = DatabasePath.getPathAcheteurCompte() + pseudo + "/suiviPar.csv" ;
 
             System.out.println("suiviPar: ");
             System.out.println("------------");
@@ -231,13 +231,13 @@ public class Recherche {
         System.out.println("Voici la liste des suivis");
         System.out.println("--------------------------");
 
-        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),keyword,0);
+        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousAcheteurs(),keyword,0);
 
         if (index != -1) {
-            String data = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(),index);
+            String data = CSVHandler.readLineByIndex(DatabasePath.getPathTousAcheteurs(),index);
             String pseudo = CSVHandler.getColumnValue(data,0);
 
-            String suivre = DatabasePath.getAcheteurComptePath() + pseudo + "/suivreAcheteur.csv" ;
+            String suivre = DatabasePath.getPathAcheteurCompte() + pseudo + "/suivreAcheteur.csv" ;
 
             System.out.println("suivre: ");
             System.out.println("------------");
@@ -281,7 +281,7 @@ public class Recherche {
                     default:
                         List<Integer> searchColumnIndices = Arrays.asList(0, 3);
                         List<Integer> outputColumnIndices = Arrays.asList(0);
-                        List<String> matchingLines = CSVHandler.searchAndFilterColumnsInCSV(DatabasePath.getRevendeurPath(), keyword,searchColumnIndices,outputColumnIndices);
+                        List<String> matchingLines = CSVHandler.searchAndFilterColumnsInCSV(DatabasePath.getPathTousRevendeurs(), keyword,searchColumnIndices,outputColumnIndices);
                         if (!matchingLines.isEmpty()) {
                             trierRevendeurs(matchingLines);
                         } else {

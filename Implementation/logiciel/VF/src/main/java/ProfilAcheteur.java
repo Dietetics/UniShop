@@ -7,8 +7,8 @@ public class ProfilAcheteur {
         this.pseudo = pseudo;
         this.password = password;
 
-        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),0);
-        String data = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(),lineIndex);
+        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousAcheteurs(),getPseudo(),0);
+        String data = CSVHandler.readLineByIndex(DatabasePath.getPathTousAcheteurs(),lineIndex);
 
         String courriel = CSVHandler.getColumnValue(data, 2);
         String nom = CSVHandler.getColumnValue(data, 3);
@@ -84,7 +84,7 @@ public class ProfilAcheteur {
 
 
     public void gererSuiveurs(){
-        String pathSuiveurs = DatabasePath.getAcheteurComptePath() + getPseudo() + "/suiviPar.csv";
+        String pathSuiveurs = DatabasePath.getPathAcheteurCompte() + getPseudo() + "/suiviPar.csv";
 
         System.out.println("\n\nVoici la liste de vos suiveurs");
         System.out.println("-----------------------------------");
@@ -104,9 +104,9 @@ public class ProfilAcheteur {
                         boucle = false;
                         break;
                     case "1":
-                        String pathCibleSuivi = DatabasePath.getAcheteurComptePath() + nomSuiveur + "/suivreAcheteur.csv";
-                        String pathCibleNotification = DatabasePath.getAcheteurComptePath() + nomSuiveur + "/notification.csv";
-                        String pathAuteurNotification = DatabasePath.getAcheteurComptePath() + getPseudo() + "/notification.csv";
+                        String pathCibleSuivi = DatabasePath.getPathAcheteurCompte() + nomSuiveur + "/suivreAcheteur.csv";
+                        String pathCibleNotification = DatabasePath.getPathAcheteurCompte() + nomSuiveur + "/notifications.csv";
+                        String pathAuteurNotification = DatabasePath.getPathAcheteurCompte() + getPseudo() + "/notifications.csv";
 
                         retireSuiveur(pathSuiveurs,nomSuiveur);
                         retireSuivi(pathCibleSuivi,getPseudo());
@@ -220,7 +220,7 @@ public class ProfilAcheteur {
     private void saveChanges() {
         List<String> newCSVLine = Arrays.asList(pseudo, getPassword(), courriel, getNom(), getPrenom(), getTelephone(), getAdresse(), nbLikes);
 
-        String directoryPath = DatabasePath.getAcheteurComptePath() + pseudo + "/main.csv";
+        String directoryPath = DatabasePath.getPathAcheteurCompte() + pseudo + "/main.csv";
         CSVHandler.coverCSV(directoryPath, FormatAdjust.transformList(newCSVLine));
 
         Database.refreshAcheteurs();

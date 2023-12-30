@@ -16,19 +16,19 @@ public class RecherchePublic {
                     case 0:
                         return;
                     case 1:
-                        Recherche.recuperer(DatabasePath.getProduitPath(), 0);
-                        decisionProduit(DatabasePath.getProduitPath(),0);
+                        Recherche.recuperer(DatabasePath.getPathTousProduits(), 0);
+                        decisionProduit(DatabasePath.getPathTousProduits(),0);
                         choix = "0";
                         break;
                     case 2:
-                        Recherche.recuperer(DatabasePath.getAcheteurPath(), 0);
-                        decisionAcheteur(DatabasePath.getAcheteurPath(),0);
+                        Recherche.recuperer(DatabasePath.getPathTousAcheteurs(), 0);
+                        decisionAcheteur(DatabasePath.getPathTousAcheteurs(),0);
                         choix = "0";
                         break;
                     case 3:
-                        Recherche.recuperer(DatabasePath.getRevendeurPath(), 0);
+                        Recherche.recuperer(DatabasePath.getPathTousRevendeurs(), 0);
                         choix = "0";
-                        decisionRevendeur(DatabasePath.getRevendeurPath(),0);
+                        decisionRevendeur(DatabasePath.getPathTousRevendeurs(),0);
                         break;
                     case 4:
                         Recherche.rechercheProduits();

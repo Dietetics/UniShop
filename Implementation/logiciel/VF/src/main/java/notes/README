@@ -1,3 +1,10 @@
 on a plusieurs package de datas:
 
 chaque nouvelle compte cree aura sa propre repertoire qui enregistre toutes ses informations
+
+
+Un petit remarque: Lorsqu'on inscrit un nouveau acheteur ou revendeur ou produit, il y aura creation des fichiers. Il faut "stop" le programme pour voir visuellement les fichiers
+creers. MAIS ceci ne causera aucun probleme au logiciel, on peut tout faire, meme avec les nouvelles fichiers qui ne sont pas visuellement, mais elles sont bien
+representes pour le programme.
+
+

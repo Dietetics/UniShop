@@ -35,8 +35,6 @@ public class Reset {
         System.out.println("Reset complete.");
     }
 
-
-
     public static void deleteAllFolders(String baseFolderPath) {
         File baseFolder = new File(baseFolderPath);
 
@@ -54,7 +52,6 @@ public class Reset {
             }
         }
     }
-
     public static void deleteFolder(File folder) {
         File[] allFilesAndFolders = folder.listFiles();
 
@@ -75,24 +72,29 @@ public class Reset {
 
     public static void main(String[] args) {
 
+        // lire les databases initiales du projet(achateurs)
         List<String> acheteurDatabase = CSVHandler.readLinesFromCSV(DatabasePath.getDatabase0Acheteur());
         List<String> acheteurFichierInfo = CSVHandler.readLinesFromCSV(DatabasePath.getFichiersInfoAcheteur());
         String acheteurBasePath = DatabasePath.getBaseAcheteurFolderPath();
 
 
+        // lire les databases initiales du projet(revendeurs)
         List<String> revendeurDatabase = CSVHandler.readLinesFromCSV(DatabasePath.getDatabase0Revendeur());
         List<String> revendeurFichierInfo = CSVHandler.readLinesFromCSV(DatabasePath.getFichiersInfoRevendeur());
         String revendeurBasePath = DatabasePath.getBaseRevendeurFolderPath();
 
+
+        // lire les databases initiales du projet(produits)
         List<String> produitDatabase = CSVHandler.readLinesFromCSV(DatabasePath.getDatabase0Produit());
         List<String> produitFichierInfo = CSVHandler.readLinesFromCSV(DatabasePath.getFichiersInfoProduit());
         String produitBasePath = DatabasePath.getBaseProduitFolderPath();
 
-
+        // vider le tout
         deleteAllFolders(acheteurBasePath);
         deleteAllFolders(revendeurBasePath);
         deleteAllFolders(produitBasePath);
 
+        // reinitialiser avec les databases initiales
         resetDatabases(acheteurDatabase, acheteurFichierInfo,acheteurBasePath);
         resetDatabases(revendeurDatabase, revendeurFichierInfo,revendeurBasePath);
         resetDatabases(produitDatabase, produitFichierInfo,produitBasePath);

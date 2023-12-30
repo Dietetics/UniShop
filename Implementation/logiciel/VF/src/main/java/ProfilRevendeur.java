@@ -12,8 +12,8 @@ public class ProfilRevendeur {
         this.nom = nom;
 
 
-        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(),getNom(),0);
-        String data = CSVHandler.readLineByIndex(DatabasePath.getRevendeurPath(),lineIndex);
+        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousRevendeurs(),getNom(),0);
+        String data = CSVHandler.readLineByIndex(DatabasePath.getPathTousRevendeurs(),lineIndex);
 
         String password = CSVHandler.getColumnValue(data, 1);
         String courriel = CSVHandler.getColumnValue(data, 2);
@@ -29,7 +29,7 @@ public class ProfilRevendeur {
         this.adresse = adresse;
         this.nbLikes = nbLikes;
 
-
+        displayMenuRevendeur();
     }
 
 
@@ -166,7 +166,7 @@ public class ProfilRevendeur {
 
         List<String> newCSVLine = Arrays.asList(nom, getPassword(), courriel, getAdresse(), getTelephone(),nbLikes);
 
-        String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/main.csv";
+        String directoryPath = DatabasePath.getPathRevendeurCompte() + nom + "/main.csv";
         CSVHandler.coverCSV(directoryPath, FormatAdjust.transformList(newCSVLine));
 
         Database.refreshRevendeurs();
@@ -184,7 +184,7 @@ public class ProfilRevendeur {
 
         userData.add(new String[]{getNom(),getPassword(),getCourriel(),getAdresse(),getTelephone(),likes1});
 
-        String directoryPath = DatabasePath.getRevendeurComptePath() + getNom() + "/main.csv";
+        String directoryPath = DatabasePath.getPathRevendeurCompte() + getNom() + "/main.csv";
         CSVHandler.coverCSV(directoryPath, userData);
 
         Database.refreshRevendeurs();

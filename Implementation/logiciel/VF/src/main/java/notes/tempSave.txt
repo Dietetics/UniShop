@@ -13,8 +13,8 @@ public class ProfilProduit {
 
         this.titre = titre;
 
-        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getProduitPath(),getTitre(),0);
-        String data = CSVHandler.readLineByIndex(DatabasePath.getProduitPath(),lineIndex);
+        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousProduits(),getTitre(),0);
+        String data = CSVHandler.readLineByIndex(DatabasePath.getPathTousProduits(),lineIndex);
 
         String categorie = CSVHandler.getColumnValue(data, 1);
         String description = CSVHandler.getColumnValue(data, 2);
@@ -64,7 +64,7 @@ public class ProfilProduit {
         userData.add(new String[]{getTitre(),getCategorie(),getDescription(),quantite1,prix1,pointsBoni1,getImage(),getVideo(),getIdentifiant(),likes1,note1,getPromo()});
 
         // modifier le data du fichier du produit, qui par la suite affect le fichier principale
-        String directoryPath = DatabasePath.getProduitInfoPath() + getTitre() + "/main.csv";
+        String directoryPath = DatabasePath.getPathProduitCompte() + getTitre() + "/main.csv";
         CSVHandler.coverCSV(directoryPath, userData);
 
         // refresh le fichier principale base sur les data des fichiers des produits

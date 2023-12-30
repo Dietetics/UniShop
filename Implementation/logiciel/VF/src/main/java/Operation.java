@@ -6,7 +6,7 @@ public class Operation {
 
     // ajouter dans liker produit ssi elle nest pas encore like et ajouter 1 dans le profil du produit
     public static void acheteurLikerProduit(String produit, String auteur) {
-        String path = DatabasePath.getAcheteurComptePath() + auteur + "/likerProduit.csv";
+        String path = DatabasePath.getPathAcheteurCompte() + auteur + "/likerProduit.csv";
 
         try {
             Boolean condition = CSVHandler.isExiste(path, produit);
@@ -30,7 +30,7 @@ public class Operation {
     }
 
     public static void acheteurCommandeProduit(String produit, String auteur) {
-        String path = DatabasePath.getAcheteurComptePath() + auteur + "/panier.csv";
+        String path = DatabasePath.getPathAcheteurCompte() + auteur + "/panier.csv";
 
         try {
             Boolean condition = CSVHandler.isExiste(path, produit);
@@ -48,7 +48,7 @@ public class Operation {
 
 
     public static void acheteurSuivreAcheteur(String acheteur, String auteur) {
-        String path = DatabasePath.getAcheteurComptePath() + auteur + "/suivreAcheteur.csv";
+        String path = DatabasePath.getPathAcheteurCompte() + auteur + "/suivreAcheteur.csv";
 
         try {
             Boolean condition = CSVHandler.isExiste(path, acheteur);
@@ -57,7 +57,7 @@ public class Operation {
             if (!condition && auteur != acheteur) {
                 CSVHandler.appendCSV(path, acheteur);
 
-                String ciblePath = DatabasePath.getAcheteurComptePath() + acheteur + "/suiviPar.csv";
+                String ciblePath = DatabasePath.getPathAcheteurCompte() + acheteur + "/suiviPar.csv";
                 CSVHandler.appendCSV(ciblePath, auteur);
                 System.out.println("Acheteur suivi avec succss.");
             } else {
@@ -72,7 +72,7 @@ public class Operation {
 
 
     public static void acheteurLikerRevendeur(String revendeur, String auteur) {
-        String path = DatabasePath.getAcheteurComptePath() + auteur + "/likerRevendeur.csv";
+        String path = DatabasePath.getPathAcheteurCompte() + auteur + "/likerRevendeur.csv";
 
         try {
             Boolean condition = CSVHandler.isExiste(path, revendeur);
@@ -97,7 +97,7 @@ public class Operation {
     }
 
     public static void acheteurSuivreRevendeur(String revendeur, String auteur) {
-        String path = DatabasePath.getAcheteurComptePath() + auteur + "/suivreRevendeur.csv";
+        String path = DatabasePath.getPathAcheteurCompte() + auteur + "/suivreRevendeur.csv";
 
         try {
             Boolean condition = CSVHandler.isExiste(path, revendeur);
@@ -138,7 +138,7 @@ public class Operation {
     public static void likerProduit(int index) {
         try {
             // Cherche la valeur à partir d'une ligne
-            String line = CSVHandler.readLineByIndex(DatabasePath.getProduitPath(), index);
+            String line = CSVHandler.readLineByIndex(DatabasePath.getPathTousProduits(), index);
             String valeur = CSVHandler.getColumnValue(line, 9); // 9e colonne, commencer par 0
 
             // Modifie la valeur
@@ -150,7 +150,7 @@ public class Operation {
             String newLine = CSVHandler.updateCSVColumn(line, 9, strValue);
 
             // Met à jour la ligne
-            CSVHandler.uploadCSVLine(DatabasePath.getProduitPath(), index - 1, newLine);
+            CSVHandler.uploadCSVLine(DatabasePath.getPathTousProduits(), index - 1, newLine);
 
         } catch (NumberFormatException e) {
             System.out.println("La chaine n'est pas un nombre valide.");
@@ -165,7 +165,7 @@ public class Operation {
     public static void likerAcheteur(int index) {
         try {
             // Cherche la valeur à partir d'une ligne
-            String line = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(), index);
+            String line = CSVHandler.readLineByIndex(DatabasePath.getPathTousAcheteurs(), index);
             String valeur = CSVHandler.getColumnValue(line, 6); // 6e colonne, commencer par 0
 
             // Modifie la valeur
@@ -177,7 +177,7 @@ public class Operation {
             String newLine = CSVHandler.updateCSVColumn(line, 6, strValue);
 
             // Met à jour la ligne
-            CSVHandler.uploadCSVLine(DatabasePath.getAcheteurPath(), index - 1, newLine);
+            CSVHandler.uploadCSVLine(DatabasePath.getPathTousAcheteurs(), index - 1, newLine);
 
         } catch (NumberFormatException e) {
             System.out.println("La chaine n'est pas un nombre valide.");
@@ -193,7 +193,7 @@ public class Operation {
     public static void suivreAcheteur(int targetLigne) throws SuiviDejaEffectueException {
         try {
             // Pseudo de la cible
-            String targetPseudo = CSVHandler.getValueAtIndexAndColumn(DatabasePath.getAcheteurPath(), targetLigne - 1, 2);
+            String targetPseudo = CSVHandler.getValueAtIndexAndColumn(DatabasePath.getPathTousAcheteurs(), targetLigne - 1, 2);
 
             // Chemin de la cible pour enregistrer les fans
             String targetPath = "src/main/resources/data/acheteur/" + targetPseudo + "/suivreAcheteur.csv";

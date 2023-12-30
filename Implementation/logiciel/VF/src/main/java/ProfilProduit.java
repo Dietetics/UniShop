@@ -15,7 +15,7 @@ public class ProfilProduit {
 
         // path du produit
         this.titre = titre;
-        String path = DatabasePath.getProduitInfoPath() + titre;
+        String path = DatabasePath.getPathProduitCompte() + titre;
 
         // load les datas generales
         String data = CSVHandler.readLineByIndex(path + "/main.csv",1);
@@ -118,7 +118,7 @@ public class ProfilProduit {
         userData.add(new String[]{getTitre(),getCategorie(),getDescription(),quantite1,prix1,pointsBoni1,getImage(),getVideo(),getIdentifiant(),likes1,note1,getPromo()});
 
         // modifier le data du fichier du produit, qui par la suite affect le fichier principale
-        String directoryPath = DatabasePath.getProduitInfoPath() + getTitre() + "/main.csv";
+        String directoryPath = DatabasePath.getPathProduitCompte() + getTitre() + "/main.csv";
         CSVHandler.coverCSV(directoryPath, userData);
 
         // refresh le fichier principale base sur les data des fichiers des produits

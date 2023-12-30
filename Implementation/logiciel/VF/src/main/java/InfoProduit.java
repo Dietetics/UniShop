@@ -20,8 +20,8 @@ public class InfoProduit {
         String promo = CSVHandler.getColumnValue(data, 11);
 
 
-        String note = DatabasePath.getProduitInfoPath() + titre + "/notes.csv" ;
-        String eval = DatabasePath.getProduitInfoPath() + titre + "/evaluations.csv" ;
+        String note = DatabasePath.getPathProduitCompte() + titre + "/notes.csv" ;
+        String eval = DatabasePath.getPathProduitCompte() + titre + "/evaluations.csv" ;
 
 
         System.out.println("\n\n\n\n\n\n\n\n\n\n");

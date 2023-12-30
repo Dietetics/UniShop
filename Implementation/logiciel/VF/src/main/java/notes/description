@@ -1,11 +1,42 @@
-class done:
 
-Database (but: refresh les datas vers un fichier principale)
-GenerateurAuto (but: uniqueUUID)
+CLASS:
 
-CreateFileInDirectory (but: new file new directory) //auxiliaire pour test
+Calculator                                  (but: calcul numerique)
+Connexion                                   (but: connecter a un compte, acheteur ou revendeur)
+CreateFileInDirectory                       (but: new file new directory)                           // fct auxiliaire pour test
+CSVHandler
+Database                                    (but: refresh les datas vers un fichier principale)
+DatabasseFile                               (but: condition tous les path des databases generale)   // maybe add more
+Evaluation
+FormatAdjust                                (but: ajuster le format pour l utiliser)                // fct auxiliaire
+GenerateurAuto                              (but: uniqueUUID)
+Gestioncommande
+Gestionprobleme
+GestionProduit
+Histoire
+InfoAchteur
+InfoProduit
+InfoRevendeur
+InputRestreint
+Inscription                                 (but: ajouter dans les databases un nouveau utiliseur ou produit)
+Metrique
+myscanner                                   (but: lire int,string,double avec avertissement)
+Notification
+Operation
+PanierAchat
+Points
+ProfilAcheteur
+ProfilProduit                               (but: instance de produit, avec tous les informations)
+ProfilRevendeur
+Recherche
+RechercheAcheteur
+RecherchePublic
+Reset                                       (but: class supplementaire pour le developpeur, permet dinitialiser l environnement)
+SignalementProbleme
+VF
+VisualiserAcheteur
+VisualiserRevendeur
 
-ProfilProduit
 
 
 
@@ -15,6 +46,10 @@ ProfilProduit
 
 
 
-test done:
+TEST:
 
-offrir un produit a vendre
+passer une commande
+evaluer un produit
+retourner/echanger une commande
+confirmer la reception dune commande
+offrir un produit a vendre                      done
