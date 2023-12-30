@@ -16,9 +16,9 @@ public class Operation {
                 System.out.println("Produit like avec succss.");
 
                 ProfilProduit unProduit = new ProfilProduit(produit);
-                int likes = unProduit.getLikes();
+                int likes = unProduit.getNbLikes();
                 likes = likes +1;
-                unProduit.setLikes(likes);
+                unProduit.setNbLikes(likes);
                 unProduit.modified();
 
             } else {

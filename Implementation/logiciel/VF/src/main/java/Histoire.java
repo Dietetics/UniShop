@@ -268,10 +268,10 @@ public class Histoire {
                     System.out.print("Veuillez entrer une evaluation: ");
                     String eval = myScanner.getStringInput();
 
-                    String pathProduitNote = DatabasePath.getProduitInfoPath() + produit + "/note.csv";
-                    String pathProduitEval = DatabasePath.getProduitInfoPath() + produit + "/evaluation.csv";
+                    String pathProduitNote = DatabasePath.getProduitInfoPath() + produit + "/notes.csv";
+                    String pathProduitEval = DatabasePath.getProduitInfoPath() + produit + "/evaluations.csv";
 
-                    String pathAcheteurEval = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/evaluation.csv";
+                    String pathAcheteurEval = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/evaluations.csv";
 
                     // Ajoutez le message dans les fichiers CSV correspondants
                     CSVHandler.appendCSV(pathProduitNote, "Par acheteur: " + getAcheteur()+ ". Note: " + note);

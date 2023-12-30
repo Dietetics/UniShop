@@ -95,9 +95,12 @@ public class Inscription {
 
 
 
-    public static void inscriptionProduit(String nom) {
-        System.out.println("\n");
-        System.out.println("Cher revendeur: " + nom + "      " + "Page: ajout des produits");
+
+
+
+    public static void inscriptionProduit(String revendeur) {
+
+        System.out.println("\nCher revendeur: " + revendeur + "      " + "Page: ajout des produits");
         System.out.println("-----------------------------------------------------");
 
         try {
@@ -113,16 +116,16 @@ public class Inscription {
             String quantite0 = InputRestreint.getValidQuantite("Veuillez entrer une quantite initiale: ");
             String prix = InputRestreint.getValidPrix("Veuillez entrer un prix: ");
             String pointsBoni = InputRestreint.getValidPointsBoni("Veuillez entrer des points Bonus: ");
+            System.out.println("-----------------------------");
 
-            System.out.println("Vous pouvez ajouter des images, videos apres");
+            System.out.println("Vous pouvez ajouter des images, videos et si en promo par la suite");
             String uuid = GenerateurAuto.uniqueUUID(DatabasePath.getProduitPath(),8);
             System.out.println("L'uuid genere automatiquement par le systeme est: " + uuid);
-            System.out.println("Vous pouvez ajouter des promos apres");
 
 
 
             saveProduitData(titre, categorie, description, quantite0, prix, pointsBoni, uuid);
-            offer(nom, titre);
+            offer(revendeur, titre);
 
             System.out.println("Donnees enregistrees avec succes");
             System.out.println("--------------------------------");
@@ -131,11 +134,6 @@ public class Inscription {
             System.out.println("Erreur: " + e.getMessage());
         }
     }
-    public static void offer(String nom,String titre){
-        String path = DatabasePath.getRevendeurComptePath() + nom + "/offrir.csv";
-        CSVHandler.appendCSV(path,titre);
-    };
-
 
     public static void saveProduitData(String titre, String categorie, String description, String quantite0, String prix, String pointsBoni, String uuid) {
 
@@ -148,7 +146,13 @@ public class Inscription {
 
         Database.refreshProduits();
     }
+    public static void offer(String revendeur,String titre){
+        String path_offrir = DatabasePath.getRevendeurComptePath() + revendeur + "/offrir.csv";
+        CSVHandler.appendCSV(path_offrir,titre);
 
+        String path_offerPar = DatabasePath.getProduitInfoPath() + titre + "/offerPar.csv";
+        CSVHandler.appendCSV(path_offerPar,titre);
+    };
     public static void ajoutProduits(String folderName, String csvLine, List<String> additionalFiles) {
         String baseFolderPath = DatabasePath.getBaseProduitFolderPath(); // Chemin vers le dossier principal
         String mainFileName = "main.csv"; // Nom du fichier principal dans chaque dossier

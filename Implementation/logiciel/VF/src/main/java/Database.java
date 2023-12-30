@@ -136,11 +136,5 @@ public class Database {
     }
 
 
-
-
-
-
-
-
     public static void main(String[] args) {refreshAcheteurs();refreshRevendeurs();refreshProduits();}
 }

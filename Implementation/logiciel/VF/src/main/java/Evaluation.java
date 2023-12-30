@@ -22,7 +22,7 @@ public class Evaluation {
                     boucle = false;
                     break;
                 case "1":
-                    String pathEvaluation = DatabasePath.getProduitInfoPath() + nomProduit + "/evaluation.csv";
+                    String pathEvaluation = DatabasePath.getProduitInfoPath() + nomProduit + "/evaluations.csv";
                     voirEvaluations(pathEvaluation,revendeur);
                     break;
                 default:

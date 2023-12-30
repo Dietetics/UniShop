@@ -3,16 +3,22 @@ import java.util.List;
 
 public class ProfilProduit {
 
-
+    // ceux pour utilisation intermediaire sont: offerPar, evaluations, nbNotes
     private static String titre, categorie, description, image, video, identifiant, promo;
-    private static int quantite, likes,note;
-    private static double prix, pointsBoni;
+    private static int quantite, nbLikes, nbNotes, nbAchats;
+    private static double prix, pointsBoni, noteMoyen;
+    private static List<String> achats, evaluations, likes, notes, offerPar;
+
+
+
     public ProfilProduit(String titre) {
 
+        // path du produit
         this.titre = titre;
+        String path = DatabasePath.getProduitInfoPath() + titre;
 
-        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getProduitPath(),getTitre(),0);
-        String data = CSVHandler.readLineByIndex(DatabasePath.getProduitPath(),lineIndex);
+        // load les datas generales
+        String data = CSVHandler.readLineByIndex(path + "/main.csv",1);
 
         String categorie = CSVHandler.getColumnValue(data, 1);
         String description = CSVHandler.getColumnValue(data, 2);
@@ -22,29 +28,79 @@ public class ProfilProduit {
         String image = CSVHandler.getColumnValue(data, 6);
         String video = CSVHandler.getColumnValue(data, 7);
         String identifiant = CSVHandler.getColumnValue(data, 8);
-        String likesTemp = CSVHandler.getColumnValue(data, 9);
-        String noteTemp = CSVHandler.getColumnValue(data, 10);
         String promo = CSVHandler.getColumnValue(data, 11);
 
-        int quantite = Integer.parseInt(quantiteTemp);
+        // load les datas intermediaires
+        this.achats = load(path, "/achats.csv");
+        this.evaluations = load(path, "/evaluations.csv");
+        this.likes = load(path, "/likes.csv");
+        this.notes = load(path, "/notes.csv");
+        this.offerPar = load(path, "/offerPar.csv");
+
+        this.nbNotes = calculNb(notes);
+        this.nbAchats = calculNb(achats);
+
+
         double prix = Double.parseDouble(prixTemp);
         double pointsBoni = Double.parseDouble(pointsBonip);
-        int likes = Integer.parseInt(likesTemp);
-        int note = Integer.parseInt(noteTemp);
-
 
         this.categorie = categorie;
         this.description = description;
+        int quantite = Integer.parseInt(quantiteTemp);
+        quantite = quantite - nbAchats;
         this.quantite = quantite;
         this.prix = prix;
         this.pointsBoni = pointsBoni;
         this.image = image;
         this.video = video;
         this.identifiant = identifiant;
-        this.likes = likes;
-        this.note = note;
+        this.nbLikes = calculNb(likes);
+        this.noteMoyen = calculMoyen(notes);
         this.promo = promo;
+
+        modified();
+        Database.refreshProduits();
     }
+
+    // csv data enregistrer dans une list de string
+    public static List<String> load(String path, String suffixe){
+        return CSVHandler.readLinesFromCSV(path + suffixe);
+    }
+
+    // calculer le nb de valeur dans la liste
+    public static int calculNb(List <String> liste){
+        int length = liste.size();
+        return length;
+    }
+
+    // calculer la moyenne dune liste de string qui est en fait que des int dedans
+    public static double calculMoyen(List<String> liste) {
+        if (liste == null || liste.isEmpty()) {
+            return 0;
+        }
+        int somme = 0;
+        for (String str : liste) {
+            try {
+                // Convertir chaque chaine en int
+                int nombre = Integer.parseInt(str);
+                // Ajouter a la somme
+                somme += nombre;
+            } catch (NumberFormatException e) {
+                // Gerer les chaines qui ne sont pas des nombres
+                System.err.println("La chaîne '" + str + "' n'est pas un nombre entier, donc elle n'est pas utiliser pour le calcul.");
+            }
+        }
+        // Calculer la moyenne
+        double moyen = (double) somme / liste.size();
+        return moyen;
+    }
+
+
+
+
+
+
+
 
 
 
@@ -55,8 +111,8 @@ public class ProfilProduit {
         String quantite1 = Integer.toString(getQuantite());
         String prix1 = Double.toString(getPrix());
         String pointsBoni1 = Double.toString(getPointsBoni());
-        String likes1 = Integer.toString(getLikes());
-        String note1 = Integer.toString(getNote());
+        String likes1 = Integer.toString(getNbLikes());
+        String note1 = Double.toString(getNoteMoyen());
 
 
         userData.add(new String[]{getTitre(),getCategorie(),getDescription(),quantite1,prix1,pointsBoni1,getImage(),getVideo(),getIdentifiant(),likes1,note1,getPromo()});
@@ -89,8 +145,8 @@ public class ProfilProduit {
                 + "\nImages: " + getImage()
                 + "\nVideos: " + getVideo()
                 + "\nID: " + getIdentifiant()
-                + "\nLikes: " + getLikes()
-                + "\nNotes: " + getNote()
+                + "\nnbLikes: " + getNbLikes()
+                + "\nNotes: " + getNoteMoyen()
                 + "\nPromo: " + getPromo()
                 + "\n-----------------------------------: ");
     }
@@ -129,11 +185,11 @@ public class ProfilProduit {
     public static String getIdentifiant() {
         return identifiant;
     }
-    public static int getLikes() {
-        return likes;
+    public static int getNbLikes() {
+        return nbLikes;
     }
-    public static int getNote() {
-        return note;
+    public static double getNoteMoyen() {
+        return noteMoyen;
     }
     public static String getPromo() {
         return promo;
@@ -159,14 +215,43 @@ public class ProfilProduit {
     public static void setIdentifiant(String identifiant) {
         ProfilProduit.identifiant = identifiant;
     }
-    public static void setLikes(int likes) {
-        ProfilProduit.likes = likes;
+    public static void setNbLikes(int nbLikes) {
+        ProfilProduit.nbLikes = nbLikes;
     }
 
-    public static void setNote(int note) {
-        ProfilProduit.note = note;
+    public static void setNoteMoyen(int noteMoyen) {
+        ProfilProduit.noteMoyen = noteMoyen;
     }
     public static void setPromo(String promo) {
         ProfilProduit.promo = promo;
+    }
+
+    public static int getNbNotes() {
+        return nbNotes;
+    }
+
+    public static int getNbAchats() {
+        return nbAchats;
+    }
+
+    public static List<String> getAchats() {
+        return achats;
+    }
+
+    public static List<String> getEvaluations() {
+        return evaluations;
+    }
+
+    public static List<String> getLikes() {
+        return likes;
+    }
+
+    public static List<String> getNotes() {
+        return notes;
+    }
+
+    // get le revendeur qui a offer ce produit
+    public static String getOfferPar() {
+        return offerPar.get(0);
     }
 }
