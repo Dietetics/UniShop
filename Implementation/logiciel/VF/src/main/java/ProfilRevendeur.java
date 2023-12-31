@@ -132,7 +132,6 @@ public class ProfilRevendeur {
      * Modifie le profil du revendeur, permettant de mettre à jour des informations telles que l'adresse, le courriel,
      * le téléphone, etc.
      *
-     * @return Aucune valeur de retour.
      */
     public void modifie_profil(){
 

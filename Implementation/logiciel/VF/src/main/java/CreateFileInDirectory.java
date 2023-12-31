@@ -5,6 +5,13 @@ import java.nio.file.Paths;
 
 public class CreateFileInDirectory {
 
+
+    /**
+     * Crée un nouveau fichier dans le répertoire spécifié.
+     *
+     * @param directory Le chemin du répertoire dans lequel créer le fichier.
+     * @param file Le nom du fichier à créer.
+     */
     public static void newFile(String directory, String file) {
         // Specify the path for the new directory
         Path directoryPath = Paths.get(directory);

@@ -4,12 +4,18 @@ import java.util.List;
 
 public class Database {
 
+    /**
+     * Rafraîchit toutes les données, y compris les acheteurs, les revendeurs et les produits.
+     * Appelle les méthodes de rafraîchissement respectives pour chaque entité.
+     */
     public static void refreshTous(){
         refreshAcheteurs();refreshRevendeurs();refreshProduits();
     }
 
 
-    // lit toutes les datas des acheteurs, prendre le main.csv de chaque puis output sur acheteur.csv
+    /**
+     * Rafraîchit les données des acheteurs en combinant les fichiers CSV de chaque acheteur dans un seul fichier.
+     */
     public static void refreshAcheteurs() {
         String baseFolderPath = DatabasePath.getBaseAcheteurFolderPath();
         String outputFile = DatabasePath.getPathTousAcheteurs();
@@ -53,6 +59,10 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Rafraîchit les données des revendeurs en combinant les fichiers CSV de chaque revendeur dans un seul fichier.
+     */
     public static void refreshRevendeurs() {
         String baseFolderPath = DatabasePath.getBaseRevendeurFolderPath();
         String outputFile = DatabasePath.getPathTousRevendeurs();
@@ -96,6 +106,11 @@ public class Database {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * Rafraîchit les données des produits en combinant les fichiers CSV de chaque produit dans un seul fichier.
+     */
     public static void refreshProduits() {
         String baseFolderPath = DatabasePath.getBaseProduitFolderPath();
         String outputFile = DatabasePath.getPathTousProduits();
