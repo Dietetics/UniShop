@@ -67,7 +67,13 @@ public class Notification {
 
     public static void notificationActionChangerEtat(String pseudo,String produit){
         String pathPseudo = DatabasePath.getPathAcheteurCompte() + pseudo + "/notifications.csv";
-        String msgPseudo = "vous avez bien changer letat du produit: " + produit;
+        String msgPseudo = "letat du produit a ete changer: " + produit;
+        CSVHandler.appendCSV(pathPseudo, msgPseudo);
+    }
+
+    public static void notificationActionChangerEtatRevendeur(String auteur,String produit){
+        String pathPseudo = DatabasePath.getPathRevendeurCompte() + auteur + "/notifications.csv";
+        String msgPseudo = "letat du produit a ete changer: " + produit;
         CSVHandler.appendCSV(pathPseudo, msgPseudo);
     }
 

@@ -138,6 +138,23 @@ public class PanierAchat {
         System.out.println("Commande confirmee ! Merci pour votre achat.");
 
         String pts = String.valueOf(getPts());
+
+
+        List<String[]> dataList = CSVHandler.readCSV(getPathPanier(),9999);
+
+        for (String[] row : dataList) {
+            for (String value : row) {
+                ProfilProduit produit = new ProfilProduit(value);
+                String revendeur = produit.getOfferParUnitaire();
+                String temp = getAcheteur()+","+value+",enProduction";
+                String pathAchat = DatabasePath.getPathRevendeurCompte() + revendeur + "/achats.csv";
+                String pathNotifications = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
+                CSVHandler.appendCSV(pathAchat,temp);
+                CSVHandler.appendCSV(pathNotifications,"Un unite de votre produit offer est vendu!");
+            }
+        }
+
+
         CSVHandler.transfereCSVEnproduction(getPathPanier(),getPathHistoire());
 
         CSVHandler.appendCSV(getPathPts(),pts);

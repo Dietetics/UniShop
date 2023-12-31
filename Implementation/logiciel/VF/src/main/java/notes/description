@@ -10,7 +10,10 @@ DatabasseFile                               (but: condition tous les path des da
 Evaluation
 FormatAdjust                                (but: ajuster le format pour l utiliser)                // fct auxiliaire
 GenerateurAuto                              (but: uniqueUUID)
-GestionProduit
+GestionCommandeParRevendeur                 (but: enProduction - enLivraison - Livre)
+GestionEchangeRetour                        (but: confirmer la reception)
+GestionProbleme                             (but: repondre au probleme)
+GestionProduit                              (but: retirer un produit offer)
 GestionSuiveur                              (but: gerer les suivreurs pour acheteur)
 Histoire                                    (but: tous fonctions apres l achat)
 InputRestreint                              (but: faut verifier une bonne input)
@@ -45,7 +48,7 @@ VisualiserRevendeur
 TEST:
 
 passer une commande                             done
-evaluer un produit
+evaluer un produit                              done
 retourner/echanger une commande
 confirmer la reception dune commande
 offrir un produit a vendre                      done
@@ -82,7 +85,7 @@ main                                            (but: info generale du produit)
 notes.csv                                       done
 evaluations.csv                                 done
 likes.csv                                       done
-achats.csv                                      // plutard
+achats.csv                                      done
 offerPar.csv                                    done
 
 main                                            (but: info generale du revendeur)

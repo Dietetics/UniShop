@@ -66,8 +66,22 @@ public class ProfilRevendeur {
                     case 3: Inscription.inscriptionProduit(getNom()); break;
                     case 4: GestionProduit.display(getNom()); break;
                     case 5: GestionProduit.supprimerProduits(getNom()); break;
-                    case 6: //actions(); break;    modifier etat, repond aux problemes, confirmer reception, expedier les produits
-                    case 7: VisualiserRevendeur voir = new VisualiserRevendeur(getNom());
+                    case 6:
+                        GestionCommandeParRevendeur gestion = new GestionCommandeParRevendeur(getNom());
+                        gestion.afficherAchats();
+                        gestion.confirmerReception();
+                        break;
+                    case 7:
+                        GestionProbleme solve = new GestionProbleme(getNom());
+                        solve.afficherProblemes();
+                        solve.resoudre();
+                        break;
+                    case 8:
+                        GestionEchangeRetour echange = new GestionEchangeRetour(getNom());
+                        echange.afficherEchangeRetour();
+                        echange.resoudre();
+                        break;
+                    case 9: VisualiserRevendeur voir = new VisualiserRevendeur(getNom());
                         voir.menu();
                     break;
                     default:
@@ -90,8 +104,10 @@ public class ProfilRevendeur {
         System.out.println("3. Offrir un Produit");
         System.out.println("4. Gerer les produits");
         System.out.println("5. Supprimer un produit");
-        System.out.println("6. Tous actions");
-        System.out.println("7. Voir nos informations");
+        System.out.println("6. Gestion commande");
+        System.out.println("7. Gestion probleme");
+        System.out.println("8. Gestion echange retour");
+        System.out.println("9. Voir nos informations");
         System.out.print("\n");
     }
 

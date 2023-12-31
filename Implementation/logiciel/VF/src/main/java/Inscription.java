@@ -221,7 +221,7 @@ public class Inscription {
         CSVHandler.appendCSV(path_offrir,titre);
 
         String path_offerPar = DatabasePath.getPathProduitCompte() + titre + "/offerPar.csv";
-        CSVHandler.appendCSV(path_offerPar,titre);
+        CSVHandler.appendCSV(path_offerPar,revendeur);
     };
     public static void ajoutProduits(String folderName, String csvLine, List<String> additionalFiles) {
         String baseFolderPath = DatabasePath.getBaseProduitFolderPath(); // Chemin vers le dossier principal

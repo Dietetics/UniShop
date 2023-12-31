@@ -77,7 +77,7 @@ public class InscriptionTest {
             assertTrue(Files.exists(offerParPath));
             List<String> linesOfferPar = Files.readAllLines(offerParPath);
             assertEquals(1, linesOfferPar.size());
-            assertEquals("TitreTest", linesOfferPar.get(0));
+            assertEquals("RevendeurTest", linesOfferPar.get(0));
 
             assertTrue(Files.exists(offrirPath));
             List<String> linesOffrir = Files.readAllLines(offrirPath);

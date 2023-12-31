@@ -242,70 +242,87 @@ public class Histoire {
 
 
 
-    public static void noteEvaluation(){
-        Boolean condition = true;
-
-        while (condition) {
-            try {
-                System.out.println("\nVeuillez entrer le nom du produit pour donner une note et evaluation");
-                System.out.println("---------------------------------------------------------------");
-                String produit = myScanner.getStringInput();
-
-                if (produit.equals(":q")) return;
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathAcheteurCompte()+getAcheteur()+"/histoire.csv", produit, 0);
-
-                if (index != -1) {
-
-                    int note;
-                    do {
-                        try {
-                            System.out.print("Veuillez entrer une note (entre 0 et 100) : ");
-                            note = myScanner.getIntInput();
-
-                            if (note < 0 || note > 100) {
-                                throw new IllegalArgumentException("La note doit être comprise entre 0 et 100.");
-                            }
-                            break;
-                        } catch (InputMismatchException e) {
-                            System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Erreur : " + e.getMessage());
-                        }
-                    } while (true);
-
-                    System.out.print("Veuillez entrer une evaluation: ");
-                    String eval = myScanner.getStringInput();
-
-                    String pathProduitNote = DatabasePath.getPathProduitCompte() + produit + "/notes.csv";
-                    String pathProduitEval = DatabasePath.getPathProduitCompte() + produit + "/evaluations.csv";
-
-                    String pathAcheteurEval = DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/evaluations.csv";
-                    Notification.notificationActionNoteEval(getAcheteur(),produit);
 
 
-                    // Ajoutez le message dans les fichiers CSV correspondants
-                    CSVHandler.appendCSV(pathProduitNote, "Par acheteur: " + getAcheteur()+ ". Note: " + note);
-                    CSVHandler.appendCSV(pathProduitEval, "Par acheteur: " + getAcheteur()+ ". Eval: " + eval );
-                    CSVHandler.appendCSV(pathAcheteurEval, produit + " a note: " + note + " evaluation: " + eval);
 
 
-                    condition = false;
-                    System.out.println("Votre message est bien envoyer, le revendeur recevra sous peu, puis evaluer votre situation, s'il accepte votre parole" +
-                            " il vous contactera");
-                } else {
-                    System.out.println("Vous n'avez pas acheter ce produit, donc vous n'avez pas acces a evaluation/note. Ou le produit n'existe just pas");
-                }
+    public static void noteEvaluation() {
+        try {
+            System.out.println("\nVeuillez entrer le nom du produit pour donner une note et évaluation");
+            System.out.println("---------------------------------------------------------------");
+            String produit = getProduitForEvaluation();
 
-                // Sortez de la boucle après avoir effectué la tâche avec succès
-            } catch (Exception e) {
-                // Gérez les exceptions ici (par exemple, IOException, InputMismatchException)
-                System.out.println("Une erreur s'est produite : " + e.getMessage());
+            if (produit.equals(":q")) return;
+
+            int index = CSVHandler.findOccurrenceIndex(
+                    DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/histoire.csv", produit, 0);
+
+            if (index != -1) {
+                int note = getValidatedNote();
+                String eval = getEvaluation();
+                evaluateProduct(produit,note,eval,getAcheteur());
+            } else {
+                System.out.println("Vous n'avez pas acheté ce produit, donc vous n'avez pas accès à l'évaluation/note. " +
+                        "Ou le produit n'existe tout simplement pas");
             }
+        } catch (Exception e) {
+            handleException(e);
         }
     }
 
+    public static String getProduitForEvaluation() {
+        return myScanner.getStringInput();
+    }
 
+    public static void evaluateProduct(String produit,int note,String eval,String acheteur) {
 
+        String pathProduitNote = DatabasePath.getPathProduitCompte() + produit + "/notes.csv";
+        String pathProduitEval = DatabasePath.getPathProduitCompte() + produit + "/evaluations.csv";
+
+        String pathAcheteurEval = DatabasePath.getPathAcheteurCompte() + acheteur + "/evaluations.csv";
+        Notification.notificationActionNoteEval(acheteur, produit);
+
+        // Ajoutez le message dans les fichiers CSV correspondants
+        CSVHandler.appendCSV(pathProduitNote, "Par acheteur: " + acheteur + ". Note: " + note);
+        CSVHandler.appendCSV(pathProduitEval, "Par acheteur: " + acheteur + ". Eval: " + eval);
+        CSVHandler.appendCSV(pathAcheteurEval, "Pour le produit: " +produit + ". Vous avez donne note: " + note + "; evaluation: " + eval);
+
+        System.out.println("Votre message est bien envoyé. Le revendeur le recevra sous peu, puis évaluera votre situation. " +
+                "S'il accepte votre parole, il vous contactera.");
+    }
+
+    public static int getValidatedNote() {
+        Scanner scanner = new Scanner(System.in);
+        int note;
+        do {
+            try {
+                System.out.print("Veuillez entrer une note (entre 0 et 100) : ");
+                note = scanner.nextInt();
+
+                if (note < 0 || note > 100) {
+                    throw new IllegalArgumentException("La note doit être comprise entre 0 et 100.");
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Erreur : Veuillez entrer un nombre entier.");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur : " + e.getMessage());
+            }
+        } while (true);
+        scanner.nextLine();
+        return note;
+    }
+
+    public static String getEvaluation() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Veuillez entrer une évaluation : ");
+        String eval = scanner.nextLine();
+        return eval;
+    }
+
+    public static void handleException(Exception e) {
+        System.out.println("Une erreur s'est produite : " + e.getMessage());
+    }
 
 
 

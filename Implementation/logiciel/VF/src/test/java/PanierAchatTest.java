@@ -66,7 +66,7 @@ class PanierAchatTest {
         CSVHandler.appendCSV(panierPath, "Cahier1");
         CSVHandler.appendCSV(panierPath, "Livre1");
 
-        PanierAchat.recap();
+        panier.recap();
 
         panier.passerCommande();
 
