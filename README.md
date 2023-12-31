@@ -9,30 +9,30 @@ UniShop est une plateforme de commerce en ligne conviviale et offrant de prix co
 ## Donnes initiales
 -Acheteurs (12):
 (VF\src\main\resources\data\databaseInitiale\Database0Acheteurs.csv) 
-   -pseudo: auteur1 et password: #We123123
-   -pseudo: auteur2 et password: #We123123
-   -pseudo: auteur3 et password: #We123123
-   etc
+   - pseudo: auteur1 et password: #We123123
+   - pseudo: auteur2 et password: #We123123
+   - pseudo: auteur3 et password: #We123123
+   - etc
 
 
 -Revendeurs (6): 
 (VF\src\main\resources\data\databaseInitiale\Database0Revendeurs.csv)
-   -nom: auteur1 et password: #We123123
-   -nom: auteur1 et password: #We123123
-   -nom: auteur1 et password: #We123123
-   etc
+   - nom: auteur1 et password: #We123123
+   - nom: auteur1 et password: #We123123
+   - nom: auteur1 et password: #We123123
+   - etc
    
 -produits (20):
 (VF\src\main\resources\data\databaseInitiale\Database0Produits.csv)
-   -nom: Cahier1 
-   -nom: Livre1
-   -nom: OrdinateurPortable1
-   etc
+   - nom: Cahier1 
+   - nom: Livre1
+   - nom: OrdinateurPortable1
+   - etc
 
 ## Installation
--Version Java: 8 ou superieure
--Maven: installer
--librairies externes a telecharger: aucun
+- Version Java: 8 ou superieure
+- Maven: installer
+- librairies externes a telecharger: aucun
 
 
 ## Execution
