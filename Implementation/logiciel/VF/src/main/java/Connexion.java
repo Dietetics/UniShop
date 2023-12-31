@@ -11,7 +11,6 @@ public class Connexion {
      * Il l'oriente ensuite vers les méthodes de connexion appropriées. Permet également de revenir à la
      * page d'accueil en entrant ":q".
      *
-     * @return Aucune valeur de retour.
      */
     public static void connecter() {
 
@@ -34,6 +33,12 @@ public class Connexion {
             }
         }
     }
+
+
+    /**
+     * Affiche le message d'accueil pour la connexion.
+     *
+     */
     public static void msg(){
         System.out.println("\n\n----- Bienvenu a notre page de connexion -----");
         System.out.println("Etes-vous un revendeur ou un acheteur");
@@ -48,7 +53,6 @@ public class Connexion {
      * Gère le processus de connexion pour un revendeur en demandant le nom et le courriel.
      * Crée ensuite un objet ProfilRevendeur pour représenter la session de connexion réussie.
      *
-     * @return Aucune valeur de retour.
      */
     public static void connectRevendeur(){
 
@@ -88,7 +92,6 @@ public class Connexion {
      * Gère le processus de connexion pour un acheteur en demandant le pseudo et le courriel.
      * Crée ensuite un objet ProfilAcheteur pour représenter la session de connexion réussie.
      *
-     * @return Aucune valeur de retour.
      */
     public static void connectAcheteur(){
 

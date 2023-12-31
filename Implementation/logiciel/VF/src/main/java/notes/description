@@ -7,7 +7,7 @@ CreateFileInDirectory                       (but: new file new directory)       
 CSVHandler                                  // tous methods pour csv database
 Database                                    (but: refresh les datas vers un fichier principale)
 DatabasseFile                               (but: condition tous les path des databases generale)   // maybe add more
-Evaluation
+Evaluation                                  (but: voir evaluation)
 FormatAdjust                                (but: ajuster le format pour l utiliser)                // fct auxiliaire
 GenerateurAuto                              (but: uniqueUUID)
 GestionCommandeParRevendeur                 (but: enProduction - enLivraison - Livre)
@@ -18,23 +18,23 @@ GestionSuiveur                              (but: gerer les suivreurs pour achet
 Histoire                                    (but: tous fonctions apres l achat)
 InputRestreint                              (but: faut verifier une bonne input)
 Inscription                                 (but: ajouter dans les databases un nouveau utiliseur ou produit)
-Metrique
+Metrique                                    (but: voir les metriques)
 myscanner                                   (but: lire int,string,double avec avertissement)
 Notification                                (but: permet de voir les notifications dans le compte)
 Operation                                   (but: operation comme liker,suivre)
 OutilSupplementaire                         // class extra
 PanierAchat                                 (but: passer des commandes)
 Points                                      (but: voir la somme des points)
-ProfilAcheteur                              (but: instance d achateur, avec tous les informations)
+ProfilAcheteur                              (but: instance d acheteur, avec tous les informations)
 ProfilProduit                               (but: instance de produit, avec tous les informations)
-ProfilRevendeur
+ProfilRevendeur                             (but: instance de revendeur, avec tous les informations)
 Recherche                                   (but: recherche de base sans connection)
 RechercheAcheteur                           (but: recherche des acheteurs)
 RecherchePublic                             (but: recherche pour utilisateur)
 Reset                                       (but: class supplementaire pour le developpeur, permet dinitialiser l environnement)
 VF                                          (but: main class)
 VisualiserAcheteur                          (but: voir pts,metriques,notifications)
-VisualiserRevendeur
+VisualiserRevendeur                         (but: voir pts,metriques,notifications)
 
 
 

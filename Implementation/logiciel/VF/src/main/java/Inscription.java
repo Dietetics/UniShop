@@ -19,7 +19,6 @@ public class Inscription {
      * Permet à l'utilisateur de s'inscrire en tant qu'acheteur ou revendeur. Affiche un menu interactif où
      * l'utilisateur peut choisir entre les options d'inscription et effectuer les actions correspondantes.
      *
-     * @return Aucune valeur de retour.
      */
     public static void inscription() {
         boolean quitter = false;

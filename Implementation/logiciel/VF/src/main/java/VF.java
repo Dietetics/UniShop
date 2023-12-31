@@ -17,7 +17,6 @@ public class VF {
      * différentes options telles que rechercher un produit, s'inscrire, se connecter, ou quitter l'application.
      * La méthode utilise une boucle interactive pour gérer les choix de l'utilisateur.
      *
-     * @return Aucune valeur de retour.
      */
     public static void displayMenuPrincipale() {
         int choix = 90;
