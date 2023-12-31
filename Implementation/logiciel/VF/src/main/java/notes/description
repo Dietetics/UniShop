@@ -10,11 +10,9 @@ DatabasseFile                               (but: condition tous les path des da
 Evaluation
 FormatAdjust                                (but: ajuster le format pour l utiliser)                // fct auxiliaire
 GenerateurAuto                              (but: uniqueUUID)
-Gestioncommande
-Gestionprobleme
 GestionProduit
 GestionSuiveur                              (but: gerer les suivreurs pour acheteur)
-Histoire
+Histoire                                    (but: tous fonctions apres l achat)
 InputRestreint                              (but: faut verifier une bonne input)
 Inscription                                 (but: ajouter dans les databases un nouveau utiliseur ou produit)
 Metrique
@@ -23,17 +21,16 @@ Notification                                (but: permet de voir les notificatio
 Operation                                   (but: operation comme liker,suivre)
 OutilSupplementaire                         // class extra
 PanierAchat                                 (but: passer des commandes)
-Points
-ProfilAcheteur
+Points                                      (but: voir la somme des points)
+ProfilAcheteur                              (but: instance d achateur, avec tous les informations)
 ProfilProduit                               (but: instance de produit, avec tous les informations)
 ProfilRevendeur
 Recherche                                   (but: recherche de base sans connection)
 RechercheAcheteur                           (but: recherche des acheteurs)
 RecherchePublic                             (but: recherche pour utilisateur)
 Reset                                       (but: class supplementaire pour le developpeur, permet dinitialiser l environnement)
-SignalementProbleme
 VF                                          (but: main class)
-VisualiserAcheteur
+VisualiserAcheteur                          (but: voir pts,metriques,notifications)
 VisualiserRevendeur
 
 
@@ -67,10 +64,10 @@ Calculator                                      (but: faire les calculs, eviter 
 CSV:
 
 main                                            (but: info generale de lachateur)
-retourEchange.csv
+retourEchange.csv                               done
 histoire.csv                                    done
-signaler.csv
-evaluations.csv
+signaler.csv                                    done
+evaluations.csv                                 done
 panier.csv                                      done
 suiviPar.csv                                    done
 suivreAcheteur.csv                              done
@@ -82,17 +79,17 @@ notifications.csv                               (but: notification de tous activ
 
 
 main                                            (but: info generale du produit)
-notes.csv
-evaluations.csv
+notes.csv                                       done
+evaluations.csv                                 done
 likes.csv                                       done
 achats.csv                                      // plutard
 offerPar.csv                                    done
 
 main                                            (but: info generale du revendeur)
-resolution.csv
+resolution.csv                                  ...
 notifications.csv                               (but: notification de tous activites)
 offrir.csv                                      done
-signalProbleme.csv
-retourEchange.csv
+signalProbleme.csv                              done
+retourEchange.csv                               done
 fans.csv                                        done
 likerPar.csv                                    done

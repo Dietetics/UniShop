@@ -10,13 +10,13 @@ public class ProfilAcheteur {
     public ProfilAcheteur(String pseudo) {
 
         this.pseudo = pseudo;
-        this.password = password;
 
         String path = DatabasePath.getPathAcheteurCompte() + pseudo;
 
         // load les datas generales
         String data = CSVHandler.readLineByIndex(path + "/main.csv",1);
 
+        this.password = CSVHandler.getColumnValue(data, 1);
         this.courriel = CSVHandler.getColumnValue(data, 2);
         this.nom = CSVHandler.getColumnValue(data, 3);
         this.prenom = CSVHandler.getColumnValue(data, 4);

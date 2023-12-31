@@ -12,7 +12,6 @@ public class ProfilRevendeur {
 
         this.nom = nom;
 
-
         String path = DatabasePath.getPathRevendeurCompte() + nom;
 
         // load les datas generales
@@ -255,7 +254,7 @@ public class ProfilRevendeur {
         return courriel;
     }
 
-    public void setNbLikerPar(int nbLikes) {
+    public void setNbLikerPar(int nbLikerPar) {
         this.nbLikerPar = nbLikerPar;
     }
 

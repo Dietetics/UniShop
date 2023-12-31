@@ -23,19 +23,36 @@ public class PanierAchat {
         try {
             Boolean condition = true;
             while (condition) {
-                System.out.println("\nMenu du Panier:");
-                System.out.println("--------------------------------");
-                System.out.println("X. Ajouter un produit (a partir de recherche) ");
-                System.out.println("2. Retirer un produit");
-                System.out.println("3. Afficher le panier");
-                System.out.println("4. Recap du panier");
-                System.out.println("5. Passer une commande");
-                System.out.println("6. vider panier");
-                System.out.println("0. quitter");
+                try {
+                    msg();
+                    int choix = myScanner.getIntInput();
 
-                System.out.print("Votre choix : ");
-
-                condition = optionPanier();
+                    switch (choix) {
+                        case 2:
+                            retirer();
+                            break;
+                        case 3:
+                            afficherPanier();
+                            break;
+                        case 4:
+                            recap();
+                            break;
+                        case 5:
+                            confirmePasserCommande();
+                            break;
+                        case 6:
+                            viderPanier(getPathPanier());
+                            break;
+                        case 0:
+                            return;
+                        default:
+                            System.out.println("Choix invalide. Veuillez réessayer.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Erreur : Veuillez entrer un nombre entier.");
+                } catch (Exception e) {
+                    System.out.println("Erreur: " + e.getMessage());
+                }
             }
         } catch (InputMismatchException e) {
             System.out.println("Erreur : Veuillez entrer un nombre entier.");
@@ -44,38 +61,18 @@ public class PanierAchat {
         }
     }
 
-    public static Boolean optionPanier() {
-        try {
+    public static void msg() {
+        System.out.println("\nMenu du Panier:");
+        System.out.println("--------------------------------");
+        System.out.println("X. Ajouter un produit (a partir de recherche) ");
+        System.out.println("2. Retirer un produit");
+        System.out.println("3. Afficher le panier");
+        System.out.println("4. Recap du panier");
+        System.out.println("5. Passer une commande");
+        System.out.println("6. vider panier");
+        System.out.println("0. quitter");
 
-            int choix = myScanner.getIntInput();
-
-            switch (choix) {
-                case 2:
-                    retirer();
-                    break;
-                case 3:
-                    afficherPanier();
-                    break;
-                case 4:
-                    recap();
-                    break;
-                case 5:
-                    confirmePasserCommande();
-                    break;
-                case 6:
-                    viderPanier(getPathPanier());
-                    break;
-                case 0:
-                    return false;
-                default:
-                    System.out.println("Choix invalide. Veuillez réessayer.");
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("Erreur : Veuillez entrer un nombre entier.");
-        } catch (Exception e) {
-            System.out.println("Erreur: " + e.getMessage());
-        }
-        return true;
+        System.out.print("Votre choix : ");
     }
 
 
@@ -122,13 +119,13 @@ public class PanierAchat {
     public static void confirmePasserCommande(){
         recap();
         System.out.print("\nConfirmez-vous la commande ? (1 pour confirmer, tout autre pour annuler) : ");
-        String choix = myScanner.getStringInput();
+        int choix = myScanner.getIntInput();
 
         switch (choix) {
-            case "1":
+            case 1:
                 String msg = "Veuillez entrer les informations de votre carte de crédit(un cvv est de longueur de trois)";
                 InputRestreint.getValidCredit(msg);
-                confirmePasserCommande();
+                passerCommande();
                 break;
             default:
                 System.out.println("Commande annulée.");

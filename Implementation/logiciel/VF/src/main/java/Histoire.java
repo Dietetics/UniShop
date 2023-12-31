@@ -40,7 +40,6 @@ public class Histoire {
 
     public static Boolean optionHistoire() {
         try {
-
             int choix = myScanner.getIntInput();
 
             switch (choix) {
@@ -81,6 +80,8 @@ public class Histoire {
         CSVHandler.printCSV(CSVHandler.readCSV(getPathHistoire(),9999));
         System.out.println("----------------------------------------------");
     }
+
+
 
 
     public static void confirmerReception(){
@@ -136,6 +137,7 @@ public class Histoire {
                         // Écrire les modifications dans le fichier
                         CSVHandler.writeLinesToCSV(filePath, lines);
                         System.out.println("L'etat du produit est maintenant livre.");
+                        Notification.notificationActionChangerEtat(getAcheteur(),nomProduit);
                         return; // Arrêter la boucle après la modification
                     }
                 }
@@ -147,6 +149,9 @@ public class Histoire {
             System.out.println("Une erreur s'est produite : " + e.getMessage());
         }
     }
+
+
+
 
 
 
@@ -168,12 +173,13 @@ public class Histoire {
                     String msg = myScanner.getStringInput();
 
                     String pathRevendeurSignaler = DatabasePath.getPathRevendeurCompte() + revendeur + "/signalProbleme.csv";
-                    String pathRevendeurNotification = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
                     String pathAcheteurSignaler = DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/signaler.csv";
 
+
+                    Notification.notificationActionSignalerProbleme(getAcheteur(),revendeur);
                     // Ajoutez le message dans les fichiers CSV correspondants
                     CSVHandler.appendCSV(pathRevendeurSignaler, getAcheteur()+ ": " + msg);
-                    CSVHandler.appendCSV(pathRevendeurNotification, getAcheteur()+ " vous a envoyer un signalement de probleme" );
+
                     CSVHandler.appendCSV(pathAcheteurSignaler, msg);
 
 
@@ -190,6 +196,9 @@ public class Histoire {
             }
         }
     }
+
+
+
 
     public static void retourEchangeProduit(){
         Boolean condition = true;
@@ -208,12 +217,11 @@ public class Histoire {
                     String msg = myScanner.getStringInput();
 
                     String pathRevendeurRetourEchange = DatabasePath.getPathRevendeurCompte() + revendeur + "/retourEchange.csv";
-                    String pathRevendeurNotification = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
                     String pathAcheteurRetourEchange = DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/retourEchange.csv";
 
+                    Notification.notificationActionRetourEchange(getAcheteur(),revendeur);
                     // Ajoutez le message dans les fichiers CSV correspondants
                     CSVHandler.appendCSV(pathRevendeurRetourEchange, getAcheteur()+ ": " + msg);
-                    CSVHandler.appendCSV(pathRevendeurNotification, getAcheteur()+ " vous a envoyer une demande de change ou retour" );
                     CSVHandler.appendCSV(pathAcheteurRetourEchange, msg);
 
 
@@ -244,7 +252,7 @@ public class Histoire {
                 String produit = myScanner.getStringInput();
 
                 if (produit.equals(":q")) return;
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousProduits(), produit, 0);
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathAcheteurCompte()+getAcheteur()+"/histoire.csv", produit, 0);
 
                 if (index != -1) {
 
@@ -272,6 +280,8 @@ public class Histoire {
                     String pathProduitEval = DatabasePath.getPathProduitCompte() + produit + "/evaluations.csv";
 
                     String pathAcheteurEval = DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/evaluations.csv";
+                    Notification.notificationActionNoteEval(getAcheteur(),produit);
+
 
                     // Ajoutez le message dans les fichiers CSV correspondants
                     CSVHandler.appendCSV(pathProduitNote, "Par acheteur: " + getAcheteur()+ ". Note: " + note);
@@ -283,7 +293,7 @@ public class Histoire {
                     System.out.println("Votre message est bien envoyer, le revendeur recevra sous peu, puis evaluer votre situation, s'il accepte votre parole" +
                             " il vous contactera");
                 } else {
-                    System.out.println("Revendeur non trouvé dans la base de données.");
+                    System.out.println("Vous n'avez pas acheter ce produit, donc vous n'avez pas acces a evaluation/note. Ou le produit n'existe just pas");
                 }
 
                 // Sortez de la boucle après avoir effectué la tâche avec succès

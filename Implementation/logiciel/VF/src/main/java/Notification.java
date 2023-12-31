@@ -65,4 +65,39 @@ public class Notification {
     }
 
 
+    public static void notificationActionChangerEtat(String pseudo,String produit){
+        String pathPseudo = DatabasePath.getPathAcheteurCompte() + pseudo + "/notifications.csv";
+        String msgPseudo = "vous avez bien changer letat du produit: " + produit;
+        CSVHandler.appendCSV(pathPseudo, msgPseudo);
+    }
+
+    public static void notificationActionSignalerProbleme(String pseudo,String revendeur){
+        String pathPseudo = DatabasePath.getPathAcheteurCompte() + pseudo + "/notifications.csv";
+        String pathRevendeur = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
+        String msgPseudo = "vous avez bien envoyer un signalement de probleme a: " + revendeur;
+        String msgRevendeur = "vous avez recu un signalement de probleme par: " + pseudo;
+        CSVHandler.appendCSV(pathPseudo, msgPseudo);
+        CSVHandler.appendCSV(pathRevendeur, msgRevendeur);
+    }
+
+
+    public static void notificationActionRetourEchange(String pseudo,String revendeur){
+        String pathPseudo = DatabasePath.getPathAcheteurCompte() + pseudo + "/notifications.csv";
+        String pathRevendeur = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
+        String msgPseudo = "vous avez bien envoyer une demande de change ou retour a: " + revendeur;
+        String msgRevendeur = "vous avez recu une demande de change ou retour par: " + pseudo;
+        CSVHandler.appendCSV(pathPseudo, msgPseudo);
+        CSVHandler.appendCSV(pathRevendeur, msgRevendeur);
+    }
+
+
+    public static void notificationActionNoteEval(String pseudo,String produit){
+        String pathPseudo = DatabasePath.getPathAcheteurCompte() + pseudo + "/notifications.csv";
+        String msgPseudo = "Votre note et evaluation sont bien enregistrer par le produit: " + produit;
+        CSVHandler.appendCSV(pathPseudo, msgPseudo);
+    }
+
+
+
+
 }
