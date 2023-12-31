@@ -10,7 +10,7 @@ public class GestionProduit {
     public static void display(String revendeur){
 
 
-        String pathOffrir = DatabasePath.getRevendeurComptePath() + revendeur + "/offrir.csv";
+        String pathOffrir = DatabasePath.getPathRevendeurCompte() + revendeur + "/offrir.csv";
         displayOfferMsg(pathOffrir,revendeur);
 
         Boolean boucle = true;
@@ -140,13 +140,13 @@ public class GestionProduit {
             produitDetail.setImage(image);
 
             // Mettre à jour le fichier CSV
-            String path = DatabasePath.getProduitInfoPath() + produitDetail.getTitre() + "/main.csv";
+            String path = DatabasePath.getPathProduitCompte() + produitDetail.getTitre() + "/main.csv";
             String temp = CSVHandler.readLineByIndex(path, 1);
             String temp1 = CSVHandler.updateCSVColumn(temp, 6, image);
             CSVHandler.coverCSV(path, temp1);
 
             // Notification automatique
-            String pathAuteurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
+            String pathAuteurNotification = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
             notificationSystemAuto(pathAuteurNotification, produitDetail.getTitre(), "Vous avez bien ajouter une nouvelle image a: ");
 
 
@@ -183,13 +183,13 @@ public class GestionProduit {
                 produitDetail.setImage(updatedImageList.toString());
 
                 // Mettre à jour le fichier CSV
-                String path = DatabasePath.getProduitInfoPath() + produitDetail.getTitre() + "/main.csv";
+                String path = DatabasePath.getPathProduitCompte() + produitDetail.getTitre() + "/main.csv";
                 String temp = CSVHandler.readLineByIndex(path, 1);
                 String temp1 = CSVHandler.updateCSVColumn(temp, 6, updatedImageList.toString());
                 CSVHandler.coverCSV(path, temp1);
 
                 // Notification automatique
-                String pathAuteurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
+                String pathAuteurNotification = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
                 notificationSystemAuto(pathAuteurNotification, produitDetail.getTitre(),"Vous avez bien retirer une image du produit: ");
             } else {
                 System.out.println("Index d'image invalide.");
@@ -214,13 +214,13 @@ public class GestionProduit {
             produitDetail.setVideo(video);
 
             // Mettre à jour le fichier CSV
-            String path = DatabasePath.getProduitInfoPath() + produitDetail.getTitre() + "/main.csv";
+            String path = DatabasePath.getPathProduitCompte() + produitDetail.getTitre() + "/main.csv";
             String temp = CSVHandler.readLineByIndex(path, 1);
             String temp1 = CSVHandler.updateCSVColumn(temp, 7, video);
             CSVHandler.coverCSV(path, temp1);
 
             // Notification automatique
-            String pathAuteurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
+            String pathAuteurNotification = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
             notificationSystemAuto(pathAuteurNotification, produitDetail.getTitre(),"Vous avez bien ajouter une nouvelle video pour: ");
 
 
@@ -257,13 +257,13 @@ public class GestionProduit {
                 produitDetail.setVideo(updatedVideoList.toString());
 
                 // Mettre à jour le fichier CSV
-                String path = DatabasePath.getProduitInfoPath() + produitDetail.getTitre() + "/main.csv";
+                String path = DatabasePath.getPathProduitCompte() + produitDetail.getTitre() + "/main.csv";
                 String temp = CSVHandler.readLineByIndex(path, 1);
                 String temp1 = CSVHandler.updateCSVColumn(temp, 6, updatedVideoList.toString());
                 CSVHandler.coverCSV(path, temp1);
 
                 // Notification automatique
-                String pathAuteurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
+                String pathAuteurNotification = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
                 notificationSystemAuto(pathAuteurNotification, produitDetail.getTitre(), "Vous avez bien retirer le video du produit: ");
             } else {
                 System.out.println("Index de video invalide.");
@@ -285,7 +285,7 @@ public class GestionProduit {
 
     public static void supprimerProduits(String revendeur){
 
-        String path = DatabasePath.getRevendeurComptePath() + revendeur + "/offrir.csv";
+        String path = DatabasePath.getPathRevendeurCompte() + revendeur + "/offrir.csv";
         System.out.println("\n\nVoici la liste des produits offer par vous");
         System.out.println("-----------------------------------");
         afficherProduitsOffer(path);
@@ -304,7 +304,7 @@ public class GestionProduit {
                     boucle = false;
                     break;
                 case "1":
-                    String pathProduit = DatabasePath.getProduitInfoPath() + nomProduit;
+                    String pathProduit = DatabasePath.getPathProduitCompte() + nomProduit;
 
                     retireProduitOffer(path,nomProduit);
 
@@ -313,7 +313,7 @@ public class GestionProduit {
                     // Appeler la méthode pour supprimer le dossier
                     supprimerDossier(dossierASupprimer);
 
-                    String pathAuteurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
+                    String pathAuteurNotification = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
                     notificationSystemAuto(pathAuteurNotification, nomProduit, "Vous avez bien retirer le produit suivant: ");
 
                     Database.refreshProduits();

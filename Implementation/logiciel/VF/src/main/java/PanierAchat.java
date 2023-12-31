@@ -12,10 +12,10 @@ public class PanierAchat {
     public PanierAchat(String acheteur) {
 
         this.acheteur = acheteur;
-        this.pathPanier = DatabasePath.getAcheteurComptePath() + acheteur + "/panier.csv";
-        this.pathPts = DatabasePath.getAcheteurComptePath() + acheteur + "/points.csv";
-        this.pathNotifications = DatabasePath.getAcheteurComptePath() + acheteur + "/notifications.csv";
-        this.pathHistoire = DatabasePath.getAcheteurComptePath() + acheteur + "/histoire.csv";
+        this.pathPanier = DatabasePath.getPathAcheteurCompte() + acheteur + "/panier.csv";
+        this.pathPts = DatabasePath.getPathAcheteurCompte() + acheteur + "/points.csv";
+        this.pathNotifications = DatabasePath.getPathAcheteurCompte() + acheteur + "/notifications.csv";
+        this.pathHistoire = DatabasePath.getPathAcheteurCompte() + acheteur + "/histoire.csv";
     }
 
     public static void menu() {
@@ -23,20 +23,36 @@ public class PanierAchat {
         try {
             Boolean condition = true;
             while (condition) {
-                System.out.println("\nMenu du Panier:");
-                System.out.println("--------------------------------");
-                System.out.println("X. Ajouter un produit a partir de recherche ");
-                System.out.println("2. Retirer un produit");
-                System.out.println("3. Afficher le panier");
-                System.out.println("4. Recap du panier");
-                System.out.println("5. Passer une commande");
-                System.out.println("6. vider panier");
-                System.out.println("0. quitter");
+                try {
+                    msg();
+                    int choix = myScanner.getIntInput();
 
-                System.out.print("Votre choix : ");
-
-                condition = optionPanier();
-
+                    switch (choix) {
+                        case 2:
+                            retirer();
+                            break;
+                        case 3:
+                            afficherPanier();
+                            break;
+                        case 4:
+                            recap();
+                            break;
+                        case 5:
+                            confirmePasserCommande();
+                            break;
+                        case 6:
+                            viderPanier(getPathPanier());
+                            break;
+                        case 0:
+                            return;
+                        default:
+                            System.out.println("Choix invalide. Veuillez réessayer.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Erreur : Veuillez entrer un nombre entier.");
+                } catch (Exception e) {
+                    System.out.println("Erreur: " + e.getMessage());
+                }
             }
         } catch (InputMismatchException e) {
             System.out.println("Erreur : Veuillez entrer un nombre entier.");
@@ -45,38 +61,18 @@ public class PanierAchat {
         }
     }
 
-    public static Boolean optionPanier() {
-        try {
+    public static void msg() {
+        System.out.println("\nMenu du Panier:");
+        System.out.println("--------------------------------");
+        System.out.println("X. Ajouter un produit (a partir de recherche) ");
+        System.out.println("2. Retirer un produit");
+        System.out.println("3. Afficher le panier");
+        System.out.println("4. Recap du panier");
+        System.out.println("5. Passer une commande");
+        System.out.println("6. vider panier");
+        System.out.println("0. quitter");
 
-            int choix = myScanner.getIntInput();
-
-            switch (choix) {
-                case 2:
-                    retirer();
-                    break;
-                case 3:
-                    afficherPanier();
-                    break;
-                case 4:
-                    recap();
-                    break;
-                case 5:
-                    passerCommande();
-                    break;
-                case 6:
-                    viderPanier();
-                    break;
-                case 0:
-                    return false;
-                default:
-                    System.out.println("Choix invalide. Veuillez réessayer.");
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("Erreur : Veuillez entrer un nombre entier.");
-        } catch (Exception e) {
-            System.out.println("Erreur: " + e.getMessage());
-        }
-        return true;
+        System.out.print("Votre choix : ");
     }
 
 
@@ -100,7 +96,7 @@ public class PanierAchat {
             System.out.println("Une erreur s'est produite : " + e.getMessage());
         }
     }
-    private static void afficherPanier() {
+    public static void afficherPanier() {
         System.out.println("\nVoici les produits dans votre panier d'achat");
         System.out.println("----------------------------------------------");
         CSVHandler.printCSV(CSVHandler.readCSV(getPathPanier(),9999));
@@ -109,7 +105,7 @@ public class PanierAchat {
 
 
 
-    private static void recap(){
+    public static void recap(){
         System.out.println("\n\n\nVu Black friday, grand liquidation!!! tous les produits sont a 5$ et chaques produits donnent 2points!!!");
         afficherPanier();
         int nbArticles = CSVHandler.countLines(getPathPanier());
@@ -120,25 +116,16 @@ public class PanierAchat {
         System.out.println("Apres nos calculs, le nombre de points total est "+pts);
     }
 
-    private static void passerCommande(){
+    public static void confirmePasserCommande(){
         recap();
         System.out.print("\nConfirmez-vous la commande ? (1 pour confirmer, tout autre pour annuler) : ");
-        String choix = myScanner.getStringInput();
+        int choix = myScanner.getIntInput();
 
         switch (choix) {
-            case "1":
+            case 1:
                 String msg = "Veuillez entrer les informations de votre carte de crédit(un cvv est de longueur de trois)";
                 InputRestreint.getValidCredit(msg);
-
-                System.out.println("Commande confirmee ! Merci pour votre achat.");
-
-                String pts = String.valueOf(getPts());
-                CSVHandler.transfereCSVEnproduction(getPathPanier(),getPathHistoire());
-
-                CSVHandler.appendCSV(getPathPts(),pts);
-                CSVHandler.appendCSV(getPathNotifications(),"Merci davoir magasiner chez UniShop");
-                viderPanier();
-
+                passerCommande();
                 break;
             default:
                 System.out.println("Commande annulée.");
@@ -147,8 +134,37 @@ public class PanierAchat {
     }
 
 
-    private static void viderPanier(){
-        CSVHandler.clearCSV(getPathPanier());
+    public static void passerCommande(){
+        System.out.println("Commande confirmee ! Merci pour votre achat.");
+
+        String pts = String.valueOf(getPts());
+
+
+        List<String[]> dataList = CSVHandler.readCSV(getPathPanier(),9999);
+
+        for (String[] row : dataList) {
+            for (String value : row) {
+                ProfilProduit produit = new ProfilProduit(value);
+                String revendeur = produit.getOfferParUnitaire();
+                String temp = getAcheteur()+","+value+",enProduction";
+                String pathAchat = DatabasePath.getPathRevendeurCompte() + revendeur + "/achats.csv";
+                String pathNotifications = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
+                CSVHandler.appendCSV(pathAchat,temp);
+                CSVHandler.appendCSV(pathNotifications,"Un unite de votre produit offer est vendu!");
+            }
+        }
+
+
+        CSVHandler.transfereCSVEnproduction(getPathPanier(),getPathHistoire());
+
+        CSVHandler.appendCSV(getPathPts(),pts);
+        CSVHandler.appendCSV(getPathNotifications(),"Merci davoir magasiner chez UniShop");
+        viderPanier(getPathPanier());
+    }
+
+
+    public static void viderPanier(String path){
+        CSVHandler.clearCSV(path);
         System.out.println("Le panier a ete vide avec succes.");
     }
 

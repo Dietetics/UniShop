@@ -8,7 +8,7 @@ public class Histoire {
     private static String acheteur;
 
     public Histoire(String acheteur) {
-        this.pathHistoire = DatabasePath.getAcheteurComptePath() + acheteur + "/histoire.csv";
+        this.pathHistoire = DatabasePath.getPathAcheteurCompte() + acheteur + "/histoire.csv";
         this.acheteur = acheteur;
     }
 
@@ -40,7 +40,6 @@ public class Histoire {
 
     public static Boolean optionHistoire() {
         try {
-
             int choix = myScanner.getIntInput();
 
             switch (choix) {
@@ -81,6 +80,8 @@ public class Histoire {
         CSVHandler.printCSV(CSVHandler.readCSV(getPathHistoire(),9999));
         System.out.println("----------------------------------------------");
     }
+
+
 
 
     public static void confirmerReception(){
@@ -136,6 +137,7 @@ public class Histoire {
                         // Écrire les modifications dans le fichier
                         CSVHandler.writeLinesToCSV(filePath, lines);
                         System.out.println("L'etat du produit est maintenant livre.");
+                        Notification.notificationActionChangerEtat(getAcheteur(),nomProduit);
                         return; // Arrêter la boucle après la modification
                     }
                 }
@@ -151,6 +153,9 @@ public class Histoire {
 
 
 
+
+
+
     public static void signalerProbleme() {
         Boolean condition = true;
 
@@ -161,19 +166,20 @@ public class Histoire {
                 String revendeur = myScanner.getStringInput();
 
                 if (revendeur.equals(":q")) return;
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(), revendeur, 0);
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousRevendeurs(), revendeur, 0);
 
                 if (index != -1) {
                     System.out.println("Veuillez entrer un message pour signaler le problème");
                     String msg = myScanner.getStringInput();
 
-                    String pathRevendeurSignaler = DatabasePath.getRevendeurComptePath() + revendeur + "/signalProbleme.csv";
-                    String pathRevendeurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
-                    String pathAcheteurSignaler = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/signaler.csv";
+                    String pathRevendeurSignaler = DatabasePath.getPathRevendeurCompte() + revendeur + "/signalProbleme.csv";
+                    String pathAcheteurSignaler = DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/signaler.csv";
 
+
+                    Notification.notificationActionSignalerProbleme(getAcheteur(),revendeur);
                     // Ajoutez le message dans les fichiers CSV correspondants
                     CSVHandler.appendCSV(pathRevendeurSignaler, getAcheteur()+ ": " + msg);
-                    CSVHandler.appendCSV(pathRevendeurNotification, getAcheteur()+ " vous a envoyer un signalement de probleme" );
+
                     CSVHandler.appendCSV(pathAcheteurSignaler, msg);
 
 
@@ -191,6 +197,9 @@ public class Histoire {
         }
     }
 
+
+
+
     public static void retourEchangeProduit(){
         Boolean condition = true;
 
@@ -201,19 +210,18 @@ public class Histoire {
                 String revendeur = myScanner.getStringInput();
 
                 if (revendeur.equals(":q")) return;
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(), revendeur, 0);
+                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousRevendeurs(), revendeur, 0);
 
                 if (index != -1) {
                     System.out.println("Veuillez entrer la raison pour un retour ou une echange");
                     String msg = myScanner.getStringInput();
 
-                    String pathRevendeurRetourEchange = DatabasePath.getRevendeurComptePath() + revendeur + "/retourEchange.csv";
-                    String pathRevendeurNotification = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
-                    String pathAcheteurRetourEchange = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/retourEchange.csv";
+                    String pathRevendeurRetourEchange = DatabasePath.getPathRevendeurCompte() + revendeur + "/retourEchange.csv";
+                    String pathAcheteurRetourEchange = DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/retourEchange.csv";
 
+                    Notification.notificationActionRetourEchange(getAcheteur(),revendeur);
                     // Ajoutez le message dans les fichiers CSV correspondants
                     CSVHandler.appendCSV(pathRevendeurRetourEchange, getAcheteur()+ ": " + msg);
-                    CSVHandler.appendCSV(pathRevendeurNotification, getAcheteur()+ " vous a envoyer une demande de change ou retour" );
                     CSVHandler.appendCSV(pathAcheteurRetourEchange, msg);
 
 
@@ -234,68 +242,87 @@ public class Histoire {
 
 
 
-    public static void noteEvaluation(){
-        Boolean condition = true;
-
-        while (condition) {
-            try {
-                System.out.println("\nVeuillez entrer le nom du produit pour donner une note et evaluation");
-                System.out.println("---------------------------------------------------------------");
-                String produit = myScanner.getStringInput();
-
-                if (produit.equals(":q")) return;
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getProduitPath(), produit, 0);
-
-                if (index != -1) {
-
-                    int note;
-                    do {
-                        try {
-                            System.out.print("Veuillez entrer une note (entre 0 et 100) : ");
-                            note = myScanner.getIntInput();
-
-                            if (note < 0 || note > 100) {
-                                throw new IllegalArgumentException("La note doit être comprise entre 0 et 100.");
-                            }
-                            break;
-                        } catch (InputMismatchException e) {
-                            System.out.println("Erreur : Veuillez entrer un nombre entier.");
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Erreur : " + e.getMessage());
-                        }
-                    } while (true);
-
-                    System.out.print("Veuillez entrer une evaluation: ");
-                    String eval = myScanner.getStringInput();
-
-                    String pathProduitNote = DatabasePath.getProduitInfoPath() + produit + "/note.csv";
-                    String pathProduitEval = DatabasePath.getProduitInfoPath() + produit + "/evaluation.csv";
-
-                    String pathAcheteurEval = DatabasePath.getAcheteurComptePath() + getAcheteur() + "/evaluation.csv";
-
-                    // Ajoutez le message dans les fichiers CSV correspondants
-                    CSVHandler.appendCSV(pathProduitNote, "Par acheteur: " + getAcheteur()+ ". Note: " + note);
-                    CSVHandler.appendCSV(pathProduitEval, "Par acheteur: " + getAcheteur()+ ". Eval: " + eval );
-                    CSVHandler.appendCSV(pathAcheteurEval, produit + " a note: " + note + " evaluation: " + eval);
 
 
-                    condition = false;
-                    System.out.println("Votre message est bien envoyer, le revendeur recevra sous peu, puis evaluer votre situation, s'il accepte votre parole" +
-                            " il vous contactera");
-                } else {
-                    System.out.println("Revendeur non trouvé dans la base de données.");
-                }
 
-                // Sortez de la boucle après avoir effectué la tâche avec succès
-            } catch (Exception e) {
-                // Gérez les exceptions ici (par exemple, IOException, InputMismatchException)
-                System.out.println("Une erreur s'est produite : " + e.getMessage());
+
+    public static void noteEvaluation() {
+        try {
+            System.out.println("\nVeuillez entrer le nom du produit pour donner une note et évaluation");
+            System.out.println("---------------------------------------------------------------");
+            String produit = getProduitForEvaluation();
+
+            if (produit.equals(":q")) return;
+
+            int index = CSVHandler.findOccurrenceIndex(
+                    DatabasePath.getPathAcheteurCompte() + getAcheteur() + "/histoire.csv", produit, 0);
+
+            if (index != -1) {
+                int note = getValidatedNote();
+                String eval = getEvaluation();
+                evaluateProduct(produit,note,eval,getAcheteur());
+            } else {
+                System.out.println("Vous n'avez pas acheté ce produit, donc vous n'avez pas accès à l'évaluation/note. " +
+                        "Ou le produit n'existe tout simplement pas");
             }
+        } catch (Exception e) {
+            handleException(e);
         }
     }
 
+    public static String getProduitForEvaluation() {
+        return myScanner.getStringInput();
+    }
 
+    public static void evaluateProduct(String produit,int note,String eval,String acheteur) {
 
+        String pathProduitNote = DatabasePath.getPathProduitCompte() + produit + "/notes.csv";
+        String pathProduitEval = DatabasePath.getPathProduitCompte() + produit + "/evaluations.csv";
+
+        String pathAcheteurEval = DatabasePath.getPathAcheteurCompte() + acheteur + "/evaluations.csv";
+        Notification.notificationActionNoteEval(acheteur, produit);
+
+        // Ajoutez le message dans les fichiers CSV correspondants
+        CSVHandler.appendCSV(pathProduitNote, "Par acheteur: " + acheteur + ". Note: " + note);
+        CSVHandler.appendCSV(pathProduitEval, "Par acheteur: " + acheteur + ". Eval: " + eval);
+        CSVHandler.appendCSV(pathAcheteurEval, "Pour le produit: " +produit + ". Vous avez donne note: " + note + "; evaluation: " + eval);
+
+        System.out.println("Votre message est bien envoyé. Le revendeur le recevra sous peu, puis évaluera votre situation. " +
+                "S'il accepte votre parole, il vous contactera.");
+    }
+
+    public static int getValidatedNote() {
+        Scanner scanner = new Scanner(System.in);
+        int note;
+        do {
+            try {
+                System.out.print("Veuillez entrer une note (entre 0 et 100) : ");
+                note = scanner.nextInt();
+
+                if (note < 0 || note > 100) {
+                    throw new IllegalArgumentException("La note doit être comprise entre 0 et 100.");
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Erreur : Veuillez entrer un nombre entier.");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erreur : " + e.getMessage());
+            }
+        } while (true);
+        scanner.nextLine();
+        return note;
+    }
+
+    public static String getEvaluation() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Veuillez entrer une évaluation : ");
+        String eval = scanner.nextLine();
+        return eval;
+    }
+
+    public static void handleException(Exception e) {
+        System.out.println("Une erreur s'est produite : " + e.getMessage());
+    }
 
 
 

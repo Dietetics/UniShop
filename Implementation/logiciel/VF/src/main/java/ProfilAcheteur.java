@@ -1,31 +1,53 @@
 import java.util.*;
 
 public class ProfilAcheteur {
-    private static String pseudo, password, courriel, nom, prenom, telephone, adresse, nbLikes;
-    public ProfilAcheteur(String pseudo, String password) {
+    private static String pseudo, password, courriel, nom, prenom, telephone, adresse;
+    private static int nbLikesDonnnees;
+    private static List<String> evaluations, histoire, likerProduit, likerRevendeur, notifications, panier, retourEchange,
+            signaler, suiviPar, suivreAcheteur, suivreRevendeur;
+
+
+    public ProfilAcheteur(String pseudo) {
 
         this.pseudo = pseudo;
-        this.password = password;
 
-        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getAcheteurPath(),getPseudo(),0);
-        String data = CSVHandler.readLineByIndex(DatabasePath.getAcheteurPath(),lineIndex);
+        String path = DatabasePath.getPathAcheteurCompte() + pseudo;
 
-        String courriel = CSVHandler.getColumnValue(data, 2);
-        String nom = CSVHandler.getColumnValue(data, 3);
-        String prenom = CSVHandler.getColumnValue(data, 4);
-        String telephone = CSVHandler.getColumnValue(data, 5);
-        String adresse = CSVHandler.getColumnValue(data, 6);
-        String nbLikes = CSVHandler.getColumnValue(data, 7);
+        // load les datas generales
+        String data = CSVHandler.readLineByIndex(path + "/main.csv",1);
 
-        this.nom = nom;
-        this.prenom = prenom;
-        this.courriel = courriel;
-        this.telephone = telephone;
-        this.adresse = adresse;
-        this.nbLikes = nbLikes;
+        this.password = CSVHandler.getColumnValue(data, 1);
+        this.courriel = CSVHandler.getColumnValue(data, 2);
+        this.nom = CSVHandler.getColumnValue(data, 3);
+        this.prenom = CSVHandler.getColumnValue(data, 4);
+        this.telephone = CSVHandler.getColumnValue(data, 5);
+        this.adresse = CSVHandler.getColumnValue(data, 6);
 
-        displayMenuAcheteur();
+
+        // load les datas intermediaires
+        this.evaluations = load(path, "/evaluations.csv");
+        this.histoire = load(path, "/histoire.csv");
+        this.likerProduit = load(path, "/likerProduit.csv");
+        this.likerRevendeur = load(path, "/likerRevendeur.csv");
+        this.notifications = load(path, "/notifications.csv");
+        this.panier = load(path, "/panier.csv");
+        this.retourEchange = load(path, "/retourEchange.csv");
+        this.signaler = load(path, "/signaler.csv");
+        this.suiviPar = load(path, "/suiviPar.csv");
+        this.suivreAcheteur = load(path, "/suivreAcheteur.csv");
+        this.suivreRevendeur = load(path, "/suivreRevendeur.csv");
+
+        this.nbLikesDonnnees = Calculator.calculNb(likerProduit);
+
+        saveChanges();
     }
+
+
+    // csv data enregistrer dans une list de string
+    public static List<String> load(String path, String suffixe){
+        return CSVHandler.readLinesFromCSV(path + suffixe);
+    }
+
 
 
     /**
@@ -47,7 +69,7 @@ public class ProfilAcheteur {
                         break;
                     case 1: modifie_profil(); break;
                     case 2: new RechercheAcheteur(getPseudo()); break;
-                    case 3: gererSuiveurs(); break;
+                    case 3: GestionSuiveur.gererSuiveurs(getPseudo()); break;
                     case 4:
                         PanierAchat panier = new PanierAchat(getPseudo());
                         panier.menu();
@@ -68,7 +90,7 @@ public class ProfilAcheteur {
             }
         }
     }
-    private void menuMsg() {
+    public void menuMsg() {
         System.out.println("\n");
         System.out.println("Bonsoir cher Acheteur:" + getPseudo() + "              " + getCourriel() );
         System.out.println("----------------------------------------------------------" );
@@ -81,71 +103,6 @@ public class ProfilAcheteur {
         System.out.println("6. Voir ses informations");
         System.out.print("\n");
     }
-
-
-    public void gererSuiveurs(){
-        String pathSuiveurs = DatabasePath.getAcheteurComptePath() + getPseudo() + "/suiviPar.csv";
-
-        System.out.println("\n\nVoici la liste de vos suiveurs");
-        System.out.println("-----------------------------------");
-        trouverSuiveurs(pathSuiveurs);
-        Boolean boucle = true;
-
-        while (boucle == true) {
-            System.out.print("\nmentionner le nom du suiveur pour le retirer de la liste ou :q pour quitter: ");
-            String scanned = myScanner.getStringInput();
-            String nomSuiveur = scanned;
-
-            Boolean existe = CSVHandler.isExiste(pathSuiveurs,scanned);
-            if (existe == true){ scanned = "1";}
-
-                switch (scanned) {
-                    case ":q":
-                        boucle = false;
-                        break;
-                    case "1":
-                        String pathCibleSuivi = DatabasePath.getAcheteurComptePath() + nomSuiveur + "/suivreAcheteur.csv";
-                        String pathCibleNotification = DatabasePath.getAcheteurComptePath() + nomSuiveur + "/notification.csv";
-                        String pathAuteurNotification = DatabasePath.getAcheteurComptePath() + getPseudo() + "/notification.csv";
-
-                        retireSuiveur(pathSuiveurs,nomSuiveur);
-                        retireSuivi(pathCibleSuivi,getPseudo());
-                        notificationSystemAuto(pathAuteurNotification, nomSuiveur);
-                        notificationAuSuiveur(pathCibleNotification);
-                        break;
-                    default:
-                        System.out.println("Commande inconnue. Veuillez reessayer de nouveau");
-                        break;
-                }
-            }
-    }
-
-    public void trouverSuiveurs(String path){
-        CSVHandler.printCSV(CSVHandler.readCSV(path,9999));
-    }
-
-    public void retireSuiveur(String path,String nomSuiveur){
-        int index = CSVHandler.findOccurrenceIndex(path,nomSuiveur,0);
-        index--;
-        CSVHandler.removeLineFromCSV(path,index);
-    }
-
-    public void retireSuivi(String path, String auteur){
-        int index = CSVHandler.findOccurrenceIndex(path,auteur,0);
-        index--;
-        CSVHandler.removeLineFromCSV(path,index);
-    }
-
-    public void notificationAuSuiveur(String path){
-        String msg = "vous etes retirer de la liste de suiveurs par " + getPseudo();
-        CSVHandler.appendCSV(path,msg);
-    }
-    public void notificationSystemAuto(String path, String cible){
-        String msg = "vous avez bien retirer de la liste de suiveur: " + cible;
-        CSVHandler.appendCSV(path,msg);
-    }
-
-
 
 
 
@@ -195,6 +152,7 @@ public class ProfilAcheteur {
                         break;
                     case ":e":
                         saveChanges();
+                        System.out.println("les donnees sont bien enregistrer \n\n");
                         break;
                     default:
                         System.out.println("Choix invalide. Veuillez reessayer.");
@@ -204,7 +162,6 @@ public class ProfilAcheteur {
             }
         }
     }
-
 
     private void displayProfile() {
         System.out.println("\n\nCher acheteur: " + getPseudo() + ", Voici votre profil");
@@ -218,13 +175,36 @@ public class ProfilAcheteur {
     }
 
     private void saveChanges() {
-        List<String> newCSVLine = Arrays.asList(pseudo, getPassword(), courriel, getNom(), getPrenom(), getTelephone(), getAdresse(), nbLikes);
+        List<String> newCSVLine = Arrays.asList(pseudo,getPassword(),courriel,getNom(),getPrenom(),getTelephone(),getAdresse(),String.valueOf(nbLikesDonnnees));
 
-        String directoryPath = DatabasePath.getAcheteurComptePath() + pseudo + "/main.csv";
-        CSVHandler.coverCSV(directoryPath, FormatAdjust.transformList(newCSVLine));
+        String directoryPath = DatabasePath.getPathAcheteurCompte() + pseudo + "/main.csv";
+
+        String temp = OutilSupplementaire.removeSpacesBetweenCommas(FormatAdjust.transformVersString(newCSVLine));
+        CSVHandler.coverCSV(directoryPath,temp);
 
         Database.refreshAcheteurs();
-        System.out.println("les donnees sont bien enregistrer \n\n");
+    }
+
+
+    public void displayInfoAuPublic() {
+        System.out.println("\n\nVoici les infos de l'acheteur: " + getPseudo());
+        System.out.println("-----------------------------------------------------");
+        System.out.println("nom: " + getNom());
+        System.out.println("prenom: " + getPrenom());
+        System.out.println("-----------------------------------------------------");
+
+        System.out.println("\nListes de produits like: ");
+        System.out.println(getLikerProduit());
+        System.out.println("------------\n");
+
+        System.out.println("\nListes de revendeurs like: ");
+        System.out.println(getLikerRevendeur());
+        System.out.println("------------\n");
+
+        System.out.print("Entrez quelque chose pour retourner a la recherche");
+        String decision = myScanner.getStringInput();
+
+        if (decision != null) return;
     }
 
 
@@ -236,11 +216,6 @@ public class ProfilAcheteur {
 
 
 
-
-
-    public static void voir_pts(){
-        System.out.println("Apres les calculs, vous avez 120 dans votre compte");
-    }
 
 
     public static String getNom() {
@@ -259,8 +234,8 @@ public class ProfilAcheteur {
         return adresse;
     }
 
-    public static String getNbLikes() {
-        return nbLikes;
+    public static int getNbLikesDonnnees() {
+        return nbLikesDonnnees;
     }
 
     public static String getPseudo() {
@@ -275,4 +250,47 @@ public class ProfilAcheteur {
         return password;
     }
 
+    public static List<String> getEvaluations() {
+        return evaluations;
+    }
+
+    public static List<String> getHistoire() {
+        return histoire;
+    }
+
+    public static List<String> getLikerProduit() {
+        return likerProduit;
+    }
+
+    public static List<String> getLikerRevendeur() {
+        return likerRevendeur;
+    }
+
+    public static List<String> getNotifications() {
+        return notifications;
+    }
+
+    public static List<String> getPanier() {
+        return panier;
+    }
+
+    public static List<String> getRetourEchange() {
+        return retourEchange;
+    }
+
+    public static List<String> getSignaler() {
+        return signaler;
+    }
+
+    public static List<String> getSuiviPar() {
+        return suiviPar;
+    }
+
+    public static List<String> getSuivreAcheteur() {
+        return suivreAcheteur;
+    }
+
+    public static List<String> getSuivreRevendeur() {
+        return suivreRevendeur;
+    }
 }

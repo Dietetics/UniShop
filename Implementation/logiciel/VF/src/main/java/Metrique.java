@@ -7,12 +7,12 @@ public class Metrique {
 
     public static void voirMetriquesAcheteur(String auteur){
 
-        String pathHistoire = DatabasePath.getAcheteurComptePath() + auteur + "/histoire.csv";
-        String pathSuiviPar = DatabasePath.getAcheteurComptePath() + auteur + "/suiviPar.csv";
-        String pathSuivreAcheteur = DatabasePath.getAcheteurComptePath() + auteur + "/suivreAcheteur.csv";
-        String pathSuivreRevendeur = DatabasePath.getAcheteurComptePath() + auteur + "/suivreRevendeur.csv";
-        String pathLikerProduit = DatabasePath.getAcheteurComptePath() + auteur + "/likerProduit.csv";
-        String pathLikerRevendeur = DatabasePath.getAcheteurComptePath() + auteur + "/likerRevendeur.csv";
+        String pathHistoire = DatabasePath.getPathAcheteurCompte() + auteur + "/histoire.csv";
+        String pathSuiviPar = DatabasePath.getPathAcheteurCompte() + auteur + "/suiviPar.csv";
+        String pathSuivreAcheteur = DatabasePath.getPathAcheteurCompte() + auteur + "/suivreAcheteur.csv";
+        String pathSuivreRevendeur = DatabasePath.getPathAcheteurCompte() + auteur + "/suivreRevendeur.csv";
+        String pathLikerProduit = DatabasePath.getPathAcheteurCompte() + auteur + "/likerProduit.csv";
+        String pathLikerRevendeur = DatabasePath.getPathAcheteurCompte() + auteur + "/likerRevendeur.csv";
 
 
         int articles = CSVHandler.countLines(pathHistoire);
@@ -37,18 +37,25 @@ public class Metrique {
     }
 
 
+
+
+
+
     public static void voirMetriquesRevendeur(String auteur){
 
-        String pathOffrir = DatabasePath.getRevendeurComptePath() + auteur + "/offrir.csv";
-        String pathfans = DatabasePath.getRevendeurComptePath() + auteur + "/fans.csv";
+        String pathOffrir = DatabasePath.getPathRevendeurCompte() + auteur + "/offrir.csv";
+        String pathFans = DatabasePath.getPathRevendeurCompte() + auteur + "/fans.csv";
+        String pathLikes = DatabasePath.getPathRevendeurCompte() + auteur + "/likerPar.csv";
 
         int nbProduitOffrir = CSVHandler.countLines(pathOffrir);
-        int nbFans = CSVHandler.countLines(pathfans);
+        int nbFans = CSVHandler.countLines(pathFans);
+        int nbLikes = CSVHandler.countLines(pathLikes);
 
         System.out.println("Voici vos metriques");
         System.out.println("-----------------------");
         System.out.println("Nombre de produits offers : " + nbProduitOffrir);
         System.out.println("Nombre de fans : " + nbFans);
+        System.out.println("Nombre de likes : " + nbLikes);
 //        System.out.println("Nombre d'evaluation : " + nbEvaluation);
 //        System.out.println("Note moyen des produits: " + notes);
         System.out.println("-----------------------\n");

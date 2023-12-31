@@ -4,8 +4,6 @@ public class Points {
 
 
 
-
-
     public static void voirPts(String path, String auteur){
 
         int somme = CSVHandler.sumIntegersFromCSV(path);

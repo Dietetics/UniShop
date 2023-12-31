@@ -8,8 +8,8 @@ public class VisualiserAcheteur {
     public VisualiserAcheteur(String acheteur) {
 
         this.acheteur = acheteur;
-        this.pathPts = DatabasePath.getAcheteurComptePath() + acheteur + "/points.csv";
-        this.pathNotifications = DatabasePath.getAcheteurComptePath() + acheteur + "/notifications.csv";
+        this.pathPts = DatabasePath.getPathAcheteurCompte() + acheteur + "/points.csv";
+        this.pathNotifications = DatabasePath.getPathAcheteurCompte() + acheteur + "/notifications.csv";
     }
 
     public static void menu() {
@@ -50,7 +50,7 @@ public class VisualiserAcheteur {
                     Metrique.voirMetriquesAcheteur(getAcheteur());
                     break;
                 case 3:
-                    Notification.voirNotifications(getPathNotifications(),getAcheteur());
+                    Notification.voirNotifications(getPathNotifications());
                     break;
                 case 0:
                     return false;

@@ -8,7 +8,7 @@ public class VisualiserRevendeur {
     public VisualiserRevendeur(String revendeur) {
 
         this.revendeur = revendeur;
-        this.pathNotifications = DatabasePath.getRevendeurComptePath() + revendeur + "/notification.csv";
+        this.pathNotifications = DatabasePath.getPathRevendeurCompte() + revendeur + "/notifications.csv";
     }
 
     public static void menu() {
@@ -49,7 +49,7 @@ public class VisualiserRevendeur {
                     Metrique.voirMetriquesRevendeur(getRevendeur());
                     break;
                 case 3:
-                    Notification.voirNotifications(getPathNotifications(),getRevendeur());
+                    Notification.voirNotifications(getPathNotifications());
                     break;
                 case 0:
                     return false;

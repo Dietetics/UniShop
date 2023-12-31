@@ -4,34 +4,45 @@ import java.util.*;
 public class ProfilRevendeur {
 
     private static String nom,password,courriel,adresse,telephone;
-    private static int nbLikes;
+    private static int nbFans, nbOffrir, nbLikerPar;
 
+    private static List<String> fans, notifications, offrir, resolution, retourEchange, signalProbleme, likerPar;
 
     public ProfilRevendeur(String nom) {
 
         this.nom = nom;
 
+        String path = DatabasePath.getPathRevendeurCompte() + nom;
 
-        int lineIndex = CSVHandler.findOccurrenceIndex(DatabasePath.getRevendeurPath(),getNom(),0);
-        String data = CSVHandler.readLineByIndex(DatabasePath.getRevendeurPath(),lineIndex);
+        // load les datas generales
+        String data = CSVHandler.readLineByIndex(path + "/main.csv",1);
 
-        String password = CSVHandler.getColumnValue(data, 1);
-        String courriel = CSVHandler.getColumnValue(data, 2);
-        String adresse = CSVHandler.getColumnValue(data, 3);
-        String telephone = CSVHandler.getColumnValue(data, 4);
-        String likes = CSVHandler.getColumnValue(data, 5);
-
-        int nbLikes = Integer.parseInt(likes);
-
-        this.password = password;
-        this.courriel = courriel;
-        this.telephone = telephone;
-        this.adresse = adresse;
-        this.nbLikes = nbLikes;
+        this.password = CSVHandler.getColumnValue(data, 1);
+        this.courriel = CSVHandler.getColumnValue(data, 2);
+        this.adresse = CSVHandler.getColumnValue(data, 3);
+        this.telephone = CSVHandler.getColumnValue(data, 4);
 
 
+        // load les datas intermediaires
+        this.fans = load(path, "/fans.csv");
+        this.notifications = load(path, "/notifications.csv");
+        this.offrir = load(path, "/offrir.csv");
+        this.resolution = load(path, "/resolution.csv");
+        this.retourEchange = load(path, "/retourEchange.csv");
+        this.signalProbleme = load(path, "/signalProbleme.csv");
+        this.likerPar = load(path, "/likerPar.csv");
+
+        this.nbFans = Calculator.calculNb(fans);
+        this.nbOffrir = Calculator.calculNb(offrir);
+        this.nbLikerPar = Calculator.calculNb(likerPar);
+
+        saveChanges();
     }
 
+    // csv data enregistrer dans une list de string
+    public static List<String> load(String path, String suffixe){
+        return CSVHandler.readLinesFromCSV(path + suffixe);
+    }
 
     /**
      * Affiche le menu principal pour le revendeur, lui permettant de choisir parmi différentes options telles que
@@ -55,8 +66,22 @@ public class ProfilRevendeur {
                     case 3: Inscription.inscriptionProduit(getNom()); break;
                     case 4: GestionProduit.display(getNom()); break;
                     case 5: GestionProduit.supprimerProduits(getNom()); break;
-                    case 6: //actions(); break;    modifier etat, repond aux problemes, confirmer reception, expedier les produits
-                    case 7: VisualiserRevendeur voir = new VisualiserRevendeur(getNom());
+                    case 6:
+                        GestionCommandeParRevendeur gestion = new GestionCommandeParRevendeur(getNom());
+                        gestion.afficherAchats();
+                        gestion.confirmerReception();
+                        break;
+                    case 7:
+                        GestionProbleme solve = new GestionProbleme(getNom());
+                        solve.afficherProblemes();
+                        solve.resoudre();
+                        break;
+                    case 8:
+                        GestionEchangeRetour echange = new GestionEchangeRetour(getNom());
+                        echange.afficherEchangeRetour();
+                        echange.resoudre();
+                        break;
+                    case 9: VisualiserRevendeur voir = new VisualiserRevendeur(getNom());
                         voir.menu();
                     break;
                     default:
@@ -79,8 +104,10 @@ public class ProfilRevendeur {
         System.out.println("3. Offrir un Produit");
         System.out.println("4. Gerer les produits");
         System.out.println("5. Supprimer un produit");
-        System.out.println("6. Tous actions");
-        System.out.println("7. Voir nos informations");
+        System.out.println("6. Gestion commande");
+        System.out.println("7. Gestion probleme");
+        System.out.println("8. Gestion echange retour");
+        System.out.println("9. Voir nos informations");
         System.out.print("\n");
     }
 
@@ -140,6 +167,7 @@ public class ProfilRevendeur {
                         break;
                     case ":e":
                         saveChanges();
+                        System.out.println("les donnees sont bien enregistrer \n\n");
                         break;
                     default:
                         System.out.println("Choix invalide. Veuillez reessayer.");
@@ -162,33 +190,59 @@ public class ProfilRevendeur {
 
 
     private void saveChanges() {
-        String nbLikes = Integer.toString(getNbLikes());
+        String nbLikes = Integer.toString(getNbLikerPar());
 
         List<String> newCSVLine = Arrays.asList(nom, getPassword(), courriel, getAdresse(), getTelephone(),nbLikes);
 
-        String directoryPath = DatabasePath.getRevendeurComptePath() + nom + "/main.csv";
-        CSVHandler.coverCSV(directoryPath, FormatAdjust.transformList(newCSVLine));
+        String directoryPath = DatabasePath.getPathRevendeurCompte() + nom + "/main.csv";
+
+        String temp = OutilSupplementaire.removeSpacesBetweenCommas(FormatAdjust.transformVersString(newCSVLine));
+        CSVHandler.coverCSV(directoryPath, temp);
 
         Database.refreshRevendeurs();
-        System.out.println("les donnees sont bien enregistrer \n\n");
+
 
     }
 
     public static void modified(){
         List<String[]> userData = new ArrayList<>();
 
-        System.out.println(getNbLikes());
-        String likes1 = Integer.toString(getNbLikes());
+        System.out.println(getNbLikerPar());
+        String likes1 = Integer.toString(getNbLikerPar());
 
 
 
         userData.add(new String[]{getNom(),getPassword(),getCourriel(),getAdresse(),getTelephone(),likes1});
 
-        String directoryPath = DatabasePath.getRevendeurComptePath() + getNom() + "/main.csv";
+        String directoryPath = DatabasePath.getPathRevendeurCompte() + getNom() + "/main.csv";
         CSVHandler.coverCSV(directoryPath, userData);
 
         Database.refreshRevendeurs();
     }
+
+    public void displayInfoAuPublic() {
+        System.out.println("\n\nVoici les infos du revendeur: " + getNom());
+        System.out.println("-----------------------------------------------------");
+
+        System.out.println("nombre de produits offer: " + getNbOffrir());
+        System.out.println(getOffrir());
+        System.out.println("------------\n");
+
+
+        System.out.println("nombre de fans: " + getNbFans());
+        System.out.println(getFans());
+        System.out.println("------------\n");
+
+        System.out.println("nombre de likes: " + getNbLikerPar());
+        System.out.println(getLikerPar());
+        System.out.println("------------\n");
+
+        System.out.print("Entrez quelque chose pour retourner a la recherche");
+        String decision = myScanner.getStringInput();
+
+        if (decision != null) return;
+    }
+
 
 
 
@@ -204,8 +258,8 @@ public class ProfilRevendeur {
         return adresse;
     }
 
-    public static int getNbLikes() {
-        return nbLikes;
+    public static int getNbLikerPar() {
+        return nbLikerPar;
     }
 
     public static String getPassword() {
@@ -216,8 +270,44 @@ public class ProfilRevendeur {
         return courriel;
     }
 
-    public void setNbLikes(int nbLikes) {
-        this.nbLikes = nbLikes;
+    public void setNbLikerPar(int nbLikerPar) {
+        this.nbLikerPar = nbLikerPar;
+    }
+
+    public static int getNbFans() {
+        return nbFans;
+    }
+
+    public static int getNbOffrir() {
+        return nbOffrir;
+    }
+
+    public static List<String> getFans() {
+        return fans;
+    }
+
+    public static List<String> getNotifications() {
+        return notifications;
+    }
+
+    public static List<String> getOffrir() {
+        return offrir;
+    }
+
+    public static List<String> getResolution() {
+        return resolution;
+    }
+
+    public static List<String> getRetourEchange() {
+        return retourEchange;
+    }
+
+    public static List<String> getSignalProbleme() {
+        return signalProbleme;
+    }
+
+    public static List<String> getLikerPar() {
+        return likerPar;
     }
 }
 

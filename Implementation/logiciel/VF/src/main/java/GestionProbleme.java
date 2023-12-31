@@ -1,44 +1,45 @@
-import java.util.Scanner;
-
 public class GestionProbleme {
 
-    private static Scanner scanner = new Scanner(System.in);
 
+    private static String pathProbleme;
+    private static String revendeur;
 
-    public GestionProbleme() {
+    public GestionProbleme(String revendeur){
+        this.pathProbleme = DatabasePath.getPathRevendeurCompte() + revendeur + "/signalProbleme.csv";
+        this.revendeur = revendeur;
+    }
+
+    public static void afficherProblemes(){
+        System.out.println("\nVoici les problemes recu");
+        System.out.println("----------------------------------------------");
+        CSVHandler.printCSV(CSVHandler.readCSV(getPathProbleme(),9999));
+        System.out.println("----------------------------------------------");
     }
 
 
-    public static void gestionProblemes() {
-        try {
-            System.out.println("----- Gestion de Problèmes -----");
+    public static void resoudre(){
+        System.out.println("\nVeuillez entrer le nom de l acheteur qui signal un probleme");
+        String acheteur = myScanner.getStringInput();
+        String pathAcheteur = DatabasePath.getPathTousAcheteurs();
+        String pathNotification = DatabasePath.getPathAcheteurCompte() + acheteur + "/notifications.csv";
 
-            // Simulation de l'acheteur signalant un problème
-            System.out.println("Acheteur: J'ai un problème avec le produit que j'ai acheté.");
-
-            // Simulation du revendeur proposant des solutions
-            proposerSolutions();
-
-        } catch (Exception e) {
-            System.out.println("Erreur lors de la gestion du problème: " + e.getMessage());
+        if(CSVHandler.isExiste(pathAcheteur,acheteur)){
+            System.out.println("\nVeuillez entrer une solution pour notre cher ami");
+            String solution = myScanner.getStringInput();
+            CSVHandler.appendCSV(pathNotification,getRevendeur()+", Voici une solution:" + solution);
+        }else{
+            System.out.println("L acheteur entre n existe pas, veuillez reessayer de nouveau");
         }
-    }
 
-    private static void proposerSolutions() {
-        System.out.println("System automatique: Nous sommes désolés pour le désagrément. Voici quelques solutions possibles:");
-        System.out.println("1. Réparation du produit défectueux");
-        System.out.println("2. Réexpédition d'un produit de remplacement");
-        System.out.print("Veuillez choisir une solution pour aider l acheteur: ");
-        int choix = scanner.nextInt();
-
-        if (choix == 1) {
-            System.out.println("Nous prendrons en charge la réparation du produit défectueux.");
-        } else if (choix == 2) {
-            System.out.println("Nous procéderons à la réexpédition d'un produit de remplacement.");
-        } else {
-            throw new IllegalArgumentException("Choix invalide. Veuillez choisir une solution valide.");
-        }
     }
 
 
+
+    public static String getPathProbleme() {
+        return pathProbleme;
+    }
+
+    public static String getRevendeur() {
+        return revendeur;
+    }
 }

@@ -4,10 +4,15 @@ import java.util.List;
 
 public class Database {
 
+    public static void refreshTous(){
+        refreshAcheteurs();refreshRevendeurs();refreshProduits();
+    }
+
+
     // lit toutes les datas des acheteurs, prendre le main.csv de chaque puis output sur acheteur.csv
     public static void refreshAcheteurs() {
         String baseFolderPath = DatabasePath.getBaseAcheteurFolderPath();
-        String outputFile = DatabasePath.getAcheteurPath();
+        String outputFile = DatabasePath.getPathTousAcheteurs();
 
         List<String> orderOfFiles = Arrays.asList("main");
 
@@ -50,7 +55,7 @@ public class Database {
     }
     public static void refreshRevendeurs() {
         String baseFolderPath = DatabasePath.getBaseRevendeurFolderPath();
-        String outputFile = DatabasePath.getRevendeurPath();
+        String outputFile = DatabasePath.getPathTousRevendeurs();
 
         List<String> orderOfFiles = Arrays.asList("main");
 
@@ -93,7 +98,7 @@ public class Database {
     }
     public static void refreshProduits() {
         String baseFolderPath = DatabasePath.getBaseProduitFolderPath();
-        String outputFile = DatabasePath.getProduitPath();
+        String outputFile = DatabasePath.getPathTousProduits();
 
         List<String> orderOfFiles = Arrays.asList("main");
 
@@ -136,11 +141,4 @@ public class Database {
     }
 
 
-
-
-
-
-
-
-    public static void main(String[] args) {refreshAcheteurs();refreshRevendeurs();refreshProduits();}
 }
