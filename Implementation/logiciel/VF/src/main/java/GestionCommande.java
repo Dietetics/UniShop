@@ -58,7 +58,7 @@ public class GestionCommande {
             }
         } catch (InputMismatchException e) {
             System.out.println("Erreur : Veuillez entrer un nombre entier.");
-            scanner.nextLine(); // Effacer la ligne incorrecte dans le scanner
+            scanner.nextLine();
         }
     }
 
