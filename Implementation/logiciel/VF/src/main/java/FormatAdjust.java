@@ -15,7 +15,6 @@ public class FormatAdjust {
         List<String[]> resultList = new ArrayList<>();
 
         for (String line : stringList) {
-            // Divise chaque ligne en un tableau en fonction des virgules
             String[] values = line.split(",");
             resultList.add(values);
         }
