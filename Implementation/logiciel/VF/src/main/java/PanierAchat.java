@@ -25,7 +25,7 @@ public class PanierAchat {
             while (condition) {
                 System.out.println("\nMenu du Panier:");
                 System.out.println("--------------------------------");
-                System.out.println("X. Ajouter un produit a partir de recherche ");
+                System.out.println("X. Ajouter un produit (a partir de recherche) ");
                 System.out.println("2. Retirer un produit");
                 System.out.println("3. Afficher le panier");
                 System.out.println("4. Recap du panier");
@@ -36,7 +36,6 @@ public class PanierAchat {
                 System.out.print("Votre choix : ");
 
                 condition = optionPanier();
-
             }
         } catch (InputMismatchException e) {
             System.out.println("Erreur : Veuillez entrer un nombre entier.");
@@ -61,10 +60,10 @@ public class PanierAchat {
                     recap();
                     break;
                 case 5:
-                    passerCommande();
+                    confirmePasserCommande();
                     break;
                 case 6:
-                    viderPanier();
+                    viderPanier(getPathPanier());
                     break;
                 case 0:
                     return false;
@@ -100,7 +99,7 @@ public class PanierAchat {
             System.out.println("Une erreur s'est produite : " + e.getMessage());
         }
     }
-    private static void afficherPanier() {
+    public static void afficherPanier() {
         System.out.println("\nVoici les produits dans votre panier d'achat");
         System.out.println("----------------------------------------------");
         CSVHandler.printCSV(CSVHandler.readCSV(getPathPanier(),9999));
@@ -109,7 +108,7 @@ public class PanierAchat {
 
 
 
-    private static void recap(){
+    public static void recap(){
         System.out.println("\n\n\nVu Black friday, grand liquidation!!! tous les produits sont a 5$ et chaques produits donnent 2points!!!");
         afficherPanier();
         int nbArticles = CSVHandler.countLines(getPathPanier());
@@ -120,7 +119,7 @@ public class PanierAchat {
         System.out.println("Apres nos calculs, le nombre de points total est "+pts);
     }
 
-    private static void passerCommande(){
+    public static void confirmePasserCommande(){
         recap();
         System.out.print("\nConfirmez-vous la commande ? (1 pour confirmer, tout autre pour annuler) : ");
         String choix = myScanner.getStringInput();
@@ -129,16 +128,7 @@ public class PanierAchat {
             case "1":
                 String msg = "Veuillez entrer les informations de votre carte de crédit(un cvv est de longueur de trois)";
                 InputRestreint.getValidCredit(msg);
-
-                System.out.println("Commande confirmee ! Merci pour votre achat.");
-
-                String pts = String.valueOf(getPts());
-                CSVHandler.transfereCSVEnproduction(getPathPanier(),getPathHistoire());
-
-                CSVHandler.appendCSV(getPathPts(),pts);
-                CSVHandler.appendCSV(getPathNotifications(),"Merci davoir magasiner chez UniShop");
-                viderPanier();
-
+                confirmePasserCommande();
                 break;
             default:
                 System.out.println("Commande annulée.");
@@ -147,8 +137,20 @@ public class PanierAchat {
     }
 
 
-    private static void viderPanier(){
-        CSVHandler.clearCSV(getPathPanier());
+    public static void passerCommande(){
+        System.out.println("Commande confirmee ! Merci pour votre achat.");
+
+        String pts = String.valueOf(getPts());
+        CSVHandler.transfereCSVEnproduction(getPathPanier(),getPathHistoire());
+
+        CSVHandler.appendCSV(getPathPts(),pts);
+        CSVHandler.appendCSV(getPathNotifications(),"Merci davoir magasiner chez UniShop");
+        viderPanier(getPathPanier());
+    }
+
+
+    public static void viderPanier(String path){
+        CSVHandler.clearCSV(path);
         System.out.println("Le panier a ete vide avec succes.");
     }
 

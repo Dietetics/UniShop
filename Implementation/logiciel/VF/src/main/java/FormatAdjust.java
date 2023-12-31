@@ -48,6 +48,32 @@ public class FormatAdjust {
         return resultList;
     }
 
+    public static String transformVersString(List<String> stringList){
+        String resultat = String.join(", ", stringList);
+        return resultat;
+    }
+
+
+    public static List<String> convertirListeTableauxEnListeChaines(List<String[]> listeTableaux) {
+        List<String> listeChaines = new ArrayList<>();
+
+        // Itérer sur chaque tableau de la liste
+        for (String[] tableau : listeTableaux) {
+            // Ajouter les éléments du tableau à la liste de chaînes
+            listeChaines.addAll(Arrays.asList(tableau));
+        }
+
+        return listeChaines;
+    }
+
+    public static String listToString(List<String[]> list) {
+        StringBuilder sb = new StringBuilder();
+        for (String[] array : list) {
+            sb.append(String.join(", ", array)).append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
+
 
 
 

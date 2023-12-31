@@ -14,18 +14,21 @@ public class Recherche {
 
 
 
+
+
+
     /**
      * Méthode principale pour la recherche et le tri des produits.
      */
     public static void rechercheProduits() {
         boolean quitter = false;
-        String essai = "Entrez le mot-cle de recherche ou ':q' (pour quitter):";
+        String essai = "Entrez le mot-cle de recherche du type ou ':q' (pour quitter):";
 
         while (!quitter) {
             try {
                 System.out.println("");
                 System.out.print(essai);
-                essai = "Nouveau mot-cle de recherche ou ':q' (pour quitter): ";
+                essai = "Nouveau mot-cle de recherche du type ou ':q' (pour quitter): ";
 
                 String keyword = myScanner.getStringInput();
 
@@ -34,15 +37,8 @@ public class Recherche {
                         quitter = true;
                         break;
                     default:
-                        // on fait la search seulement base sur les colonnes specifiers
-                        List<Integer> searchColumnIndices = Arrays.asList(0, 1,4);
-                        List<Integer> outputColumnIndices = Arrays.asList(0);
-                        List<String> matchingLines = CSVHandler.searchAndFilterColumnsInCSV(DatabasePath.getPathTousProduits(), keyword,searchColumnIndices,outputColumnIndices);
-                        if (!matchingLines.isEmpty()) {
-                            trierProduits(matchingLines);
-                        } else {
-                            System.out.println("Aucun produit trouve selon le mot-cle.");
-                        }
+
+                        trierProduits(keyword);
                         break;
                 }
             } catch (Exception e) {
@@ -51,34 +47,34 @@ public class Recherche {
         }
     }
 
-    /**
-     * Méthode pour trier les produits en fonction de la colonne choisie et de l'ordre spécifié.
-     *
-     * @param matchingLines Liste des lignes de produits correspondantes à la recherche.
-     */
-    public static void trierProduits(List<String> matchingLines) {
+
+    public static void trierProduits(String keyword) {
         CSVHandler.SortOrder order = null;
-        int colomn = 0;
+        int colomn = -1;
 
-        do {
-            try {
-                trierMessage();
-                System.out.print("Choix: ");
-                String type = myScanner.getStringInput();
+        try {
+            trierMessage();
+            System.out.print("Choix: ");
+            String type = myScanner.getStringInput();
 
-                switch (type.toLowerCase()) {
-                    case "titre": colomn = 1;break;
-                    case "categorie": colomn = 2;break;
-                    case "prix": colomn = 5;break;
-                    case "note": colomn = 12;break;
-                    case "popularite": colomn = 11;break;
-                    case "promo": colomn = 13;break;
-                    default: System.out.println("Choix invalide. Veuillez reessayer.");
-                }
-            } catch (Exception e) {
-                System.out.println("Erreur : " + e.getMessage());
+            switch (type.toLowerCase()) {
+                case "titre": colomn = 0;break;
+                case "categorie": colomn = 1;break;
+                case "quantite": colomn = 3;break;
+                case "prix": colomn = 4;break;
+                case "pointsBonies": colomn = 5;break;
+                case "like": colomn = 9;break;
+                case "note": colomn = 10;break;
+                default: System.out.println("Choix invalide. Veuillez reessayer.");
             }
-        } while (colomn == 0); // Répéter tant que colomn n'est pas initialisé
+        } catch (Exception e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+
+
+        // on fait la search seulement base sur les colonnes specifiers
+        int[] outputColumnIndices = {0,1,2,3,4,5,6,7,8,10};
+        List<String[]> data = CSVHandler.searchCSV(DatabasePath.getPathTousProduits(),keyword,colomn,outputColumnIndices);
 
         do {
             try {
@@ -92,8 +88,7 @@ public class Recherche {
             }
         } while (order == null); // Répéter tant que order n'est pas initialisé
 
-        List<String[]> data = FormatAdjust.transformList(matchingLines);
-        CSVHandler.sortByColumn(data, colomn - 1, order);
+        CSVHandler.sortByColumn(data, colomn, order);
         afficherProduits(data);
     }
     public static void trierMessage(){
@@ -102,12 +97,12 @@ public class Recherche {
         System.out.println("---------------------");
         System.out.println("titre");
         System.out.println("categorie");
+        System.out.println("quantite");
         System.out.println("prix");
-        System.out.println("note");
-        System.out.println("popularite");
-        System.out.println("promo");
+        System.out.println("pointsBonies");
+        System.out.println("like");
+        System.out.println("note\n");
     }
-
 
 
     /**
@@ -116,8 +111,9 @@ public class Recherche {
      * @param data Liste des lignes de produits triées.
      */
     public static void afficherProduits(List<String[]> data) {
+
         System.out.println("\n\n\n\n\n");
-        System.out.println("Voici la liste selon votre mot-cle et apres trier");
+        System.out.println("Voici la liste selon votre mot-cle et apres trier(attention: il y a une difference entre majuscule et minuscule");
         System.out.println("-------------------------------------------------");
         for (String[] row : data) {
             for (String value : row) {

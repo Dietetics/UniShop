@@ -5,6 +5,8 @@ public class VF {
     static myScanner myScanner = new myScanner();
 
     public static void main(String[] args) {
+
+        // verifier si les files de databases existent ou non
         DatabasePath.checkDatabaseFiles();
         Database.refreshTous();
         displayMenuPrincipale();

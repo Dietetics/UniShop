@@ -1,3 +1,5 @@
+import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.Csv;
+
 import java.io.*;
 import java.util.List;
 
@@ -69,6 +71,19 @@ public class Reset {
         folder.delete(); // Supprimer le dossier lui-même après avoir supprimé son contenu
     }
 
+    public static void infoSupplementaires(){
+        CSVHandler.appendCSV(DatabasePath.getPathRevendeurCompte() + "auteur2/offrir.csv", "Cahier1");
+        CSVHandler.appendCSV(DatabasePath.getPathRevendeurCompte() + "auteur2/offrir.csv", "guideEtude1");
+        CSVHandler.appendCSV(DatabasePath.getPathRevendeurCompte() + "auteur2/offrir.csv", "lampesBureau1");
+        CSVHandler.appendCSV(DatabasePath.getPathRevendeurCompte() + "auteur2/offrir.csv", "Livre1");
+        CSVHandler.appendCSV(DatabasePath.getPathRevendeurCompte() + "auteur2/offrir.csv", "OrdinateurPortable1");
+
+        CSVHandler.appendCSV(DatabasePath.getPathProduitCompte() + "Cahier1/offerPar.csv", "auteur2");
+        CSVHandler.appendCSV(DatabasePath.getPathProduitCompte() + "guideEtude1/offerPar.csv", "auteur2");
+        CSVHandler.appendCSV(DatabasePath.getPathProduitCompte() + "lampesBureau1/offerPar.csv", "auteur2");
+        CSVHandler.appendCSV(DatabasePath.getPathProduitCompte() + "Livre1/offerPar.csv", "auteur2");
+        CSVHandler.appendCSV(DatabasePath.getPathProduitCompte() + "OrdinateurPortable1/offerPar.csv", "auteur2");
+    }
 
     public static void main(String[] args) {
 
@@ -98,5 +113,10 @@ public class Reset {
         resetDatabases(acheteurDatabase, acheteurFichierInfo,acheteurBasePath);
         resetDatabases(revendeurDatabase, revendeurFichierInfo,revendeurBasePath);
         resetDatabases(produitDatabase, produitFichierInfo,produitBasePath);
+
+        // ajouter des infos supplementaires dans les fichiers
+        infoSupplementaires();
+
+        Database.refreshTous();
     }
 }

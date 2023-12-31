@@ -248,6 +248,37 @@ public class CSVHandler {
     }
 
 
+    public static List<String[]> searchCSV(String csvFilePath, String keyword, int searchColumn, int... outputColumnIndices) {
+        List<String[]> results = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(",");
+
+                // Vérifier si la colonne de recherche contient le mot-clé
+                if (searchColumn >= 0 && searchColumn < columns.length && columns[searchColumn].contains(keyword)) {
+                    // Construire le tableau résultant en utilisant les indices de colonnes spécifiés
+                    String[] resultArray = new String[outputColumnIndices.length];
+                    for (int i = 0; i < outputColumnIndices.length; i++) {
+                        int outputColumnIndex = outputColumnIndices[i];
+                        if (outputColumnIndex >= 0 && outputColumnIndex < columns.length) {
+                            resultArray[i] = columns[outputColumnIndex];
+                        }
+                    }
+
+                    // Ajouter le tableau résultant à la liste des résultats
+                    results.add(resultArray);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return results;
+    }
+
+
     // méthode pour rechercher le mot-clé et un argument qui indique les colonnes quon veut
     public static List<String> searchAndFilterColumnsInCSV(String filePath, String keyword, int searchColumnIndex, List<Integer> outputColumnIndices) {
         List<String> matchingLines = new ArrayList<>();

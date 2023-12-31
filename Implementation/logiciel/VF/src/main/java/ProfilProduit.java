@@ -20,15 +20,15 @@ public class ProfilProduit {
         // load les datas generales
         String data = CSVHandler.readLineByIndex(path + "/main.csv",1);
 
-        String categorie = CSVHandler.getColumnValue(data, 1);
-        String description = CSVHandler.getColumnValue(data, 2);
+        this.categorie = CSVHandler.getColumnValue(data, 1);
+        this.description = CSVHandler.getColumnValue(data, 2);
         String quantiteTemp = CSVHandler.getColumnValue(data, 3);
         String prixTemp = CSVHandler.getColumnValue(data, 4);
         String pointsBonip = CSVHandler.getColumnValue(data, 5);
-        String image = CSVHandler.getColumnValue(data, 6);
-        String video = CSVHandler.getColumnValue(data, 7);
-        String identifiant = CSVHandler.getColumnValue(data, 8);
-        String promo = CSVHandler.getColumnValue(data, 11);
+        this.image = CSVHandler.getColumnValue(data, 6);
+        this.video = CSVHandler.getColumnValue(data, 7);
+        this.identifiant = CSVHandler.getColumnValue(data, 8);
+        this.promo = CSVHandler.getColumnValue(data, 11);
 
         // load les datas intermediaires
         this.achats = load(path, "/achats.csv");
@@ -37,29 +37,24 @@ public class ProfilProduit {
         this.notes = load(path, "/notes.csv");
         this.offerPar = load(path, "/offerPar.csv");
 
-        this.nbNotes = calculNb(notes);
-        this.nbAchats = calculNb(achats);
+        this.nbNotes = Calculator.calculNb(notes);
+        this.nbAchats = Calculator.calculNb(achats);
 
 
         double prix = Double.parseDouble(prixTemp);
         double pointsBoni = Double.parseDouble(pointsBonip);
 
-        this.categorie = categorie;
-        this.description = description;
+
         int quantite = Integer.parseInt(quantiteTemp);
-        quantite = quantite - nbAchats;
         this.quantite = quantite;
         this.prix = prix;
         this.pointsBoni = pointsBoni;
-        this.image = image;
-        this.video = video;
-        this.identifiant = identifiant;
-        this.nbLikes = calculNb(likes);
-        this.noteMoyen = calculMoyen(notes);
-        this.promo = promo;
+
+        this.nbLikes = Calculator.calculNb(likes);
+        this.noteMoyen = Calculator.calculMoyen(notes);
+
 
         modified();
-        Database.refreshProduits();
     }
 
     // csv data enregistrer dans une list de string
@@ -67,33 +62,8 @@ public class ProfilProduit {
         return CSVHandler.readLinesFromCSV(path + suffixe);
     }
 
-    // calculer le nb de valeur dans la liste
-    public static int calculNb(List <String> liste){
-        int length = liste.size();
-        return length;
-    }
 
-    // calculer la moyenne dune liste de string qui est en fait que des int dedans
-    public static double calculMoyen(List<String> liste) {
-        if (liste == null || liste.isEmpty()) {
-            return 0;
-        }
-        int somme = 0;
-        for (String str : liste) {
-            try {
-                // Convertir chaque chaine en int
-                int nombre = Integer.parseInt(str);
-                // Ajouter a la somme
-                somme += nombre;
-            } catch (NumberFormatException e) {
-                // Gerer les chaines qui ne sont pas des nombres
-                System.err.println("La chaîne '" + str + "' n'est pas un nombre entier, donc elle n'est pas utiliser pour le calcul.");
-            }
-        }
-        // Calculer la moyenne
-        double moyen = (double) somme / liste.size();
-        return moyen;
-    }
+
 
 
 
@@ -149,6 +119,34 @@ public class ProfilProduit {
                 + "\nNotes: " + getNoteMoyen()
                 + "\nPromo: " + getPromo()
                 + "\n-----------------------------------: ");
+
+
+        System.out.println("\nEvaluation: ");
+        System.out.println("------------");
+        imprimerListe(getEvaluations());
+        System.out.println("------------\n");
+
+        System.out.println("\nListes de notes: ");
+        System.out.println("------------");
+        System.out.println(getNotes());
+        System.out.println("------------\n");
+
+        System.out.println("Offer Par: ");
+        System.out.println("------------");
+        System.out.println(getOfferParUnitaire());
+        System.out.println("------------");
+        System.out.println("\n\n\n");
+
+        System.out.print("Entrez quelque chose pour retourner a la recherche");
+        String decision = myScanner.getStringInput();
+
+        if (decision != null) return;
+    }
+
+    public static void imprimerListe(List<String> liste){
+        for (String element : liste) {
+            System.out.println(element);
+        }
     }
 
 
@@ -251,7 +249,11 @@ public class ProfilProduit {
     }
 
     // get le revendeur qui a offer ce produit
-    public static String getOfferPar() {
+    public static List<String> getOfferPar() {
+        return offerPar;
+    }
+
+    public static String getOfferParUnitaire() {
         return offerPar.get(0);
     }
 }

@@ -49,7 +49,7 @@ public class VisualiserRevendeur {
                     Metrique.voirMetriquesRevendeur(getRevendeur());
                     break;
                 case 3:
-                    Notification.voirNotifications(getPathNotifications(),getRevendeur());
+                    Notification.voirNotifications(getPathNotifications());
                     break;
                 case 0:
                     return false;

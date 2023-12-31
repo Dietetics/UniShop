@@ -421,28 +421,7 @@ public class InputRestreint {
 
 
 
-    /**
-     * valide si la valeur est unique dans une colonne specifier du CSV fichier
-     *
-     *
-     * @param filePath path du CSV file.
-     * @param valeur   valeur a verifier l unicite
-     * @param column   colonne indiquer pour verifier l unicite (0-based index).
-     * @return Vrai si la valeur unique n'est pas trouvee dans la colonne specifiee, sinon faux.
-     * @throws IOException En cas d'erreur d'entree/sortie lors de la lecture du fichier CSV.
-     */
-    static boolean isValidUniqueRow(String filePath, String valeur, int column) throws IOException {
 
-        List<String[]> data = CSVHandler.readCSV(filePath,9999);
-        if (data != null) {
-            for (String[] row : data) {
-                if (row.length > 2 && valeur.equals(row[column])) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
 
 
@@ -467,15 +446,7 @@ public class InputRestreint {
     );
 
 
-    /**
-     * Vérifie si la catégorie spécifiée est autorisée.
-     *
-     * @param categorie La catégorie à vérifier.
-     * @return true si la catégorie est autorisée, sinon false.
-     */
-    public static boolean isValidType(String categorie) {
-        return CATEGORIES_AUTORISEES.contains(categorie);
-    }
+
 
     static boolean isValidCategorie(String category) {
         return CATEGORIES_AUTORISEES.contains(category);
@@ -483,35 +454,6 @@ public class InputRestreint {
 
 
 
-    /**
-     * Vérifie si la longueur de la chaîne de caractères spécifiée ne dépasse pas 100 caractères.
-     *
-     * @param mots La chaîne de caractères à vérifier.
-     * @return true si la longueur est valide, sinon false.
-     */
-    static boolean isValidMots(String mots) {
-        return mots.length() <= 100;
-    }
-
-    /**
-     * Vérifie si le nombre entier spécifié est inférieur ou égal à 9999.
-     *
-     * @param nb Le nombre entier à vérifier.
-     * @return true si le nombre est valide, sinon false.
-     */
-    static boolean isValidInt(Integer nb) {
-        return nb <= 9999;
-    }
-
-    /**
-     * Vérifie si le nombre à virgule flottante spécifié est inférieur à 20.
-     *
-     * @param points Le nombre à virgule flottante à vérifier.
-     * @return true si le nombre est valide, sinon false.
-     */
-    static boolean isValidDouble(Double points) {
-        return points < 20;
-    }
 
 
 

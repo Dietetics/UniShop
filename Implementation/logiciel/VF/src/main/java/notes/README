@@ -7,4 +7,6 @@ Un petit remarque: Lorsqu'on inscrit un nouveau acheteur ou revendeur ou produit
 creers. MAIS ceci ne causera aucun probleme au logiciel, on peut tout faire, meme avec les nouvelles fichiers qui ne sont pas visuellement, mais elles sont bien
 representes pour le programme.
 
-
+database initiale: on a une class reset(une classe supplementaire ajouter pour le developpeur), qui permet d initialiser les databases selon une base de donnee
+offer, lorsquon modifie la base de donner, il faut aussi ajuster les fichiers supplementaires comme offrir, offerPar... etc,
+car un ajout de produit ne peut pas apparaitre de null part, donc il faut faire attention.

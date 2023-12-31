@@ -4,7 +4,7 @@ CLASS:
 Calculator                                  (but: calcul numerique)
 Connexion                                   (but: connecter a un compte, acheteur ou revendeur)
 CreateFileInDirectory                       (but: new file new directory)                           // fct auxiliaire pour test
-CSVHandler
+CSVHandler                                  // tous methods pour csv database
 Database                                    (but: refresh les datas vers un fichier principale)
 DatabasseFile                               (but: condition tous les path des databases generale)   // maybe add more
 Evaluation
@@ -13,27 +13,26 @@ GenerateurAuto                              (but: uniqueUUID)
 Gestioncommande
 Gestionprobleme
 GestionProduit
+GestionSuiveur                              (but: gerer les suivreurs pour acheteur)
 Histoire
-InfoAchteur
-InfoProduit
-InfoRevendeur
-InputRestreint
+InputRestreint                              (but: faut verifier une bonne input)
 Inscription                                 (but: ajouter dans les databases un nouveau utiliseur ou produit)
 Metrique
 myscanner                                   (but: lire int,string,double avec avertissement)
-Notification
-Operation
-PanierAchat
+Notification                                (but: permet de voir les notifications dans le compte)
+Operation                                   (but: operation comme liker,suivre)
+OutilSupplementaire                         // class extra
+PanierAchat                                 (but: passer des commandes)
 Points
 ProfilAcheteur
 ProfilProduit                               (but: instance de produit, avec tous les informations)
 ProfilRevendeur
-Recherche
-RechercheAcheteur
-RecherchePublic
+Recherche                                   (but: recherche de base sans connection)
+RechercheAcheteur                           (but: recherche des acheteurs)
+RecherchePublic                             (but: recherche pour utilisateur)
 Reset                                       (but: class supplementaire pour le developpeur, permet dinitialiser l environnement)
 SignalementProbleme
-VF
+VF                                          (but: main class)
 VisualiserAcheteur
 VisualiserRevendeur
 
@@ -48,8 +47,52 @@ VisualiserRevendeur
 
 TEST:
 
-passer une commande
+passer une commande                             done
 evaluer un produit
 retourner/echanger une commande
 confirmer la reception dune commande
 offrir un produit a vendre                      done
+
+Calculator                                      (but: faire les calculs, eviter les repetitions)
+
+
+
+
+
+
+
+
+
+
+CSV:
+
+main                                            (but: info generale de lachateur)
+retourEchange.csv
+histoire.csv                                    done
+signaler.csv
+evaluations.csv
+panier.csv                                      done
+suiviPar.csv                                    done
+suivreAcheteur.csv                              done
+suivreRevendeur.csv                             done
+likerProduit.csv                                done
+likerRevendeur.csv                              done
+points.csv                                      done
+notifications.csv                               (but: notification de tous activites)
+
+
+main                                            (but: info generale du produit)
+notes.csv
+evaluations.csv
+likes.csv                                       done
+achats.csv                                      // plutard
+offerPar.csv                                    done
+
+main                                            (but: info generale du revendeur)
+resolution.csv
+notifications.csv                               (but: notification de tous activites)
+offrir.csv                                      done
+signalProbleme.csv
+retourEchange.csv
+fans.csv                                        done
+likerPar.csv                                    done

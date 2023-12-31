@@ -74,7 +74,8 @@ public class Connexion {
 
                 condition = false;
 
-                new ProfilRevendeur(nom);
+                ProfilRevendeur revendeur = new ProfilRevendeur(nom);
+                revendeur.displayMenuRevendeur();
             } catch (Exception e) {
                 System.out.println("Erreur: " + e.getMessage());
             }
@@ -114,7 +115,9 @@ public class Connexion {
                 condition = false;
 
 
-                new ProfilAcheteur(pseudo,password);
+                ProfilAcheteur acheteur = new ProfilAcheteur(pseudo);
+                acheteur.displayMenuAcheteur();
+
             } catch (Exception e) {
                 System.out.println("Erreur: " + e.getMessage());
             }

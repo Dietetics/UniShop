@@ -50,7 +50,7 @@ public class VisualiserAcheteur {
                     Metrique.voirMetriquesAcheteur(getAcheteur());
                     break;
                 case 3:
-                    Notification.voirNotifications(getPathNotifications(),getAcheteur());
+                    Notification.voirNotifications(getPathNotifications());
                     break;
                 case 0:
                     return false;

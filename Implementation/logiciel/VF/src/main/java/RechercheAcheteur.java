@@ -18,8 +18,7 @@ public class RechercheAcheteur {
                 int input = myScanner.getIntInput();
 
                 switch (input) {
-                    case 0:
-                        return;
+                    case 0: return;
                     case 1:
                         choix = "0";
                         decisionProduit(DatabasePath.getPathTousProduits(),0); //faire decision
@@ -42,7 +41,7 @@ public class RechercheAcheteur {
                         Recherche.rechercheRevendeurs();
                         break;
                     case 7:
-                        catalogue(acheteur);
+                        catalogue();
                         break;
                     default:
                         System.out.println("Choix invalide. Veuillez reessayer.");
@@ -54,7 +53,7 @@ public class RechercheAcheteur {
     }
     public static void displayMessage(){
         System.out.println("\n");
-        System.out.println("------ Bienvenu a notre section de recherche, cher " + getAcheteur() + "-------");
+        System.out.println("------ Bienvenu a notre section de recherche, cher acheteur: " + getAcheteur() + "-------");
         System.out.println("0. Quitter");
         System.out.println("Recuperer la liste ... pour voir plus d informations, liker ou suivre, passer au panier");
         System.out.println("    1. des produits");
@@ -68,6 +67,12 @@ public class RechercheAcheteur {
         System.out.println("    7. un produit");
         System.out.print("\n");
     }
+
+
+
+
+
+
 
 
     public static void decisionProduit(String path, int colonne) {
@@ -106,8 +111,6 @@ public class RechercheAcheteur {
             }
         }
     }
-
-
     public static void displayDecisionProduitMsg(){
         System.out.println("\n------ Cher " + getAcheteur() + " veuillez choisir un option -------");
         System.out.println("0. Quitter");
@@ -117,7 +120,6 @@ public class RechercheAcheteur {
         System.out.println("4. Placer dans le panier");
         System.out.print("\n");
     }
-
     public static String voirProduit(String path, int colonne) {
         System.out.println("\n0 pour retourner ou taper le nom du produit en demande pour voir plus d information");
         System.out.println("---------------------------------------------------");
@@ -126,7 +128,9 @@ public class RechercheAcheteur {
 
         if (decision == "0") return "0";
         else if (CSVHandler.findOccurrenceIndex(path, decision, colonne) != -1){
-            InfoProduit.voirProduit(path, decision, colonne);
+
+            ProfilProduit produit = new ProfilProduit(decision);
+            produit.display();
         }else System.out.println("ce n'est pas un choix, veuillez entrer de nouveau \n\n\n");
         return "1";
     }
@@ -187,7 +191,8 @@ public class RechercheAcheteur {
 
         if (decision == "0") return "0";
         else if (CSVHandler.findOccurrenceIndex(path, decision, colonne) != -1){
-            InfoAcheteur.voirProfil(path, decision, colonne);
+            ProfilAcheteur acheteur = new ProfilAcheteur(decision);
+            acheteur.displayInfoAuPublic();
         }else System.out.println("ce n'est pas un choix, veuillez entrer de nouveau \n\n\n");
         return "1";
     }
@@ -255,10 +260,16 @@ public class RechercheAcheteur {
 
         if (decision == "0") return "0";
         else if (CSVHandler.findOccurrenceIndex(path, decision, colonne) != -1){
-            InfoRevendeur.voirProfil(path, decision, colonne);
+            ProfilRevendeur revendeur = new ProfilRevendeur(decision);
+            revendeur.displayInfoAuPublic();
         }else System.out.println("ce n'est pas un choix, veuillez entrer de nouveau \n\n\n");
         return "1";
     }
+
+
+
+
+
 
 
     public static String siExiste(String path) {
@@ -285,95 +296,12 @@ public class RechercheAcheteur {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Affiche le catalogue des produits et permet à l'acheteur de liker un produit.
-     */
-    public static void catalogueProduit(String auteur){
-        String choix = "99";
-        while (choix != "0") {
-            try {
-                System.out.println("\n\nCher acheteur: " + auteur + ", Voici nos produits");
-                System.out.println("-----------------------------------------------------");
-                CSVHandler.printCSV(CSVHandler.readCSV(DatabasePath.getPathTousProduits(),30));
-                System.out.println("-----------------------------------------------------");
-                System.out.println(" ");
-
-                System.out.print("0 pour retourner ou entrer le nom du produit pour liker : ");
-                String scanned = myScanner.getStringInput();
-
-                if (scanned.equals("0")) return;
-
-                int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousProduits(),scanned,0);
-                if(index!= -1) {
-                    choix = "0";
-                    String produit = CSVHandler.getColumnValue(CSVHandler.readLineByIndex(DatabasePath.getPathTousProduits(),index),0);
-
-                    Operation.acheteurLikerProduit(produit,auteur);
-                }
-                else System.out.println("Nous ne trouvons aucun produit correspond a ce que vous avez entrer, veuillez entrer de nouveau");
-            } catch (InputMismatchException e) {
-                System.out.println("Erreur : Veuillez entrer de nouveau.");
-            }
-        }
-    }
-
-
-    public static void catalogue(String auteur) {
+    public static void catalogue() {
         String choix = "99";
 
         while (!choix.equals("0")) {
             try {
-                System.out.println("\n\nCher acheteur: " + auteur + ", Voici nos produits");
-                System.out.println("-----------------------------------------------------");
-                CSVHandler.printCSV(CSVHandler.readCSV(DatabasePath.getPathTousProduits(), 30));
-                System.out.println("-----------------------------------------------------");
-                System.out.println(" ");
-
-                System.out.println("Options : ");
-                System.out.println("1. Liker un produit");
-                System.out.println("2. Passer au panier");
-                System.out.println("0. Retourner");
+                catalogueMsg();
 
                 System.out.print("Entrez le numéro de l'option : ");
                 String scanned = myScanner.getStringInput();
@@ -383,22 +311,10 @@ public class RechercheAcheteur {
                         choix = "0";
                         break;
                     case "1":
-                        System.out.print("Entrez le nom du produit à liker : ");
-                        String produitNom = myScanner.getStringInput();
-                        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousProduits(), produitNom, 0);
-
-                        if (index != -1) {
-                            String produit = CSVHandler.getColumnValue(CSVHandler.readLineByIndex(DatabasePath.getPathTousProduits(), index), 0);
-                            Operation.acheteurLikerProduit(produit, auteur);
-                        } else {
-                            System.out.println("Aucun produit correspondant trouvé. Veuillez réessayer.");
-                        }
+                        optionLiker();
                         break;
                     case "2":
-                        String produit = siExiste(DatabasePath.getPathTousProduits()); //verifie si existe
-                        if(produit != "-1"){
-                            Operation.acheteurCommandeProduit(produit,getAcheteur());
-                        };
+                        optionPasserPanier();
                         break;
                     default:
                         System.out.println("Option invalide. Veuillez entrer de nouveau.");
@@ -408,6 +324,36 @@ public class RechercheAcheteur {
                 System.out.println("Erreur : Veuillez entrer de nouveau.");
             }
         }
+    }
+    public static void catalogueMsg(){
+        System.out.println("\n\nCher acheteur: " + getAcheteur() + ", Voici nos produits");
+        System.out.println("-----------------------------------------------------");
+        CSVHandler.printCSV(CSVHandler.readCSV(DatabasePath.getPathTousProduits(), 30));
+        System.out.println("-----------------------------------------------------");
+        System.out.println(" ");
+
+        System.out.println("Options : ");
+        System.out.println("1. Liker un produit");
+        System.out.println("2. Passer au panier");
+        System.out.println("0. Retourner");
+    }
+    public static void optionLiker(){
+        System.out.print("Entrez le nom du produit à liker : ");
+        String produitNom = myScanner.getStringInput();
+        int index = CSVHandler.findOccurrenceIndex(DatabasePath.getPathTousProduits(), produitNom, 0);
+
+        if (index != -1) {
+            String produit = CSVHandler.getColumnValue(CSVHandler.readLineByIndex(DatabasePath.getPathTousProduits(), index), 0);
+            Operation.acheteurLikerProduit(produit, getAcheteur());
+        } else {
+            System.out.println("Aucun produit correspondant trouvé. Veuillez réessayer.");
+        }
+    }
+    public static void optionPasserPanier(){
+        String produit = siExiste(DatabasePath.getPathTousProduits()); //verifie si existe
+        if(produit != "-1"){
+            Operation.acheteurCommandeProduit(produit,getAcheteur());
+        };
     }
 
 
